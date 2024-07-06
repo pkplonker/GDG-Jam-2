@@ -1,23 +1,84 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-[ExecuteInEditMode]
 public class MapGenerator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+	[SerializeField]
+	private BSPArgs MapArgs;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+	[SerializeField]
+	private List<BoundsInt> rooms;
 
-    public void Generate()
-    {
-    }
+	private BinarySpacePartition binarySpacePartition = new();
+
+	[SerializeField]
+	private List<BoundsInt> chosenRooms;
+
+	[SerializeField]
+	private List<BoundsInt> offsetRooms;
+
+	public void Generate()
+	{
+		Clear();
+		binarySpacePartition = new();
+		rooms = binarySpacePartition.BinaryPartition(MapArgs);
+		chosenRooms = GenerateRoomSubset(rooms);
+		offsetRooms = GenerateOffsetRooms(chosenRooms);
+	}
+
+	private List<BoundsInt> GenerateOffsetRooms(List<BoundsInt> rooms)
+	{
+		var result = new List<BoundsInt>();
+		for (int i = rooms.Count - 1; i >= 0; i--)
+		{
+			var newRoom = rooms[i];
+			var newMin = newRoom.min + MapArgs.Offset;
+			var newSize = newRoom.size - MapArgs.Offset;
+
+			newRoom.size = newSize;
+			newRoom.min = newMin;
+			result.Add(newRoom);
+		}
+		return result;
+	}
+
+	private List<BoundsInt> GenerateRoomSubset(List<BoundsInt> rooms) =>
+		rooms.Shuffle().ToList().GetRange(0, Mathf.Min(rooms.Count, MapArgs.RoomCountLimit));
+
+	public void Clear()
+	{
+		rooms = new List<BoundsInt>();
+	}
+
+	private void OnDrawGizmos()
+	{
+		Gizmos.color = Color.red;
+		Gizmos.DrawWireCube(MapArgs.MapSize.center, MapArgs.MapSize.size);
+
+		Gizmos.color = Color.white;
+		foreach (var room in rooms)
+		{
+			Gizmos.DrawCube(room.center, room.size);
+		}
+
+		Gizmos.color = Color.blue;
+		foreach (var room in rooms)
+		{
+			Gizmos.DrawWireCube(room.center, room.size);
+		}
+
+		Gizmos.color = Color.yellow;
+		foreach (var room in chosenRooms)
+		{
+			Gizmos.DrawWireCube(room.center, room.size);
+		}
+
+		Gizmos.color = Color.black;
+		foreach (var room in offsetRooms)
+		{
+			Gizmos.DrawWireCube(room.center, room.size);
+		}
+	}
 }
