@@ -26,7 +26,7 @@ public class MapGenerator : MonoBehaviour
 	private static AStarMap aStarMap;
 	private static AStar aStar;
 	public static Node[,] MapData => aStarMap.map;
-
+	public static event Action<MapGenerator> OnMapGenerated;
 	private void Start()
 	{
 		Generate();
@@ -50,7 +50,7 @@ public class MapGenerator : MonoBehaviour
 		GenerateCorridors();
 
 		GenerateFinalWalkableArea();
-
+		OnMapGenerated?.Invoke(this);
 		Debug.Log("Generated");
 	}
 
