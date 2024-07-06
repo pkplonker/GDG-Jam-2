@@ -38,6 +38,9 @@ public class MapGenerator : MonoBehaviour
 	private bool debug;
 
 	private List<Vector3> pathPoints;
+	
+	[SerializeField]
+	private int dlaCycles;
 	public static Node[,] MapData => aStarMap.map;
 	public static event Action<MapGenerator> OnMapGenerated;
 
@@ -72,6 +75,8 @@ public class MapGenerator : MonoBehaviour
 		primaryRooms = IdentifyPrimaryRooms(roomNodes);
 		tertiaryRooms = offsetRooms.Except(primaryRooms).ToList();
 
+		DLA();
+		
 		OnMapGenerated?.Invoke(this);
 		Debug.Log("Generated");
 	}
@@ -98,6 +103,43 @@ public class MapGenerator : MonoBehaviour
 
 		Debug.Log("primary");
 		return result.ToList();
+	}
+	
+	private void DLA()
+	{
+		var maxX = MapArgs.Bounds.size.x - 1;
+		var maxY = MapArgs.Bounds.size.y - 1;
+
+		for (var i = 0; i < dlaCycles; i++)
+		{
+			var rx = UnityEngine.Random.Range(0, maxX);
+			var ry = UnityEngine.Random.Range(0, maxY);
+			var node = MapData[rx, ry];
+			if (node.walkable) continue;
+			ProcessDLANeigbour(rx, maxX, ry, maxY, node, -1, 0);
+			ProcessDLANeigbour(rx, maxX, ry, maxY, node, 1, 0);
+			ProcessDLANeigbour(rx, maxX, ry, maxY, node, 0, -1);
+			ProcessDLANeigbour(rx, maxX, ry, maxY, node, 0, 1);
+		}
+	}
+
+	private static void ProcessDLANeigbour(int rx, int maxX, int ry, int maxY, Node node, int x, int y)
+	{
+		var neighbourNode = CheckWalkable(rx, x, maxX, ry, y, maxY);
+		if (neighbourNode?.walkable ?? false)
+		{
+			node.walkable = true;
+		}
+	}
+
+	private static Node CheckWalkable(int rx, int x, int maxX, int ry, int y, int maxY)
+	{
+		if (rx + x < maxX && ry + y < maxY && rx + x >= 0 && ry + y >= 0)
+		{
+			return MapData[rx + x, ry + y];
+		}
+
+		return null;
 	}
 
 	private bool IsPointInBounds(Vector3Int point, BoundsInt bounds) =>

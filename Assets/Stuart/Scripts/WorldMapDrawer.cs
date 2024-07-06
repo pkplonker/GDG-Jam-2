@@ -7,6 +7,7 @@ public class WorldMapDrawer : MonoBehaviour
 {
 	private MapGenerator mapGenerator;
 	private List<Vector3> debugCentres = new();
+
 	[SerializeField]
 	private Sprite floorSprite;
 
@@ -50,7 +51,7 @@ public class WorldMapDrawer : MonoBehaviour
 	{
 		var go = new GameObject();
 		go.name = "Floor";
-		go.transform.position = new Vector3(node.position.x+0.5f, node.position.y+0.5f, 0);
+		go.transform.position = new Vector3(node.position.x + 0.5f, node.position.y + 0.5f, 0);
 		go.transform.SetParent(transform);
 		go.transform.localScale = new Vector3(100, 100, 0);
 		var sr = go.AddComponent<SpriteRenderer>();
@@ -61,35 +62,57 @@ public class WorldMapDrawer : MonoBehaviour
 	private void GenerateWall(Node[,] map, int x, int y)
 	{
 		var node = map[x, y];
-		var upNode = map[x, y + 1];
-		var rightNode = map[x + 1, y];
 		var nodeSize = 1.0f;
-		if (node.walkable != upNode.walkable)
+
+		void CreateWall(Vector2 startPos, Vector2 endPos)
 		{
-			var pos = node.position + new Vector2(0, nodeSize);
-			var positions = new List<Vector3>();
-			var lr = CreateLr(pos);
-
-			positions.Add(new Vector3(pos.x, pos.y, 0));
-			positions.Add(new Vector3(pos.x + nodeSize, pos.y, 0));
-
+			var positions = new List<Vector3>
+			{
+				new Vector3(startPos.x, startPos.y, 0),
+				new Vector3(endPos.x, endPos.y, 0)
+			};
+			var lr = CreateLr(startPos);
 			lr.positionCount = positions.Count;
 			lr.SetPositions(positions.ToArray());
-			debugCentres.Add(new Vector3(pos.x, pos.y, 0));
+			debugCentres.Add(new Vector3(startPos.x, startPos.y, 0));
 		}
 
-		if (node.walkable != rightNode.walkable)
+		if (y < map.GetLength(1) - 1)
 		{
-			var pos = node.position + new Vector2(nodeSize, 0);
-			var positions = new List<Vector3>();
-			var lr = CreateLr(pos);
+			var upNode = map[x, y + 1];
+			if (node.walkable != upNode.walkable)
+			{
+				CreateWall(node.position + new Vector2(0, nodeSize), node.position + new Vector2(nodeSize, nodeSize));
+			}
+		}
 
-			positions.Add(new Vector3(pos.x, pos.y, 0));
-			positions.Add(new Vector3(pos.x, pos.y + nodeSize, 0));
+		if (x < map.GetLength(0) - 1)
+		{
+			var rightNode = map[x + 1, y];
+			if (node.walkable != rightNode.walkable)
+			{
+				CreateWall(node.position + new Vector2(nodeSize, 0), node.position + new Vector2(nodeSize, nodeSize));
+			}
+		}
 
-			lr.positionCount = positions.Count;
-			lr.SetPositions(positions.ToArray());
-			debugCentres.Add(new Vector3(pos.x, pos.y, 0));
+		if (node.walkable && x == 0)
+		{
+			CreateWall(node.position, node.position + new Vector2(0, nodeSize));
+		}
+
+		if (node.walkable && y == 0)
+		{
+			CreateWall(node.position, node.position + new Vector2(nodeSize, 0));
+		}
+
+		if (node.walkable && x == map.GetLength(0) - 1)
+		{
+			CreateWall(node.position + new Vector2(nodeSize, 0), node.position + new Vector2(nodeSize, nodeSize));
+		}
+
+		if (node.walkable && y == map.GetLength(1) - 1)
+		{
+			CreateWall(node.position + new Vector2(0, nodeSize), node.position + new Vector2(nodeSize, nodeSize));
 		}
 	}
 
