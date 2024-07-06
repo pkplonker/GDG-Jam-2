@@ -27,6 +27,8 @@ public class MapGenerator : MonoBehaviour
 	private static AStar aStar;
 	public BoundsInt startRoom;
 	public BoundsInt endRoom;
+	[SerializeField]
+	private bool debug;
 	public static Node[,] MapData => aStarMap.map;
 	public static event Action<MapGenerator> OnMapGenerated;
 
@@ -170,6 +172,7 @@ public class MapGenerator : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
+		if (!debug) return;
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireCube(MapArgs.Bounds.center, MapArgs.Bounds.size);
 

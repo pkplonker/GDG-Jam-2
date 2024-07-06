@@ -176,6 +176,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 1, y: 3, z: 0}
+        m_Size: {x: 11, y: 8, z: 0}
     end:
       x: 6
       y: 7
@@ -183,6 +186,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 1, y: 3, z: 0}
+        m_Size: {x: 11, y: 8, z: 0}
   - start:
       x: 6
       y: 7
@@ -190,6 +196,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 1, y: 3, z: 0}
+        m_Size: {x: 11, y: 8, z: 0}
     end:
       x: 7
       y: 16
@@ -197,6 +206,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 1, y: 13, z: 0}
+        m_Size: {x: 12, y: 7, z: 0}
   - start:
       x: 7
       y: 16
@@ -204,6 +216,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 1, y: 13, z: 0}
+        m_Size: {x: 12, y: 7, z: 0}
     end:
       x: 6
       y: 25
@@ -211,6 +226,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 1, y: 22, z: 0}
+        m_Size: {x: 11, y: 6, z: 0}
   - start:
       x: 6
       y: 25
@@ -218,6 +236,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 1, y: 22, z: 0}
+        m_Size: {x: 11, y: 6, z: 0}
     end:
       x: 15
       y: 33
@@ -225,6 +246,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 11, y: 30, z: 0}
+        m_Size: {x: 8, y: 7, z: 0}
   - start:
       x: 15
       y: 33
@@ -232,6 +256,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 11, y: 30, z: 0}
+        m_Size: {x: 8, y: 7, z: 0}
     end:
       x: 18
       y: 47
@@ -239,6 +266,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 14, y: 45, z: 0}
+        m_Size: {x: 8, y: 4, z: 0}
   - start:
       x: 18
       y: 47
@@ -246,6 +276,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 14, y: 45, z: 0}
+        m_Size: {x: 8, y: 4, z: 0}
     end:
       x: 29
       y: 47
@@ -253,6 +286,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 24, y: 45, z: 0}
+        m_Size: {x: 10, y: 4, z: 0}
   - start:
       x: 29
       y: 47
@@ -260,6 +296,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 24, y: 45, z: 0}
+        m_Size: {x: 10, y: 4, z: 0}
     end:
       x: 40
       y: 28
@@ -267,6 +306,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 37, y: 26, z: 0}
+        m_Size: {x: 7, y: 5, z: 0}
   - start:
       x: 40
       y: 28
@@ -274,6 +316,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 37, y: 26, z: 0}
+        m_Size: {x: 7, y: 5, z: 0}
     end:
       x: 41
       y: 11
@@ -281,6 +326,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 36, y: 7, z: 0}
+        m_Size: {x: 10, y: 9, z: 0}
   - start:
       x: 41
       y: 11
@@ -288,6 +336,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 36, y: 7, z: 0}
+        m_Size: {x: 10, y: 9, z: 0}
     end:
       x: 55
       y: 3
@@ -295,6 +346,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 50, y: 1, z: 0}
+        m_Size: {x: 10, y: 4, z: 0}
   - start:
       x: 55
       y: 3
@@ -302,6 +356,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 50, y: 1, z: 0}
+        m_Size: {x: 10, y: 4, z: 0}
     end:
       x: 74
       y: 28
@@ -309,6 +366,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 71, y: 26, z: 0}
+        m_Size: {x: 7, y: 5, z: 0}
   - start:
       x: 74
       y: 28
@@ -316,6 +376,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 71, y: 26, z: 0}
+        m_Size: {x: 7, y: 5, z: 0}
     end:
       x: 72
       y: 47
@@ -323,6 +386,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 67, y: 45, z: 0}
+        m_Size: {x: 10, y: 4, z: 0}
   - start:
       x: 72
       y: 47
@@ -330,6 +396,9 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 67, y: 45, z: 0}
+        m_Size: {x: 10, y: 4, z: 0}
     end:
       x: 24
       y: 16
@@ -337,6 +406,16 @@ MonoBehaviour:
       g: 0
       h: 0
       cost: 0
+      bounds:
+        m_Position: {x: 20, y: 13, z: 0}
+        m_Size: {x: 9, y: 7, z: 0}
+  startRoom:
+    m_Position: {x: 1, y: 3, z: 0}
+    m_Size: {x: 11, y: 8, z: 0}
+  endRoom:
+    m_Position: {x: 71, y: 26, z: 0}
+    m_Size: {x: 7, y: 5, z: 0}
+  debug: 1
 --- !u!114 &1245912656952979213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,5 +442,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nodeSize: 1
-  debug: 1
+  debug: 0
   showMapGenDebug: 0
