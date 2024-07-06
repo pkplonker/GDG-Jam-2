@@ -27,6 +27,7 @@ public class MapGenerator : MonoBehaviour
 	private static AStar aStar;
 	public static Node[,] MapData => aStarMap.map;
 	public static event Action<MapGenerator> OnMapGenerated;
+
 	private void Start()
 	{
 		Generate();
@@ -68,22 +69,22 @@ public class MapGenerator : MonoBehaviour
 			var p1 = GetNodePos(corridorPoints, i);
 			var n = aStarMap.GetNodeFromLocation(p1);
 
-			var offset = 1.00f;
-			var n2 = aStarMap.GetNodeFromLocation(p1 + new Vector3(0, offset, 0));
-			if (Math.Abs(GetNodePos(corridorPoints, i + 1).x - p1.x) < float.Epsilon)
+			var xPos = n.x;
+			var yPos = n.y;
+			var nodes = new List<Node>();
+			for (int x = -1; x < 1; x++)
 			{
-				n2 = aStarMap.GetNodeFromLocation(p1 + new Vector3(offset, offset, 0));
+				for (int y = -1; y < 1; y++)
+				{
+					var node = aStarMap.map[xPos + x, yPos + y];
+					if (node.cost < 5)
+					{
+						node.cost = 5;
+					}
+				}
 			}
 
-			if (n.cost < 5)
-			{
-				n.cost = 5;
-			}
-
-			if (n2.cost < 5)
-			{
-				n2.cost = 5;
-			}
+			foreach (var node in nodes) { }
 		}
 	}
 
