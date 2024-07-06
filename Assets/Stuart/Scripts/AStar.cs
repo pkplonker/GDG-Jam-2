@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class AStar : MonoBehaviour
 {
-	public AStarMap aStarMap { get; set; }
+	public static AStarMap AStarMap { get; set; }
 	public List<Node> open { get; private set; } = new();
 	public Dictionary<Node, int> closed { get; private set; } = new();
 	private Node startNode = null;
 	private Node endNode = null;
-	private void Awake() => aStarMap = GetComponent<AStarMap>();
+	private void Awake() => AStarMap = GetComponent<AStarMap>();
 	public List<Vector3> points { get; private set; } = new();
 	public bool debug;
 
@@ -21,7 +21,7 @@ public class AStar : MonoBehaviour
 			foreach (var t in open)
 			{
 				Gizmos.color = Color.yellow;
-				Gizmos.DrawSphere(aStarMap.GetCellLocationFromNode(t), aStarMap.nodeSize * 0.4f);
+				Gizmos.DrawSphere(AStarMap.GetCellLocationFromNode(t), AStarMap.nodeSize * 0.4f);
 			}
 		}
 
@@ -30,7 +30,7 @@ public class AStar : MonoBehaviour
 			foreach (var t in closed)
 			{
 				Gizmos.color = Color.black;
-				Gizmos.DrawSphere(aStarMap.GetCellLocationFromNode(t.Key), aStarMap.nodeSize * 0.4f);
+				Gizmos.DrawSphere(AStarMap.GetCellLocationFromNode(t.Key), AStarMap.nodeSize * 0.4f);
 			}
 		}
 
@@ -39,26 +39,26 @@ public class AStar : MonoBehaviour
 			foreach (var t in points)
 			{
 				Gizmos.color = Color.blue;
-				Gizmos.DrawSphere(t, aStarMap.nodeSize * 0.4f);
+				Gizmos.DrawSphere(t, AStarMap.nodeSize * 0.4f);
 			}
 		}
 
 		if (startNode != null)
 		{
 			Gizmos.color = Color.cyan;
-			Gizmos.DrawSphere(aStarMap.GetCellLocationFromIndex(startNode.x, startNode.y), aStarMap.nodeSize * 0.4f);
+			Gizmos.DrawSphere(AStarMap.GetCellLocationFromIndex(startNode.x, startNode.y), AStarMap.nodeSize * 0.4f);
 		}
 
 		if (endNode != null)
 		{
 			Gizmos.color = Color.white;
-			Gizmos.DrawSphere(aStarMap.GetCellLocationFromIndex(endNode.x, endNode.y), aStarMap.nodeSize * 0.4f);
+			Gizmos.DrawSphere(AStarMap.GetCellLocationFromIndex(endNode.x, endNode.y), AStarMap.nodeSize * 0.4f);
 		}
 	}
 
 	public List<Vector3> CalculatePath(AStarMap aStarMap, Vector2Int start, Vector2Int end) =>
 		CalculatePath(aStarMap, new Vector3(start.x, start.y, 0), new Vector3(end.x, end.y, 0));
-
+	
 	public List<Vector3> CalculatePath(AStarMap aStarMap, Vector3 start, Vector3 end)
 	{
 		aStarMap.ClearNodes();

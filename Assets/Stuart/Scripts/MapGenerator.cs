@@ -24,13 +24,15 @@ public class MapGenerator : MonoBehaviour
 	private List<Edge> edges;
 
 	private static AStarMap aStarMap;
-	private AStar aStar;
+	private static AStar aStar;
 	public static Node[,] MapData => aStarMap.map;
 
 	private void Start()
 	{
 		Generate();
 	}
+
+	public static List<Vector3> CalculatePath(Vector3 start, Vector3 end) => aStar.CalculatePath(aStarMap, start, end);
 
 	public void Generate()
 	{
