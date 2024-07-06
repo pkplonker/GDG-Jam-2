@@ -8,6 +8,8 @@ public class AStarMap : MonoBehaviour
 	private int mapWidth;
 	private int mapHeight;
 	public bool debug;
+	[SerializeField]
+	private bool showMapGenDebug;
 
 	public void GenerateMapData(MapArgs args, List<Edge> corridors, List<BoundsInt> rooms)
 	{
@@ -87,18 +89,26 @@ public class AStarMap : MonoBehaviour
 		{
 			for (var x = 0; x < mapWidth; x++)
 			{
-				if (map[x, y].cost >= 10)
+				if (showMapGenDebug)
 				{
-					Gizmos.color = Color.red;
-				}
-				else if (map[x, y].cost >= 5)
-				{
-					Gizmos.color = Color.yellow;
+					if (map[x, y].cost >= 10)
+					{
+						Gizmos.color = Color.red;
+					}
+					else if (map[x, y].cost >=5)
+					{
+						Gizmos.color = Color.yellow;
+					}
+					else
+					{
+						Gizmos.color = Color.green;
+					}
 				}
 				else
 				{
-					Gizmos.color = Color.green;
+					Gizmos.color = map[x, y].walkable ? Color.green: Color.black;
 				}
+				
 
 				var loc = GetCellLocationFromIndex(x, y);
 				Gizmos.DrawCube(loc,

@@ -20,11 +20,11 @@ RenderSettings:
   m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
-  m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
+  m_AmbientSkyColor: {r: 0, g: 0, b: 0, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
   m_AmbientIntensity: 1
-  m_AmbientMode: 0
+  m_AmbientMode: 3
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
   m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
@@ -208,362 +208,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1499206580
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1499206581}
-  - component: {fileID: 1499206582}
-  - component: {fileID: 1499206584}
-  - component: {fileID: 1499206583}
-  m_Layer: 0
-  m_Name: MapGenerator
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1499206581
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499206580}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 50, y: 25, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1499206582
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499206580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 395e9bb99fb9c8447a23c0ce347ed301, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MapArgs:
-    Bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 100, y: 50, z: 0}
-    MinWidth: 8
-    MinHeight: 6
-    HorizontalSplitChance: 0.5
-    RandomsizeSplit: 1
-    RoomCountLimit: 12
-    Offset: {x: 1, y: 1, z: 0}
-    Seed: 2
-  rooms:
-  - m_Position: {x: 0, y: 39, z: 0}
-    m_Size: {x: 12, y: 6, z: 0}
-  - m_Position: {x: 51, y: 20, z: 0}
-    m_Size: {x: 11, y: 11, z: 0}
-  - m_Position: {x: 33, y: 8, z: 0}
-    m_Size: {x: 10, y: 11, z: 0}
-  - m_Position: {x: 12, y: 2, z: 0}
-    m_Size: {x: 15, y: 10, z: 0}
-  - m_Position: {x: 12, y: 20, z: 0}
-    m_Size: {x: 15, y: 8, z: 0}
-  - m_Position: {x: 42, y: 31, z: 0}
-    m_Size: {x: 15, y: 7, z: 0}
-  - m_Position: {x: 27, y: 32, z: 0}
-    m_Size: {x: 15, y: 11, z: 0}
-  - m_Position: {x: 12, y: 28, z: 0}
-    m_Size: {x: 15, y: 8, z: 0}
-  - m_Position: {x: 78, y: 11, z: 0}
-    m_Size: {x: 9, y: 9, z: 0}
-  - m_Position: {x: 91, y: 23, z: 0}
-    m_Size: {x: 9, y: 8, z: 0}
-  - m_Position: {x: 65, y: 11, z: 0}
-    m_Size: {x: 13, y: 9, z: 0}
-  - m_Position: {x: 76, y: 31, z: 0}
-    m_Size: {x: 11, y: 10, z: 0}
-  - m_Position: {x: 62, y: 20, z: 0}
-    m_Size: {x: 10, y: 11, z: 0}
-  - m_Position: {x: 60, y: 31, z: 0}
-    m_Size: {x: 15, y: 10, z: 0}
-  - m_Position: {x: 43, y: 9, z: 0}
-    m_Size: {x: 11, y: 11, z: 0}
-  - m_Position: {x: 91, y: 5, z: 0}
-    m_Size: {x: 9, y: 11, z: 0}
-  - m_Position: {x: 0, y: 17, z: 0}
-    m_Size: {x: 12, y: 6, z: 0}
-  - m_Position: {x: 0, y: 23, z: 0}
-    m_Size: {x: 12, y: 7, z: 0}
-  - m_Position: {x: 0, y: 30, z: 0}
-    m_Size: {x: 12, y: 9, z: 0}
-  - m_Position: {x: 79, y: 20, z: 0}
-    m_Size: {x: 12, y: 11, z: 0}
-  - m_Position: {x: 12, y: 36, z: 0}
-    m_Size: {x: 15, y: 10, z: 0}
-  - m_Position: {x: 0, y: 0, z: 0}
-    m_Size: {x: 12, y: 8, z: 0}
-  - m_Position: {x: 54, y: 11, z: 0}
-    m_Size: {x: 11, y: 9, z: 0}
-  - m_Position: {x: 0, y: 8, z: 0}
-    m_Size: {x: 12, y: 6, z: 0}
-  - m_Position: {x: 91, y: 17, z: 0}
-    m_Size: {x: 9, y: 6, z: 0}
-  - m_Position: {x: 33, y: 20, z: 0}
-    m_Size: {x: 11, y: 11, z: 0}
-  chosenRooms:
-  - m_Position: {x: 0, y: 39, z: 0}
-    m_Size: {x: 12, y: 6, z: 0}
-  - m_Position: {x: 51, y: 20, z: 0}
-    m_Size: {x: 11, y: 11, z: 0}
-  - m_Position: {x: 33, y: 8, z: 0}
-    m_Size: {x: 10, y: 11, z: 0}
-  - m_Position: {x: 12, y: 2, z: 0}
-    m_Size: {x: 15, y: 10, z: 0}
-  - m_Position: {x: 12, y: 20, z: 0}
-    m_Size: {x: 15, y: 8, z: 0}
-  - m_Position: {x: 42, y: 31, z: 0}
-    m_Size: {x: 15, y: 7, z: 0}
-  - m_Position: {x: 27, y: 32, z: 0}
-    m_Size: {x: 15, y: 11, z: 0}
-  - m_Position: {x: 12, y: 28, z: 0}
-    m_Size: {x: 15, y: 8, z: 0}
-  - m_Position: {x: 78, y: 11, z: 0}
-    m_Size: {x: 9, y: 9, z: 0}
-  - m_Position: {x: 91, y: 23, z: 0}
-    m_Size: {x: 9, y: 8, z: 0}
-  - m_Position: {x: 65, y: 11, z: 0}
-    m_Size: {x: 13, y: 9, z: 0}
-  - m_Position: {x: 76, y: 31, z: 0}
-    m_Size: {x: 11, y: 10, z: 0}
-  offsetRooms:
-  - m_Position: {x: 77, y: 32, z: 0}
-    m_Size: {x: 9, y: 8, z: 0}
-  - m_Position: {x: 66, y: 12, z: 0}
-    m_Size: {x: 11, y: 7, z: 0}
-  - m_Position: {x: 92, y: 24, z: 0}
-    m_Size: {x: 7, y: 6, z: 0}
-  - m_Position: {x: 79, y: 12, z: 0}
-    m_Size: {x: 7, y: 7, z: 0}
-  - m_Position: {x: 13, y: 29, z: 0}
-    m_Size: {x: 13, y: 6, z: 0}
-  - m_Position: {x: 28, y: 33, z: 0}
-    m_Size: {x: 13, y: 9, z: 0}
-  - m_Position: {x: 43, y: 32, z: 0}
-    m_Size: {x: 13, y: 5, z: 0}
-  - m_Position: {x: 13, y: 21, z: 0}
-    m_Size: {x: 13, y: 6, z: 0}
-  - m_Position: {x: 13, y: 3, z: 0}
-    m_Size: {x: 13, y: 8, z: 0}
-  - m_Position: {x: 34, y: 9, z: 0}
-    m_Size: {x: 8, y: 9, z: 0}
-  - m_Position: {x: 52, y: 21, z: 0}
-    m_Size: {x: 9, y: 9, z: 0}
-  - m_Position: {x: 1, y: 40, z: 0}
-    m_Size: {x: 10, y: 4, z: 0}
-  edges:
-  - start:
-      x: 6
-      y: 42
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-    end:
-      x: 6
-      y: 42
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-  - start:
-      x: 6
-      y: 42
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-    end:
-      x: 19
-      y: 32
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-  - start:
-      x: 19
-      y: 32
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-    end:
-      x: 19
-      y: 24
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-  - start:
-      x: 19
-      y: 24
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-    end:
-      x: 19
-      y: 7
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-  - start:
-      x: 19
-      y: 7
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-    end:
-      x: 38
-      y: 13
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-  - start:
-      x: 38
-      y: 13
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-    end:
-      x: 56
-      y: 25
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-  - start:
-      x: 56
-      y: 25
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-    end:
-      x: 49
-      y: 34
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-  - start:
-      x: 49
-      y: 34
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-    end:
-      x: 34
-      y: 37
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-  - start:
-      x: 34
-      y: 37
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-    end:
-      x: 71
-      y: 15
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-  - start:
-      x: 71
-      y: 15
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-    end:
-      x: 82
-      y: 15
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-  - start:
-      x: 82
-      y: 15
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-    end:
-      x: 95
-      y: 27
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-  - start:
-      x: 95
-      y: 27
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-    end:
-      x: 81
-      y: 36
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
---- !u!114 &1499206583
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499206580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f98d401c6f7c4f15a98864181e2b664d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nodeSize: 1
-  debug: 1
---- !u!114 &1499206584
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499206580}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bce2be6df86a4ee1bc82e195a4488508, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  debug: 0
 --- !u!1 &1500623980
 GameObject:
   m_ObjectHideFlags: 0
@@ -768,8 +412,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989197769}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
+  m_LocalPosition: {x: 50.74096, y: 25.010954, z: 52.81664}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -819,11 +463,79 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1001 &6238256936247712192
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1649871886267928273, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: m_Name
+      value: MapGenerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1989197772}
   - {fileID: 1500623982}
-  - {fileID: 1499206581}
+  - {fileID: 6238256936247712192}
   - {fileID: 1483911849}

@@ -4,13 +4,13 @@ using UnityEngine;
 
 public class AStar : MonoBehaviour
 {
-	public static AStarMap aStarMap { get; set; }
-	public static List<Node> open { get; private set; } = new();
-	public static Dictionary<Node, int> closed { get; private set; } = new();
-	private static Node startNode = null;
-	private static Node endNode = null;
+	public AStarMap aStarMap { get; set; }
+	public List<Node> open { get; private set; } = new();
+	public Dictionary<Node, int> closed { get; private set; } = new();
+	private Node startNode = null;
+	private Node endNode = null;
 	private void Awake() => aStarMap = GetComponent<AStarMap>();
-	public static List<Vector3> points { get; private set; } = new();
+	public List<Vector3> points { get; private set; } = new();
 	public bool debug;
 
 	private void OnDrawGizmos()
@@ -56,12 +56,10 @@ public class AStar : MonoBehaviour
 		}
 	}
 
-	public static List<Vector3> CalculatePath(AStarMap aStarMap, Vector2Int start, Vector2Int end)
-	{
-		return CalculatePath(aStarMap,new Vector3(start.x, start.y, 0), new Vector3(end.x, end.y, 0));
-	}
+	public List<Vector3> CalculatePath(AStarMap aStarMap, Vector2Int start, Vector2Int end) =>
+		CalculatePath(aStarMap, new Vector3(start.x, start.y, 0), new Vector3(end.x, end.y, 0));
 
-	public static List<Vector3> CalculatePath(AStarMap aStarMap, Vector3 start, Vector3 end)
+	public List<Vector3> CalculatePath(AStarMap aStarMap, Vector3 start, Vector3 end)
 	{
 		aStarMap.ClearNodes();
 		startNode = aStarMap.GetNodeFromLocation(start);
@@ -130,7 +128,7 @@ public class AStar : MonoBehaviour
 		return CalculateWaypoints(aStarMap, endNode);
 	}
 
-	private static float CalculateDistance(Node start, Node end)
+	private float CalculateDistance(Node start, Node end)
 	{
 		var distanceX = Mathf.Abs(start.x - end.x);
 		var distanceY = Mathf.Abs(start.y - end.y);
@@ -140,7 +138,7 @@ public class AStar : MonoBehaviour
 		return 1.41421f * distanceX + 1 * (distanceY - distanceX);
 	}
 
-	private static List<Vector3> CalculateWaypoints(AStarMap aStarMap, Node node)
+	private List<Vector3> CalculateWaypoints(AStarMap aStarMap, Node node)
 	{
 		if (node.parent == null) return null;
 		List<Vector3> waypoints = new();

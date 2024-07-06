@@ -13,7 +13,7 @@ public class Node
 	public float g; //distance from start
 	public float h; //estimated distance from end
 	public Node parent = null;
-	public int cost;
+	public int cost =0;
 
 	public Node(int x, int y, bool walkable)
 	{

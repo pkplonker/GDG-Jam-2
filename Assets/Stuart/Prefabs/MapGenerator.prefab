@@ -1,0 +1,367 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1649871886267928273
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8816785801226002987}
+  - component: {fileID: 3799355981811959714}
+  - component: {fileID: 1245912656952979213}
+  - component: {fileID: 4483308562459114577}
+  m_Layer: 0
+  m_Name: MapGenerator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8816785801226002987
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649871886267928273}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 50, y: 25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3799355981811959714
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649871886267928273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 395e9bb99fb9c8447a23c0ce347ed301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  MapArgs:
+    Bounds:
+      m_Position: {x: 0, y: 0, z: 0}
+      m_Size: {x: 100, y: 50, z: 0}
+    MinWidth: 8
+    MinHeight: 6
+    HorizontalSplitChance: 0.5
+    RandomsizeSplit: 1
+    RoomCountLimit: 12
+    Offset: {x: 1, y: 1, z: 0}
+    Seed: 7
+  rooms:
+  - m_Position: {x: 70, y: 25, z: 0}
+    m_Size: {x: 9, y: 7, z: 0}
+  - m_Position: {x: 0, y: 21, z: 0}
+    m_Size: {x: 13, y: 8, z: 0}
+  - m_Position: {x: 35, y: 6, z: 0}
+    m_Size: {x: 12, y: 11, z: 0}
+  - m_Position: {x: 0, y: 2, z: 0}
+    m_Size: {x: 13, y: 10, z: 0}
+  - m_Position: {x: 36, y: 25, z: 0}
+    m_Size: {x: 9, y: 7, z: 0}
+  - m_Position: {x: 19, y: 12, z: 0}
+    m_Size: {x: 11, y: 9, z: 0}
+  - m_Position: {x: 0, y: 12, z: 0}
+    m_Size: {x: 14, y: 9, z: 0}
+  - m_Position: {x: 10, y: 29, z: 0}
+    m_Size: {x: 10, y: 9, z: 0}
+  - m_Position: {x: 13, y: 44, z: 0}
+    m_Size: {x: 10, y: 6, z: 0}
+  - m_Position: {x: 49, y: 0, z: 0}
+    m_Size: {x: 12, y: 6, z: 0}
+  - m_Position: {x: 23, y: 44, z: 0}
+    m_Size: {x: 12, y: 6, z: 0}
+  - m_Position: {x: 66, y: 44, z: 0}
+    m_Size: {x: 12, y: 6, z: 0}
+  - m_Position: {x: 5, y: 44, z: 0}
+    m_Size: {x: 8, y: 6, z: 0}
+  - m_Position: {x: 51, y: 6, z: 0}
+    m_Size: {x: 14, y: 11, z: 0}
+  - m_Position: {x: 35, y: 0, z: 0}
+    m_Size: {x: 14, y: 6, z: 0}
+  - m_Position: {x: 45, y: 25, z: 0}
+    m_Size: {x: 12, y: 7, z: 0}
+  - m_Position: {x: 13, y: 21, z: 0}
+    m_Size: {x: 13, y: 8, z: 0}
+  - m_Position: {x: 91, y: 25, z: 0}
+    m_Size: {x: 9, y: 7, z: 0}
+  - m_Position: {x: 39, y: 42, z: 0}
+    m_Size: {x: 8, y: 8, z: 0}
+  - m_Position: {x: 61, y: 0, z: 0}
+    m_Size: {x: 10, y: 6, z: 0}
+  - m_Position: {x: 74, y: 0, z: 0}
+    m_Size: {x: 15, y: 6, z: 0}
+  - m_Position: {x: 57, y: 25, z: 0}
+    m_Size: {x: 13, y: 7, z: 0}
+  - m_Position: {x: 47, y: 41, z: 0}
+    m_Size: {x: 9, y: 9, z: 0}
+  - m_Position: {x: 78, y: 6, z: 0}
+    m_Size: {x: 14, y: 11, z: 0}
+  - m_Position: {x: 0, y: 29, z: 0}
+    m_Size: {x: 10, y: 9, z: 0}
+  - m_Position: {x: 66, y: 37, z: 0}
+    m_Size: {x: 12, y: 7, z: 0}
+  - m_Position: {x: 26, y: 4, z: 0}
+    m_Size: {x: 9, y: 8, z: 0}
+  - m_Position: {x: 92, y: 6, z: 0}
+    m_Size: {x: 8, y: 11, z: 0}
+  - m_Position: {x: 20, y: 29, z: 0}
+    m_Size: {x: 10, y: 9, z: 0}
+  - m_Position: {x: 78, y: 39, z: 0}
+    m_Size: {x: 15, y: 11, z: 0}
+  chosenRooms:
+  - m_Position: {x: 70, y: 25, z: 0}
+    m_Size: {x: 9, y: 7, z: 0}
+  - m_Position: {x: 0, y: 21, z: 0}
+    m_Size: {x: 13, y: 8, z: 0}
+  - m_Position: {x: 35, y: 6, z: 0}
+    m_Size: {x: 12, y: 11, z: 0}
+  - m_Position: {x: 0, y: 2, z: 0}
+    m_Size: {x: 13, y: 10, z: 0}
+  - m_Position: {x: 36, y: 25, z: 0}
+    m_Size: {x: 9, y: 7, z: 0}
+  - m_Position: {x: 19, y: 12, z: 0}
+    m_Size: {x: 11, y: 9, z: 0}
+  - m_Position: {x: 0, y: 12, z: 0}
+    m_Size: {x: 14, y: 9, z: 0}
+  - m_Position: {x: 10, y: 29, z: 0}
+    m_Size: {x: 10, y: 9, z: 0}
+  - m_Position: {x: 13, y: 44, z: 0}
+    m_Size: {x: 10, y: 6, z: 0}
+  - m_Position: {x: 49, y: 0, z: 0}
+    m_Size: {x: 12, y: 6, z: 0}
+  - m_Position: {x: 23, y: 44, z: 0}
+    m_Size: {x: 12, y: 6, z: 0}
+  - m_Position: {x: 66, y: 44, z: 0}
+    m_Size: {x: 12, y: 6, z: 0}
+  offsetRooms:
+  - m_Position: {x: 67, y: 45, z: 0}
+    m_Size: {x: 10, y: 4, z: 0}
+  - m_Position: {x: 24, y: 45, z: 0}
+    m_Size: {x: 10, y: 4, z: 0}
+  - m_Position: {x: 50, y: 1, z: 0}
+    m_Size: {x: 10, y: 4, z: 0}
+  - m_Position: {x: 14, y: 45, z: 0}
+    m_Size: {x: 8, y: 4, z: 0}
+  - m_Position: {x: 11, y: 30, z: 0}
+    m_Size: {x: 8, y: 7, z: 0}
+  - m_Position: {x: 1, y: 13, z: 0}
+    m_Size: {x: 12, y: 7, z: 0}
+  - m_Position: {x: 20, y: 13, z: 0}
+    m_Size: {x: 9, y: 7, z: 0}
+  - m_Position: {x: 37, y: 26, z: 0}
+    m_Size: {x: 7, y: 5, z: 0}
+  - m_Position: {x: 1, y: 3, z: 0}
+    m_Size: {x: 11, y: 8, z: 0}
+  - m_Position: {x: 36, y: 7, z: 0}
+    m_Size: {x: 10, y: 9, z: 0}
+  - m_Position: {x: 1, y: 22, z: 0}
+    m_Size: {x: 11, y: 6, z: 0}
+  - m_Position: {x: 71, y: 26, z: 0}
+    m_Size: {x: 7, y: 5, z: 0}
+  edges:
+  - start:
+      x: 6
+      y: 7
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 6
+      y: 7
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 6
+      y: 7
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 7
+      y: 16
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 7
+      y: 16
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 6
+      y: 25
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 6
+      y: 25
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 15
+      y: 33
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 15
+      y: 33
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 18
+      y: 47
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 18
+      y: 47
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 29
+      y: 47
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 29
+      y: 47
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 40
+      y: 28
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 40
+      y: 28
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 41
+      y: 11
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 41
+      y: 11
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 55
+      y: 3
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 55
+      y: 3
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 74
+      y: 28
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 74
+      y: 28
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 72
+      y: 47
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 72
+      y: 47
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 24
+      y: 16
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+--- !u!114 &1245912656952979213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649871886267928273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce2be6df86a4ee1bc82e195a4488508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
+--- !u!114 &4483308562459114577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649871886267928273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98d401c6f7c4f15a98864181e2b664d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeSize: 1
+  debug: 1
+  showMapGenDebug: 0

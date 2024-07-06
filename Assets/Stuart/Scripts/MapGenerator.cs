@@ -23,7 +23,14 @@ public class MapGenerator : MonoBehaviour
 	[SerializeField]
 	private List<Edge> edges;
 
-	private AStarMap aStarMap;
+	private static AStarMap aStarMap;
+	private AStar aStar;
+	public static Node[,] MapData => aStarMap.map;
+
+	private void Start()
+	{
+		Generate();
+	}
 
 	public void Generate()
 	{
@@ -37,40 +44,64 @@ public class MapGenerator : MonoBehaviour
 		gameObject.transform.position = new Vector3(MapArgs.Bounds.size.x / 2, MapArgs.Bounds.size.y / 2, 0);
 		aStarMap.GenerateMapData(MapArgs, edges, offsetRooms);
 
+		aStar = GetComponent<AStar>();
+		GenerateCorridors();
+
+		GenerateFinalWalkableArea();
+
+		Debug.Log("Generated");
+	}
+
+	private void GenerateCorridors()
+	{
 		var corridorPoints = new List<Vector3>();
 		foreach (var edge in edges)
 		{
-			var elements = AStar.CalculatePath(aStarMap, edge.start.position, edge.end.position);
+			var elements = aStar.CalculatePath(aStarMap, edge.start.position, edge.end.position);
 			corridorPoints.AddRange(elements ?? new List<Vector3>());
 		}
 
-		var nodes = new List<Node>();
-		for (int i = 0; i < corridorPoints.Count-1; i++)
+		for (int i = 0; i < corridorPoints.Count - 1; i++)
 		{
 			var p1 = GetNodePos(corridorPoints, i);
-			// fudging the rounding
 			var n = aStarMap.GetNodeFromLocation(p1);
-			nodes.Add(n);
 
 			var offset = 1.00f;
-			var n2 = aStarMap.GetNodeFromLocation(p1+  new Vector3(0,offset,0));
-			if (Math.Abs(GetNodePos(corridorPoints, i+1).x - p1.x) < float.Epsilon)
+			var n2 = aStarMap.GetNodeFromLocation(p1 + new Vector3(0, offset, 0));
+			if (Math.Abs(GetNodePos(corridorPoints, i + 1).x - p1.x) < float.Epsilon)
 			{
-				n2 = aStarMap.GetNodeFromLocation(p1+  new Vector3(offset,offset,0));
+				n2 = aStarMap.GetNodeFromLocation(p1 + new Vector3(offset, offset, 0));
 			}
-			nodes.Add(n2);
 
 			if (n.cost < 5)
 			{
-				n.cost += 5;
+				n.cost = 5;
 			}
+
 			if (n2.cost < 5)
 			{
-				n2.cost += 5;
+				n2.cost = 5;
 			}
 		}
+	}
 
-		Debug.Log("Generated");
+	private void GenerateFinalWalkableArea()
+	{
+		for (int x = 0; x < aStarMap.map.GetLength(0); x++)
+		{
+			for (int y = 0; y < aStarMap.map.GetLength(1); y++)
+			{
+				var node = aStarMap.map[x, y];
+				if (node.cost != 0)
+				{
+					node.walkable = true;
+				}
+				else
+				{
+					node.walkable = false;
+				}
+			}
+		}
 	}
 
 	private static Vector3 GetNodePos(List<Vector3> corridorPoints, int i)
