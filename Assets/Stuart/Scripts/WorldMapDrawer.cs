@@ -5,7 +5,7 @@ using UnityEngine;
 public class WorldMapDrawer : MonoBehaviour
 {
 	private MapGenerator mapGenerator;
-	private List<Vector3> debugPositions = new();
+	private List<Vector3> debugCentres = new();
 
 	private void Awake()
 	{
@@ -29,37 +29,33 @@ public class WorldMapDrawer : MonoBehaviour
 				var upNode = map[x, y + 1];
 				var rightNode = map[x + 1, y];
 				var nodeSize = 1.0f;
-				var halfNodeSize = nodeSize / 2;
 				if (node.walkable != upNode.walkable)
 				{
 					var lr = CreateLr();
-					Vector2 delta = new Vector2((float) node.position.x - (float) upNode.position.x,
-						(float) node.position.y - (float) upNode.position.y)/2;
-					var pos = node.position + delta;
+					var pos = node.position + new Vector2(0,nodeSize);
 					var positions = new List<Vector3>();
-
-					positions.Add(new Vector3(pos.x - halfNodeSize, pos.y+halfNodeSize, 0));
-					positions.Add(new Vector3(pos.x + halfNodeSize, pos.y+halfNodeSize, 0));
+				
+					positions.Add(new Vector3(pos.x, pos.y, 0));
+					positions.Add(new Vector3(pos.x+nodeSize, pos.y, 0));
+					
 					lr.positionCount = positions.Count;
 					lr.SetPositions(positions.ToArray());
-					debugPositions.AddRange(positions);
+					debugCentres.Add(new Vector3(pos.x, pos.y, 0));
 				}
 
 				if (node.walkable != rightNode.walkable)
 				{
 					var lr = CreateLr();
 
-					Vector2 delta = new Vector2((float) node.position.x - (float) rightNode.position.x,
-						(float) node.position.y - (float) rightNode.position.y)/2;
-					var pos = node.position;
+					var pos = node.position + new Vector2(nodeSize, 0);
 					var positions = new List<Vector3>();
 
-					positions.Add(new Vector3(pos.x+halfNodeSize, pos.y - halfNodeSize, 0));
-					positions.Add(new Vector3(pos.x+halfNodeSize, pos.y + halfNodeSize, 0));
+					positions.Add(new Vector3(pos.x, pos.y, 0));
+					positions.Add(new Vector3(pos.x , pos.y + nodeSize, 0));
+
 					lr.positionCount = positions.Count;
 					lr.SetPositions(positions.ToArray());
-					debugPositions.AddRange(positions);
-
+					debugCentres.Add(new Vector3(pos.x, pos.y, 0));
 				}
 			}
 		}
@@ -67,11 +63,11 @@ public class WorldMapDrawer : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		foreach (var position in debugPositions)
-		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawSphere(position, 0.1f);
-		}
+		// foreach (var position in debugCentres)
+		// {
+		// 	Gizmos.color = Color.blue;
+		// 	Gizmos.DrawSphere(position, 0.1f);
+		// }
 	}
 
 	private LineRenderer CreateLr()
@@ -79,9 +75,9 @@ public class WorldMapDrawer : MonoBehaviour
 		var go = new GameObject();
 		go.transform.SetParent(transform);
 		var lr = go.AddComponent<LineRenderer>();
-		var width = 0.1f;
-		lr.startWidth = width;
-		lr.endWidth = width;
+		lr.material = new Material(Shader.Find("Sprites/Default"));
+		lr.widthMultiplier = 0.2f;
+		lr.numCapVertices = 8;
 		return lr;
 	}
 }

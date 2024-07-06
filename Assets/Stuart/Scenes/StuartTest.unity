@@ -572,12 +572,17 @@ PrefabInstance:
     - target: {fileID: 3799355981811959714, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
         type: 3}
       propertyPath: MapArgs.Bounds.m_Size.x
-      value: 20
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3799355981811959714, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
         type: 3}
       propertyPath: MapArgs.Bounds.m_Size.y
-      value: 20
+      value: 50
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483308562459114577, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: debug
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
         type: 3}
