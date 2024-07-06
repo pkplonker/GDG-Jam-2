@@ -526,6 +526,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8424412468095144683, guid: b95964ec5bf77914698e7d1521e6ebc3,
+        type: 3}
+      propertyPath: GroundSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 81c674ad71e5a8740b999d085734625e,
+        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -558,6 +564,11 @@ PrefabInstance:
         type: 3}
       propertyPath: rooms.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3799355981811959714, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: MapArgs.RoomSeperation
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 3799355981811959714, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
         type: 3}

@@ -12,6 +12,7 @@ public class MapArgs
 	public int RoomCountLimit;
 	public Vector3Int Offset;
 	public int Seed;
+	public float RoomSeperation;
 
 	public MapArgs(BoundsInt bounds, int minWidth, int minHeight, float horizontalSplitChance, bool randomsizeSplit, int roomCountLimit, Vector3Int offset, int seed)
 	{

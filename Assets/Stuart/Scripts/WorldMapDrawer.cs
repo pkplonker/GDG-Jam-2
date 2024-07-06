@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class WorldMapDrawer : MonoBehaviour
@@ -20,6 +21,11 @@ public class WorldMapDrawer : MonoBehaviour
 
 	private void GenerateMap()
 	{
+		foreach (var t in transform.GetComponentsInChildren<Transform>().Where(x => x != transform))
+		{
+			Destroy(t.gameObject);
+		}
+
 		var map = MapGenerator.aStarMap.map;
 		for (int x = 0; x < MapGenerator.MapData.GetLength(0) - 1; x++)
 		{
@@ -31,13 +37,13 @@ public class WorldMapDrawer : MonoBehaviour
 				var nodeSize = 1.0f;
 				if (node.walkable != upNode.walkable)
 				{
-					var lr = CreateLr();
-					var pos = node.position + new Vector2(0,nodeSize);
+					var pos = node.position + new Vector2(0, nodeSize);
 					var positions = new List<Vector3>();
-				
+					var lr = CreateLr(pos);
+
 					positions.Add(new Vector3(pos.x, pos.y, 0));
-					positions.Add(new Vector3(pos.x+nodeSize, pos.y, 0));
-					
+					positions.Add(new Vector3(pos.x + nodeSize, pos.y, 0));
+
 					lr.positionCount = positions.Count;
 					lr.SetPositions(positions.ToArray());
 					debugCentres.Add(new Vector3(pos.x, pos.y, 0));
@@ -45,13 +51,12 @@ public class WorldMapDrawer : MonoBehaviour
 
 				if (node.walkable != rightNode.walkable)
 				{
-					var lr = CreateLr();
-
 					var pos = node.position + new Vector2(nodeSize, 0);
 					var positions = new List<Vector3>();
+					var lr = CreateLr(pos);
 
 					positions.Add(new Vector3(pos.x, pos.y, 0));
-					positions.Add(new Vector3(pos.x , pos.y + nodeSize, 0));
+					positions.Add(new Vector3(pos.x, pos.y + nodeSize, 0));
 
 					lr.positionCount = positions.Count;
 					lr.SetPositions(positions.ToArray());
@@ -70,14 +75,16 @@ public class WorldMapDrawer : MonoBehaviour
 		// }
 	}
 
-	private LineRenderer CreateLr()
+	private LineRenderer CreateLr(Vector2 pos)
 	{
 		var go = new GameObject();
 		go.transform.SetParent(transform);
+		go.transform.position = new Vector3(pos.x + 0.5f, pos.y + 0.5f, 0);
 		var lr = go.AddComponent<LineRenderer>();
 		lr.material = new Material(Shader.Find("Sprites/Default"));
 		lr.widthMultiplier = 0.2f;
 		lr.numCapVertices = 8;
+		lr.useWorldSpace = true;
 		return lr;
 	}
 }
