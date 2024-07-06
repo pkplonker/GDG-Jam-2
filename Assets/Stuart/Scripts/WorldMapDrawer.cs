@@ -50,7 +50,7 @@ public class WorldMapDrawer : MonoBehaviour
 	{
 		var go = new GameObject();
 		go.name = "Floor";
-		go.transform.position = new Vector3(node.position.x, node.position.y, 0);
+		go.transform.position = new Vector3(node.position.x+0.5f, node.position.y+0.5f, 0);
 		go.transform.SetParent(transform);
 		go.transform.localScale = new Vector3(100, 100, 0);
 		var sr = go.AddComponent<SpriteRenderer>();
@@ -107,7 +107,7 @@ public class WorldMapDrawer : MonoBehaviour
 		var go = new GameObject();
 		go.name = "Lr";
 		go.transform.SetParent(transform);
-		go.transform.position = new Vector3(pos.x + 1.5f, pos.y + 1.5f, 0);
+		go.transform.position = new Vector3(pos.x + 1f, pos.y + 1f, 0);
 		var lr = go.AddComponent<LineRenderer>();
 		lr.material = new Material(Shader.Find("Sprites/Default"));
 		lr.widthMultiplier = 0.2f;
