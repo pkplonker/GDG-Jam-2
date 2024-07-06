@@ -5,8 +5,9 @@ public static class Extensions
 {
 	private static Random rng = new();
 
-	public static IList<T> Shuffle<T>(this IList<T> list)
+	public static IList<T> Shuffle<T>(this IList<T> list, int seed)
 	{
+		rng = new Random(seed);
 		int n = list.Count;
 		while (n > 1)
 		{

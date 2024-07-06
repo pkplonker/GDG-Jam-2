@@ -11,8 +11,9 @@ public class BSPArgs
 	public bool RandomsizeSplit;
 	public int RoomCountLimit;
 	public Vector3Int Offset;
+	public int Seed;
 
-	public BSPArgs(BoundsInt mapSize, int minWidth, int minHeight, float horizontalSplitChance, bool randomsizeSplit, int roomCountLimit, Vector3Int offset)
+	public BSPArgs(BoundsInt mapSize, int minWidth, int minHeight, float horizontalSplitChance, bool randomsizeSplit, int roomCountLimit, Vector3Int offset, int seed)
 	{
 		MapSize = mapSize;
 		MinWidth = minWidth;
@@ -21,6 +22,7 @@ public class BSPArgs
 		RandomsizeSplit = randomsizeSplit;
 		RoomCountLimit = roomCountLimit;
 		Offset = offset;
+		Seed = seed;
 
 	}
 

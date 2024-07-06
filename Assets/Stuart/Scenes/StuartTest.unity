@@ -260,107 +260,112 @@ MonoBehaviour:
     MinHeight: 6
     HorizontalSplitChance: 0.5
     RandomsizeSplit: 1
-    RoomCountLimit: 14
+    RoomCountLimit: 10
     Offset: {x: 1, y: 1, z: 0}
+    Seed: 4
   rooms:
-  - m_Position: {x: 54, y: 4, z: 0}
-    m_Size: {x: 15, y: 8, z: 0}
-  - m_Position: {x: 19, y: 4, z: 0}
-    m_Size: {x: 12, y: 8, z: 0}
-  - m_Position: {x: 82, y: 23, z: 0}
-    m_Size: {x: 13, y: 7, z: 0}
-  - m_Position: {x: 41, y: 40, z: 0}
-    m_Size: {x: 13, y: 6, z: 0}
-  - m_Position: {x: 38, y: 4, z: 0}
-    m_Size: {x: 11, y: 8, z: 0}
-  - m_Position: {x: 27, y: 23, z: 0}
-    m_Size: {x: 9, y: 6, z: 0}
-  - m_Position: {x: 60, y: 33, z: 0}
-    m_Size: {x: 12, y: 10, z: 0}
-  - m_Position: {x: 79, y: 36, z: 0}
-    m_Size: {x: 10, y: 8, z: 0}
-  - m_Position: {x: 8, y: 29, z: 0}
-    m_Size: {x: 14, y: 11, z: 0}
-  - m_Position: {x: 40, y: 23, z: 0}
-    m_Size: {x: 14, y: 6, z: 0}
-  - m_Position: {x: 75, y: 4, z: 0}
-    m_Size: {x: 11, y: 8, z: 0}
-  - m_Position: {x: 74, y: 23, z: 0}
-    m_Size: {x: 8, y: 7, z: 0}
-  - m_Position: {x: 30, y: 29, z: 0}
-    m_Size: {x: 8, y: 11, z: 0}
-  - m_Position: {x: 17, y: 23, z: 0}
-    m_Size: {x: 10, y: 6, z: 0}
-  - m_Position: {x: 2, y: 40, z: 0}
-    m_Size: {x: 15, y: 6, z: 0}
-  - m_Position: {x: 79, y: 30, z: 0}
-    m_Size: {x: 10, y: 6, z: 0}
-  - m_Position: {x: 59, y: 23, z: 0}
-    m_Size: {x: 15, y: 7, z: 0}
-  - m_Position: {x: 86, y: 4, z: 0}
-    m_Size: {x: 8, y: 8, z: 0}
-  - m_Position: {x: 7, y: 23, z: 0}
-    m_Size: {x: 10, y: 6, z: 0}
-  - m_Position: {x: 38, y: 29, z: 0}
+  - m_Position: {x: 46, y: 0, z: 0}
     m_Size: {x: 9, y: 11, z: 0}
-  chosenRooms:
-  - m_Position: {x: 54, y: 4, z: 0}
-    m_Size: {x: 15, y: 8, z: 0}
-  - m_Position: {x: 19, y: 4, z: 0}
-    m_Size: {x: 12, y: 8, z: 0}
-  - m_Position: {x: 82, y: 23, z: 0}
-    m_Size: {x: 13, y: 7, z: 0}
-  - m_Position: {x: 41, y: 40, z: 0}
-    m_Size: {x: 13, y: 6, z: 0}
-  - m_Position: {x: 38, y: 4, z: 0}
-    m_Size: {x: 11, y: 8, z: 0}
-  - m_Position: {x: 27, y: 23, z: 0}
-    m_Size: {x: 9, y: 6, z: 0}
-  - m_Position: {x: 60, y: 33, z: 0}
-    m_Size: {x: 12, y: 10, z: 0}
-  - m_Position: {x: 79, y: 36, z: 0}
-    m_Size: {x: 10, y: 8, z: 0}
-  - m_Position: {x: 8, y: 29, z: 0}
-    m_Size: {x: 14, y: 11, z: 0}
-  - m_Position: {x: 40, y: 23, z: 0}
-    m_Size: {x: 14, y: 6, z: 0}
-  - m_Position: {x: 75, y: 4, z: 0}
-    m_Size: {x: 11, y: 8, z: 0}
-  - m_Position: {x: 74, y: 23, z: 0}
-    m_Size: {x: 8, y: 7, z: 0}
-  - m_Position: {x: 30, y: 29, z: 0}
+  - m_Position: {x: 77, y: 9, z: 0}
     m_Size: {x: 8, y: 11, z: 0}
-  - m_Position: {x: 17, y: 23, z: 0}
-    m_Size: {x: 10, y: 6, z: 0}
-  offsetRooms:
-  - m_Position: {x: 18, y: 24, z: 0}
-    m_Size: {x: 8, y: 4, z: 0}
-  - m_Position: {x: 31, y: 30, z: 0}
-    m_Size: {x: 6, y: 9, z: 0}
-  - m_Position: {x: 75, y: 24, z: 0}
-    m_Size: {x: 6, y: 5, z: 0}
-  - m_Position: {x: 76, y: 5, z: 0}
-    m_Size: {x: 9, y: 6, z: 0}
-  - m_Position: {x: 41, y: 24, z: 0}
-    m_Size: {x: 12, y: 4, z: 0}
-  - m_Position: {x: 9, y: 30, z: 0}
-    m_Size: {x: 12, y: 9, z: 0}
-  - m_Position: {x: 80, y: 37, z: 0}
+  - m_Position: {x: 68, y: 39, z: 0}
     m_Size: {x: 8, y: 6, z: 0}
-  - m_Position: {x: 61, y: 34, z: 0}
-    m_Size: {x: 10, y: 8, z: 0}
-  - m_Position: {x: 28, y: 24, z: 0}
-    m_Size: {x: 7, y: 4, z: 0}
-  - m_Position: {x: 39, y: 5, z: 0}
-    m_Size: {x: 9, y: 6, z: 0}
-  - m_Position: {x: 42, y: 41, z: 0}
-    m_Size: {x: 11, y: 4, z: 0}
-  - m_Position: {x: 83, y: 24, z: 0}
-    m_Size: {x: 11, y: 5, z: 0}
-  - m_Position: {x: 20, y: 5, z: 0}
+  - m_Position: {x: 61, y: 21, z: 0}
+    m_Size: {x: 13, y: 10, z: 0}
+  - m_Position: {x: 0, y: 42, z: 0}
+    m_Size: {x: 8, y: 8, z: 0}
+  - m_Position: {x: 22, y: 40, z: 0}
+    m_Size: {x: 15, y: 10, z: 0}
+  - m_Position: {x: 85, y: 22, z: 0}
+    m_Size: {x: 15, y: 8, z: 0}
+  - m_Position: {x: 7, y: 0, z: 0}
+    m_Size: {x: 10, y: 11, z: 0}
+  - m_Position: {x: 36, y: 4, z: 0}
+    m_Size: {x: 10, y: 9, z: 0}
+  - m_Position: {x: 0, y: 25, z: 0}
+    m_Size: {x: 8, y: 10, z: 0}
+  - m_Position: {x: 58, y: 39, z: 0}
     m_Size: {x: 10, y: 6, z: 0}
-  - m_Position: {x: 55, y: 5, z: 0}
+  - m_Position: {x: 19, y: 0, z: 0}
+    m_Size: {x: 12, y: 6, z: 0}
+  - m_Position: {x: 37, y: 30, z: 0}
+    m_Size: {x: 12, y: 6, z: 0}
+  - m_Position: {x: 36, y: 13, z: 0}
+    m_Size: {x: 10, y: 7, z: 0}
+  - m_Position: {x: 0, y: 35, z: 0}
+    m_Size: {x: 8, y: 7, z: 0}
+  - m_Position: {x: 24, y: 17, z: 0}
+    m_Size: {x: 10, y: 8, z: 0}
+  - m_Position: {x: 7, y: 11, z: 0}
+    m_Size: {x: 10, y: 9, z: 0}
+  - m_Position: {x: 46, y: 16, z: 0}
+    m_Size: {x: 9, y: 9, z: 0}
+  - m_Position: {x: 63, y: 9, z: 0}
+    m_Size: {x: 11, y: 8, z: 0}
+  - m_Position: {x: 8, y: 43, z: 0}
+    m_Size: {x: 12, y: 7, z: 0}
+  - m_Position: {x: 39, y: 40, z: 0}
+    m_Size: {x: 14, y: 10, z: 0}
+  - m_Position: {x: 85, y: 30, z: 0}
+    m_Size: {x: 15, y: 10, z: 0}
+  - m_Position: {x: 8, y: 35, z: 0}
+    m_Size: {x: 12, y: 8, z: 0}
+  - m_Position: {x: 85, y: 9, z: 0}
+    m_Size: {x: 15, y: 8, z: 0}
+  - m_Position: {x: 90, y: 0, z: 0}
+    m_Size: {x: 10, y: 6, z: 0}
+  - m_Position: {x: 80, y: 0, z: 0}
+    m_Size: {x: 10, y: 6, z: 0}
+  - m_Position: {x: 20, y: 30, z: 0}
+    m_Size: {x: 11, y: 6, z: 0}
+  - m_Position: {x: 63, y: 0, z: 0}
+    m_Size: {x: 9, y: 6, z: 0}
+  - m_Position: {x: 77, y: 34, z: 0}
+    m_Size: {x: 8, y: 9, z: 0}
+  - m_Position: {x: 19, y: 6, z: 0}
+    m_Size: {x: 12, y: 8, z: 0}
+  chosenRooms:
+  - m_Position: {x: 46, y: 0, z: 0}
+    m_Size: {x: 9, y: 11, z: 0}
+  - m_Position: {x: 77, y: 9, z: 0}
+    m_Size: {x: 8, y: 11, z: 0}
+  - m_Position: {x: 68, y: 39, z: 0}
+    m_Size: {x: 8, y: 6, z: 0}
+  - m_Position: {x: 61, y: 21, z: 0}
+    m_Size: {x: 13, y: 10, z: 0}
+  - m_Position: {x: 0, y: 42, z: 0}
+    m_Size: {x: 8, y: 8, z: 0}
+  - m_Position: {x: 22, y: 40, z: 0}
+    m_Size: {x: 15, y: 10, z: 0}
+  - m_Position: {x: 85, y: 22, z: 0}
+    m_Size: {x: 15, y: 8, z: 0}
+  - m_Position: {x: 7, y: 0, z: 0}
+    m_Size: {x: 10, y: 11, z: 0}
+  - m_Position: {x: 36, y: 4, z: 0}
+    m_Size: {x: 10, y: 9, z: 0}
+  - m_Position: {x: 0, y: 25, z: 0}
+    m_Size: {x: 8, y: 10, z: 0}
+  offsetRooms:
+  - m_Position: {x: 1, y: 26, z: 0}
+    m_Size: {x: 6, y: 8, z: 0}
+  - m_Position: {x: 37, y: 5, z: 0}
+    m_Size: {x: 8, y: 7, z: 0}
+  - m_Position: {x: 8, y: 1, z: 0}
+    m_Size: {x: 8, y: 9, z: 0}
+  - m_Position: {x: 86, y: 23, z: 0}
     m_Size: {x: 13, y: 6, z: 0}
+  - m_Position: {x: 23, y: 41, z: 0}
+    m_Size: {x: 13, y: 8, z: 0}
+  - m_Position: {x: 1, y: 43, z: 0}
+    m_Size: {x: 6, y: 6, z: 0}
+  - m_Position: {x: 62, y: 22, z: 0}
+    m_Size: {x: 11, y: 8, z: 0}
+  - m_Position: {x: 69, y: 40, z: 0}
+    m_Size: {x: 6, y: 4, z: 0}
+  - m_Position: {x: 78, y: 10, z: 0}
+    m_Size: {x: 6, y: 9, z: 0}
+  - m_Position: {x: 47, y: 1, z: 0}
+    m_Size: {x: 7, y: 9, z: 0}
 --- !u!1 &1500623980
 GameObject:
   m_ObjectHideFlags: 0

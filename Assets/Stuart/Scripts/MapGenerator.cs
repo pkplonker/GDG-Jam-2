@@ -23,9 +23,11 @@ public class MapGenerator : MonoBehaviour
 	{
 		Clear();
 		binarySpacePartition = new();
+		UnityEngine.Random.InitState(MapArgs.Seed);
 		rooms = binarySpacePartition.BinaryPartition(MapArgs);
 		chosenRooms = GenerateRoomSubset(rooms);
 		offsetRooms = GenerateOffsetRooms(chosenRooms);
+		Debug.Log("Generated");
 	}
 
 	private List<BoundsInt> GenerateOffsetRooms(List<BoundsInt> rooms)
@@ -41,11 +43,12 @@ public class MapGenerator : MonoBehaviour
 			newRoom.min = newMin;
 			result.Add(newRoom);
 		}
+
 		return result;
 	}
 
 	private List<BoundsInt> GenerateRoomSubset(List<BoundsInt> rooms) =>
-		rooms.Shuffle().ToList().GetRange(0, Mathf.Min(rooms.Count, MapArgs.RoomCountLimit));
+		rooms.Shuffle(MapArgs.Seed).ToList().GetRange(0, Mathf.Min(rooms.Count, MapArgs.RoomCountLimit));
 
 	public void Clear()
 	{
