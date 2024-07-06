@@ -23,8 +23,8 @@ public class MapGenerator : MonoBehaviour
 	[SerializeField]
 	private List<Edge> edges;
 
-	private static AStarMap aStarMap;
-	private static AStar aStar;
+	public static AStarMap aStarMap;
+	public static AStar aStar;
 	public BoundsInt startRoom;
 	public BoundsInt endRoom;
 	[SerializeField]
