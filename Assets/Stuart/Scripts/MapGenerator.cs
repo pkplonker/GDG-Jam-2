@@ -23,8 +23,8 @@ public class MapGenerator : MonoBehaviour
 	[SerializeField]
 	private List<Edge> edges;
 
-	private static AStarMap aStarMap;
-	private static AStar aStar;
+	public static AStarMap aStarMap;
+	public static AStar aStar;
 	public BoundsInt startRoom;
 	public BoundsInt endRoom;
 	[SerializeField]
@@ -159,8 +159,38 @@ public class MapGenerator : MonoBehaviour
 		return result;
 	}
 
-	private List<BoundsInt> GenerateRoomSubset(List<BoundsInt> rooms) =>
-		rooms.Shuffle(MapArgs.Seed).ToList().GetRange(0, Mathf.Min(rooms.Count, MapArgs.RoomCountLimit));
+	public List<BoundsInt> GenerateRoomSubset(List<BoundsInt> rooms)
+	{
+		List<BoundsInt> shuffledRooms = rooms.OrderBy(r => UnityEngine.Random.Range(0, 10000)).ToList();
+
+		List<BoundsInt> selectedRooms = new List<BoundsInt>();
+		int count = Mathf.Min(shuffledRooms.Count, MapArgs.RoomCountLimit);
+
+		while (selectedRooms.Count < count && shuffledRooms.Count > 0)
+		{
+			BoundsInt room = shuffledRooms[0];
+			shuffledRooms.RemoveAt(0);
+
+			if (selectedRooms.Count == 0 || IsRoomFarEnough(room, selectedRooms, MapArgs.RoomSeperation))
+			{
+				selectedRooms.Add(room);
+			}
+		}
+
+		return selectedRooms;
+	}
+
+	private bool IsRoomFarEnough(BoundsInt room, List<BoundsInt> selectedRooms, float minDistance = 10f)
+	{
+		foreach (var selectedRoom in selectedRooms)
+		{
+			if (Vector3.Distance(room.center, selectedRoom.center) < minDistance)
+			{
+				return false;
+			}
+		}
+		return true;
+	}
 
 	public void Clear()
 	{
