@@ -27,8 +27,17 @@ public class MapGenerator : MonoBehaviour
 	public static AStar aStar;
 	public BoundsInt startRoom;
 	public BoundsInt endRoom;
+
+	[SerializeField]
+	private List<BoundsInt> primaryRooms;
+
+	[SerializeField]
+	private List<BoundsInt> tertiaryRooms;
+
 	[SerializeField]
 	private bool debug;
+
+	private List<Vector3> pathPoints;
 	public static Node[,] MapData => aStarMap.map;
 	public static event Action<MapGenerator> OnMapGenerated;
 
@@ -42,22 +51,58 @@ public class MapGenerator : MonoBehaviour
 	public void Generate()
 	{
 		Clear();
-		binarySpacePartition = new();
-		UnityEngine.Random.InitState(MapArgs.Seed);
-		CreateRooms();
-		edges = ConnectRooms(offsetRooms.Select(x => new Node(x)));
 
 		aStarMap = GetComponent<AStarMap>();
+		aStar = GetComponent<AStar>();
+		binarySpacePartition = new();
+
+		UnityEngine.Random.InitState(MapArgs.Seed);
+
+		CreateRooms();
+
+		var roomNodes = offsetRooms.Select(x => new Node(x));
+		edges = ConnectRooms(roomNodes);
+
 		gameObject.transform.position = new Vector3(MapArgs.Bounds.size.x / 2, MapArgs.Bounds.size.y / 2, 0);
 		aStarMap.GenerateMapData(MapArgs, edges, offsetRooms);
 
-		aStar = GetComponent<AStar>();
 		GenerateCorridors();
-
 		GenerateFinalWalkableArea();
+
+		primaryRooms = IdentifyPrimaryRooms(roomNodes);
+		tertiaryRooms = offsetRooms.Except(primaryRooms).ToList();
+
 		OnMapGenerated?.Invoke(this);
 		Debug.Log("Generated");
 	}
+
+	private List<BoundsInt> IdentifyPrimaryRooms(IEnumerable<Node> roomNodes)
+	{
+		var result = new HashSet<BoundsInt>();
+
+		pathPoints = CalculatePath(startRoom.center, endRoom.center);
+
+		foreach (var p in pathPoints)
+		{
+			var gridPoint = new Vector3Int(Mathf.FloorToInt(p.x), Mathf.FloorToInt(p.y), 0);
+
+			foreach (var rn in roomNodes)
+			{
+				if (IsPointInBounds(gridPoint, rn.bounds))
+				{
+					Debug.Log("Match");
+					result.Add(rn.bounds);
+				}
+			}
+		}
+
+		Debug.Log("primary");
+		return result.ToList();
+	}
+
+	private bool IsPointInBounds(Vector3Int point, BoundsInt bounds) =>
+		point.x >= bounds.xMin && point.x <= bounds.xMax &&
+		point.y >= bounds.yMin && point.y <= bounds.yMax;
 
 	private void GenerateCorridors()
 	{
@@ -189,6 +234,7 @@ public class MapGenerator : MonoBehaviour
 				return false;
 			}
 		}
+
 		return true;
 	}
 
@@ -198,6 +244,9 @@ public class MapGenerator : MonoBehaviour
 		edges = new List<Edge>();
 		chosenRooms = new List<BoundsInt>();
 		offsetRooms = new List<BoundsInt>();
+		primaryRooms = new List<BoundsInt>();
+		tertiaryRooms = new List<BoundsInt>();
+		pathPoints = new List<Vector3>();
 	}
 
 	private void OnDrawGizmos()
@@ -220,7 +269,14 @@ public class MapGenerator : MonoBehaviour
 			{
 				Gizmos.color = Color.white;
 			}
+
 			Gizmos.DrawCube(room.center, room.size);
+		}
+
+		if (pathPoints != null)
+		{
+			Gizmos.color = Color.cyan;
+			Gizmos.DrawLineStrip(new ReadOnlySpan<Vector3>(pathPoints.ToArray()), false);
 		}
 
 		// Gizmos.color = Color.blue;
@@ -245,6 +301,18 @@ public class MapGenerator : MonoBehaviour
 		foreach (var edge in edges)
 		{
 			Gizmos.DrawLine(edge.start.position.ToV3(), edge.end.position.ToV3());
+		}
+
+		foreach (var r in primaryRooms)
+		{
+			Gizmos.color = Color.green;
+			Gizmos.DrawSphere(r.center, 1);
+		}
+
+		foreach (var r in tertiaryRooms)
+		{
+			Gizmos.color = Color.yellow;
+			Gizmos.DrawSphere(r.center, 1);
 		}
 	}
 }
