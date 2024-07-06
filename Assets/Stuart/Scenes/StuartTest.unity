@@ -218,6 +218,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1499206581}
   - component: {fileID: 1499206582}
+  - component: {fileID: 1499206584}
+  - component: {fileID: 1499206583}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -234,7 +236,7 @@ Transform:
   m_GameObject: {fileID: 1499206580}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.21849355, y: 3.7097318, z: -1.9852338}
+  m_LocalPosition: {x: 50, y: 25, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -253,119 +255,315 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapArgs:
-    MapSize:
+    Bounds:
       m_Position: {x: 0, y: 0, z: 0}
       m_Size: {x: 100, y: 50, z: 0}
     MinWidth: 8
     MinHeight: 6
     HorizontalSplitChance: 0.5
     RandomsizeSplit: 1
-    RoomCountLimit: 10
+    RoomCountLimit: 12
     Offset: {x: 1, y: 1, z: 0}
-    Seed: 4
+    Seed: 2
   rooms:
-  - m_Position: {x: 46, y: 0, z: 0}
-    m_Size: {x: 9, y: 11, z: 0}
-  - m_Position: {x: 77, y: 9, z: 0}
-    m_Size: {x: 8, y: 11, z: 0}
-  - m_Position: {x: 68, y: 39, z: 0}
-    m_Size: {x: 8, y: 6, z: 0}
-  - m_Position: {x: 61, y: 21, z: 0}
-    m_Size: {x: 13, y: 10, z: 0}
-  - m_Position: {x: 0, y: 42, z: 0}
-    m_Size: {x: 8, y: 8, z: 0}
-  - m_Position: {x: 22, y: 40, z: 0}
-    m_Size: {x: 15, y: 10, z: 0}
-  - m_Position: {x: 85, y: 22, z: 0}
-    m_Size: {x: 15, y: 8, z: 0}
-  - m_Position: {x: 7, y: 0, z: 0}
+  - m_Position: {x: 0, y: 39, z: 0}
+    m_Size: {x: 12, y: 6, z: 0}
+  - m_Position: {x: 51, y: 20, z: 0}
+    m_Size: {x: 11, y: 11, z: 0}
+  - m_Position: {x: 33, y: 8, z: 0}
     m_Size: {x: 10, y: 11, z: 0}
-  - m_Position: {x: 36, y: 4, z: 0}
-    m_Size: {x: 10, y: 9, z: 0}
-  - m_Position: {x: 0, y: 25, z: 0}
-    m_Size: {x: 8, y: 10, z: 0}
-  - m_Position: {x: 58, y: 39, z: 0}
-    m_Size: {x: 10, y: 6, z: 0}
-  - m_Position: {x: 19, y: 0, z: 0}
-    m_Size: {x: 12, y: 6, z: 0}
-  - m_Position: {x: 37, y: 30, z: 0}
-    m_Size: {x: 12, y: 6, z: 0}
-  - m_Position: {x: 36, y: 13, z: 0}
-    m_Size: {x: 10, y: 7, z: 0}
-  - m_Position: {x: 0, y: 35, z: 0}
-    m_Size: {x: 8, y: 7, z: 0}
-  - m_Position: {x: 24, y: 17, z: 0}
-    m_Size: {x: 10, y: 8, z: 0}
-  - m_Position: {x: 7, y: 11, z: 0}
-    m_Size: {x: 10, y: 9, z: 0}
-  - m_Position: {x: 46, y: 16, z: 0}
+  - m_Position: {x: 12, y: 2, z: 0}
+    m_Size: {x: 15, y: 10, z: 0}
+  - m_Position: {x: 12, y: 20, z: 0}
+    m_Size: {x: 15, y: 8, z: 0}
+  - m_Position: {x: 42, y: 31, z: 0}
+    m_Size: {x: 15, y: 7, z: 0}
+  - m_Position: {x: 27, y: 32, z: 0}
+    m_Size: {x: 15, y: 11, z: 0}
+  - m_Position: {x: 12, y: 28, z: 0}
+    m_Size: {x: 15, y: 8, z: 0}
+  - m_Position: {x: 78, y: 11, z: 0}
     m_Size: {x: 9, y: 9, z: 0}
-  - m_Position: {x: 63, y: 9, z: 0}
-    m_Size: {x: 11, y: 8, z: 0}
-  - m_Position: {x: 8, y: 43, z: 0}
-    m_Size: {x: 12, y: 7, z: 0}
-  - m_Position: {x: 39, y: 40, z: 0}
-    m_Size: {x: 14, y: 10, z: 0}
-  - m_Position: {x: 85, y: 30, z: 0}
-    m_Size: {x: 15, y: 10, z: 0}
-  - m_Position: {x: 8, y: 35, z: 0}
-    m_Size: {x: 12, y: 8, z: 0}
-  - m_Position: {x: 85, y: 9, z: 0}
-    m_Size: {x: 15, y: 8, z: 0}
-  - m_Position: {x: 90, y: 0, z: 0}
-    m_Size: {x: 10, y: 6, z: 0}
-  - m_Position: {x: 80, y: 0, z: 0}
-    m_Size: {x: 10, y: 6, z: 0}
-  - m_Position: {x: 20, y: 30, z: 0}
-    m_Size: {x: 11, y: 6, z: 0}
-  - m_Position: {x: 63, y: 0, z: 0}
-    m_Size: {x: 9, y: 6, z: 0}
-  - m_Position: {x: 77, y: 34, z: 0}
-    m_Size: {x: 8, y: 9, z: 0}
-  - m_Position: {x: 19, y: 6, z: 0}
-    m_Size: {x: 12, y: 8, z: 0}
-  chosenRooms:
-  - m_Position: {x: 46, y: 0, z: 0}
-    m_Size: {x: 9, y: 11, z: 0}
-  - m_Position: {x: 77, y: 9, z: 0}
-    m_Size: {x: 8, y: 11, z: 0}
-  - m_Position: {x: 68, y: 39, z: 0}
-    m_Size: {x: 8, y: 6, z: 0}
-  - m_Position: {x: 61, y: 21, z: 0}
-    m_Size: {x: 13, y: 10, z: 0}
-  - m_Position: {x: 0, y: 42, z: 0}
-    m_Size: {x: 8, y: 8, z: 0}
-  - m_Position: {x: 22, y: 40, z: 0}
-    m_Size: {x: 15, y: 10, z: 0}
-  - m_Position: {x: 85, y: 22, z: 0}
-    m_Size: {x: 15, y: 8, z: 0}
-  - m_Position: {x: 7, y: 0, z: 0}
+  - m_Position: {x: 91, y: 23, z: 0}
+    m_Size: {x: 9, y: 8, z: 0}
+  - m_Position: {x: 65, y: 11, z: 0}
+    m_Size: {x: 13, y: 9, z: 0}
+  - m_Position: {x: 76, y: 31, z: 0}
+    m_Size: {x: 11, y: 10, z: 0}
+  - m_Position: {x: 62, y: 20, z: 0}
     m_Size: {x: 10, y: 11, z: 0}
-  - m_Position: {x: 36, y: 4, z: 0}
-    m_Size: {x: 10, y: 9, z: 0}
-  - m_Position: {x: 0, y: 25, z: 0}
-    m_Size: {x: 8, y: 10, z: 0}
+  - m_Position: {x: 60, y: 31, z: 0}
+    m_Size: {x: 15, y: 10, z: 0}
+  - m_Position: {x: 43, y: 9, z: 0}
+    m_Size: {x: 11, y: 11, z: 0}
+  - m_Position: {x: 91, y: 5, z: 0}
+    m_Size: {x: 9, y: 11, z: 0}
+  - m_Position: {x: 0, y: 17, z: 0}
+    m_Size: {x: 12, y: 6, z: 0}
+  - m_Position: {x: 0, y: 23, z: 0}
+    m_Size: {x: 12, y: 7, z: 0}
+  - m_Position: {x: 0, y: 30, z: 0}
+    m_Size: {x: 12, y: 9, z: 0}
+  - m_Position: {x: 79, y: 20, z: 0}
+    m_Size: {x: 12, y: 11, z: 0}
+  - m_Position: {x: 12, y: 36, z: 0}
+    m_Size: {x: 15, y: 10, z: 0}
+  - m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 12, y: 8, z: 0}
+  - m_Position: {x: 54, y: 11, z: 0}
+    m_Size: {x: 11, y: 9, z: 0}
+  - m_Position: {x: 0, y: 8, z: 0}
+    m_Size: {x: 12, y: 6, z: 0}
+  - m_Position: {x: 91, y: 17, z: 0}
+    m_Size: {x: 9, y: 6, z: 0}
+  - m_Position: {x: 33, y: 20, z: 0}
+    m_Size: {x: 11, y: 11, z: 0}
+  chosenRooms:
+  - m_Position: {x: 0, y: 39, z: 0}
+    m_Size: {x: 12, y: 6, z: 0}
+  - m_Position: {x: 51, y: 20, z: 0}
+    m_Size: {x: 11, y: 11, z: 0}
+  - m_Position: {x: 33, y: 8, z: 0}
+    m_Size: {x: 10, y: 11, z: 0}
+  - m_Position: {x: 12, y: 2, z: 0}
+    m_Size: {x: 15, y: 10, z: 0}
+  - m_Position: {x: 12, y: 20, z: 0}
+    m_Size: {x: 15, y: 8, z: 0}
+  - m_Position: {x: 42, y: 31, z: 0}
+    m_Size: {x: 15, y: 7, z: 0}
+  - m_Position: {x: 27, y: 32, z: 0}
+    m_Size: {x: 15, y: 11, z: 0}
+  - m_Position: {x: 12, y: 28, z: 0}
+    m_Size: {x: 15, y: 8, z: 0}
+  - m_Position: {x: 78, y: 11, z: 0}
+    m_Size: {x: 9, y: 9, z: 0}
+  - m_Position: {x: 91, y: 23, z: 0}
+    m_Size: {x: 9, y: 8, z: 0}
+  - m_Position: {x: 65, y: 11, z: 0}
+    m_Size: {x: 13, y: 9, z: 0}
+  - m_Position: {x: 76, y: 31, z: 0}
+    m_Size: {x: 11, y: 10, z: 0}
   offsetRooms:
-  - m_Position: {x: 1, y: 26, z: 0}
-    m_Size: {x: 6, y: 8, z: 0}
-  - m_Position: {x: 37, y: 5, z: 0}
-    m_Size: {x: 8, y: 7, z: 0}
-  - m_Position: {x: 8, y: 1, z: 0}
-    m_Size: {x: 8, y: 9, z: 0}
-  - m_Position: {x: 86, y: 23, z: 0}
+  - m_Position: {x: 77, y: 32, z: 0}
+    m_Size: {x: 9, y: 8, z: 0}
+  - m_Position: {x: 66, y: 12, z: 0}
+    m_Size: {x: 11, y: 7, z: 0}
+  - m_Position: {x: 92, y: 24, z: 0}
+    m_Size: {x: 7, y: 6, z: 0}
+  - m_Position: {x: 79, y: 12, z: 0}
+    m_Size: {x: 7, y: 7, z: 0}
+  - m_Position: {x: 13, y: 29, z: 0}
     m_Size: {x: 13, y: 6, z: 0}
-  - m_Position: {x: 23, y: 41, z: 0}
+  - m_Position: {x: 28, y: 33, z: 0}
+    m_Size: {x: 13, y: 9, z: 0}
+  - m_Position: {x: 43, y: 32, z: 0}
+    m_Size: {x: 13, y: 5, z: 0}
+  - m_Position: {x: 13, y: 21, z: 0}
+    m_Size: {x: 13, y: 6, z: 0}
+  - m_Position: {x: 13, y: 3, z: 0}
     m_Size: {x: 13, y: 8, z: 0}
-  - m_Position: {x: 1, y: 43, z: 0}
-    m_Size: {x: 6, y: 6, z: 0}
-  - m_Position: {x: 62, y: 22, z: 0}
-    m_Size: {x: 11, y: 8, z: 0}
-  - m_Position: {x: 69, y: 40, z: 0}
-    m_Size: {x: 6, y: 4, z: 0}
-  - m_Position: {x: 78, y: 10, z: 0}
-    m_Size: {x: 6, y: 9, z: 0}
-  - m_Position: {x: 47, y: 1, z: 0}
-    m_Size: {x: 7, y: 9, z: 0}
+  - m_Position: {x: 34, y: 9, z: 0}
+    m_Size: {x: 8, y: 9, z: 0}
+  - m_Position: {x: 52, y: 21, z: 0}
+    m_Size: {x: 9, y: 9, z: 0}
+  - m_Position: {x: 1, y: 40, z: 0}
+    m_Size: {x: 10, y: 4, z: 0}
+  edges:
+  - start:
+      x: 6
+      y: 42
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 6
+      y: 42
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 6
+      y: 42
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 19
+      y: 32
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 19
+      y: 32
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 19
+      y: 24
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 19
+      y: 24
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 19
+      y: 7
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 19
+      y: 7
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 38
+      y: 13
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 38
+      y: 13
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 56
+      y: 25
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 56
+      y: 25
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 49
+      y: 34
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 49
+      y: 34
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 34
+      y: 37
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 34
+      y: 37
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 71
+      y: 15
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 71
+      y: 15
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 82
+      y: 15
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 82
+      y: 15
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 95
+      y: 27
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+  - start:
+      x: 95
+      y: 27
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+    end:
+      x: 81
+      y: 36
+      walkable: 0
+      g: 0
+      h: 0
+      cost: 0
+--- !u!114 &1499206583
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499206580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f98d401c6f7c4f15a98864181e2b664d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nodeSize: 1
+  debug: 1
+--- !u!114 &1499206584
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1499206580}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bce2be6df86a4ee1bc82e195a4488508, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0
 --- !u!1 &1500623980
 GameObject:
   m_ObjectHideFlags: 0

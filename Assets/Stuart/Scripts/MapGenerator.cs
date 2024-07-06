@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
+[RequireComponent(typeof(AStarMap))]
 public class MapGenerator : MonoBehaviour
 {
 	[SerializeField]
-	private BSPArgs MapArgs;
+	private MapArgs MapArgs;
 
 	[SerializeField]
 	private List<BoundsInt> rooms;
@@ -22,6 +23,8 @@ public class MapGenerator : MonoBehaviour
 	[SerializeField]
 	private List<Edge> edges;
 
+	private AStarMap aStarMap;
+
 	public void Generate()
 	{
 		Clear();
@@ -29,7 +32,52 @@ public class MapGenerator : MonoBehaviour
 		UnityEngine.Random.InitState(MapArgs.Seed);
 		CreateRooms();
 		edges = ConnectRooms(offsetRooms.Select(x => new Node(x)));
+
+		aStarMap = GetComponent<AStarMap>();
+		gameObject.transform.position = new Vector3(MapArgs.Bounds.size.x / 2, MapArgs.Bounds.size.y / 2, 0);
+		aStarMap.GenerateMapData(MapArgs, edges, offsetRooms);
+
+		var corridorPoints = new List<Vector3>();
+		foreach (var edge in edges)
+		{
+			var elements = AStar.CalculatePath(aStarMap, edge.start.position, edge.end.position);
+			corridorPoints.AddRange(elements ?? new List<Vector3>());
+		}
+
+		var nodes = new List<Node>();
+		for (int i = 0; i < corridorPoints.Count-1; i++)
+		{
+			var p1 = GetNodePos(corridorPoints, i);
+			// fudging the rounding
+			var n = aStarMap.GetNodeFromLocation(p1);
+			nodes.Add(n);
+
+			var offset = 1.00f;
+			var n2 = aStarMap.GetNodeFromLocation(p1+  new Vector3(0,offset,0));
+			if (Math.Abs(GetNodePos(corridorPoints, i+1).x - p1.x) < float.Epsilon)
+			{
+				n2 = aStarMap.GetNodeFromLocation(p1+  new Vector3(offset,offset,0));
+			}
+			nodes.Add(n2);
+
+			if (n.cost < 5)
+			{
+				n.cost += 5;
+			}
+			if (n2.cost < 5)
+			{
+				n2.cost += 5;
+			}
+		}
+
 		Debug.Log("Generated");
+	}
+
+	private static Vector3 GetNodePos(List<Vector3> corridorPoints, int i)
+	{
+		var p1 = corridorPoints[i];
+		p1 = new Vector3Int(Mathf.FloorToInt(p1.x), Mathf.FloorToInt(p1.y), Mathf.RoundToInt(p1.z));
+		return p1;
 	}
 
 	private List<Edge> ConnectRooms(IEnumerable<Node> roomCentres)
@@ -80,30 +128,33 @@ public class MapGenerator : MonoBehaviour
 	public void Clear()
 	{
 		rooms = new List<BoundsInt>();
+		edges = new List<Edge>();
+		chosenRooms = new List<BoundsInt>();
+		offsetRooms = new List<BoundsInt>();
 	}
 
 	private void OnDrawGizmos()
 	{
 		Gizmos.color = Color.red;
-		Gizmos.DrawWireCube(MapArgs.MapSize.center, MapArgs.MapSize.size);
+		Gizmos.DrawWireCube(MapArgs.Bounds.center, MapArgs.Bounds.size);
 
 		Gizmos.color = Color.white;
-		foreach (var room in rooms)
+		foreach (var room in offsetRooms)
 		{
 			Gizmos.DrawCube(room.center, room.size);
 		}
 
-		Gizmos.color = Color.blue;
-		foreach (var room in rooms)
-		{
-			Gizmos.DrawWireCube(room.center, room.size);
-		}
-
-		Gizmos.color = Color.yellow;
-		foreach (var room in chosenRooms)
-		{
-			Gizmos.DrawWireCube(room.center, room.size);
-		}
+		// Gizmos.color = Color.blue;
+		// foreach (var room in rooms)
+		// {
+		// 	Gizmos.DrawWireCube(room.center, room.size);
+		// }
+		//
+		// Gizmos.color = Color.yellow;
+		// foreach (var room in chosenRooms)
+		// {
+		// 	Gizmos.DrawWireCube(room.center, room.size);
+		// }
 
 		Gizmos.color = Color.black;
 		foreach (var room in offsetRooms)
@@ -116,31 +167,5 @@ public class MapGenerator : MonoBehaviour
 		{
 			Gizmos.DrawLine(edge.start.position.ToV3(), edge.end.position.ToV3());
 		}
-	}
-}
-
-[Serializable]
-public class Node
-{
-	public Vector2Int position;
-
-	public Node(BoundsInt bounds)
-	{
-		position = (Vector2Int) Vector3Int.RoundToInt(bounds.center);
-	}
-
-	public Node() { }
-}
-
-[Serializable]
-public class Edge
-{
-	public Node start;
-	public Node end;
-
-	public Edge(Node start, Node end)
-	{
-		this.start = start;
-		this.end = end;
 	}
 }

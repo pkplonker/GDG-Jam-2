@@ -5,11 +5,11 @@ using UnityEngine;
 
 public class BinarySpacePartition
 {
-	public List<BoundsInt> BinaryPartition(BSPArgs args)
+	public List<BoundsInt> BinaryPartition(MapArgs args)
 	{
 		var candidateQueue = new Queue<BoundsInt>();
 		var candidateList = new List<BoundsInt>();
-		candidateQueue.Enqueue(args.MapSize);
+		candidateQueue.Enqueue(args.Bounds);
 		while (candidateQueue.Any())
 		{
 			if (candidateQueue.Count > 50000)
@@ -54,7 +54,7 @@ public class BinarySpacePartition
 		return candidateList;
 	}
 
-	private void SplitVertically(BSPArgs args, Queue<BoundsInt> candidatesQueue, BoundsInt room)
+	private void SplitVertically(MapArgs args, Queue<BoundsInt> candidatesQueue, BoundsInt room)
 	{
 
 		var split = args.RandomsizeSplit ? Random.Range(1, room.size.x) : room.size.x / 2;
@@ -63,7 +63,7 @@ public class BinarySpacePartition
 			new Vector3Int(room.size.x - split, room.size.y, room.size.z)));
 	}
 
-	private void SplitHorizontally(BSPArgs args, Queue<BoundsInt> candidatesQueue, BoundsInt room)
+	private void SplitHorizontally(MapArgs args, Queue<BoundsInt> candidatesQueue, BoundsInt room)
 	{
 		var split = args.RandomsizeSplit ? Random.Range(1, room.size.y): room.size.y / 2;
 		candidatesQueue.Enqueue(new BoundsInt(room.min, new Vector3Int(room.size.x, split, room.size.z)));
