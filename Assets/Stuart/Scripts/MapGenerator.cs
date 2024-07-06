@@ -19,15 +19,42 @@ public class MapGenerator : MonoBehaviour
 	[SerializeField]
 	private List<BoundsInt> offsetRooms;
 
+	[SerializeField]
+	private List<Edge> edges;
+
 	public void Generate()
 	{
 		Clear();
 		binarySpacePartition = new();
 		UnityEngine.Random.InitState(MapArgs.Seed);
+		CreateRooms();
+		edges = ConnectRooms(offsetRooms.Select(x => new Node(x)));
+		Debug.Log("Generated");
+	}
+
+	private List<Edge> ConnectRooms(IEnumerable<Node> roomCentres)
+	{
+		var centres = new List<Node>();
+		centres.AddRange(roomCentres);
+		List<Edge> edges = new List<Edge>();
+		var currentRoomCentre = roomCentres.OrderBy(x => x.position.x).FirstOrDefault() ?? throw new Exception();
+		while (centres.Any())
+		{
+			var closest = centres.OrderBy(x => Vector2Int.Distance(x.position, currentRoomCentre.position))
+				.FirstOrDefault();
+			centres.Remove(closest);
+			edges.Add(new Edge(currentRoomCentre, closest));
+			currentRoomCentre = closest;
+		}
+
+		return edges;
+	}
+
+	private void CreateRooms()
+	{
 		rooms = binarySpacePartition.BinaryPartition(MapArgs);
 		chosenRooms = GenerateRoomSubset(rooms);
 		offsetRooms = GenerateOffsetRooms(chosenRooms);
-		Debug.Log("Generated");
 	}
 
 	private List<BoundsInt> GenerateOffsetRooms(List<BoundsInt> rooms)
@@ -83,5 +110,37 @@ public class MapGenerator : MonoBehaviour
 		{
 			Gizmos.DrawWireCube(room.center, room.size);
 		}
+
+		Gizmos.color = Color.magenta;
+		foreach (var edge in edges)
+		{
+			Gizmos.DrawLine(edge.start.position.ToV3(), edge.end.position.ToV3());
+		}
+	}
+}
+
+[Serializable]
+public class Node
+{
+	public Vector2Int position;
+
+	public Node(BoundsInt bounds)
+	{
+		position = (Vector2Int) Vector3Int.RoundToInt(bounds.center);
+	}
+
+	public Node() { }
+}
+
+[Serializable]
+public class Edge
+{
+	public Node start;
+	public Node end;
+
+	public Edge(Node start, Node end)
+	{
+		this.start = start;
+		this.end = end;
 	}
 }

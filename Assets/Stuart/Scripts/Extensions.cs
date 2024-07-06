@@ -1,5 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using UnityEngine;
+using Random = System.Random;
 
 public static class Extensions
 {
@@ -19,5 +20,10 @@ public static class Extensions
 		}
 
 		return list;
+	}
+
+	public static Vector3 ToV3(this Vector2Int position)
+	{
+		return new Vector3(position.x, position.y, 0);
 	}
 }
