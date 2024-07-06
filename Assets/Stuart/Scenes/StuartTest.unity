@@ -412,8 +412,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1989197769}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: 50.74096, y: 24.37, z: 52.81664}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 50.74096, y: 24.37, z: -52.81664}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -475,6 +475,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MapGenerator
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483308562459114577, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: debug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4483308562459114577, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: showMapGenDebug
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
         type: 3}

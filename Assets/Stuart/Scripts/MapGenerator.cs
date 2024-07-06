@@ -25,6 +25,8 @@ public class MapGenerator : MonoBehaviour
 
 	private static AStarMap aStarMap;
 	private static AStar aStar;
+	public BoundsInt startRoom;
+	public BoundsInt endRoom;
 	public static Node[,] MapData => aStarMap.map;
 	public static event Action<MapGenerator> OnMapGenerated;
 
@@ -71,7 +73,6 @@ public class MapGenerator : MonoBehaviour
 
 			var xPos = n.x;
 			var yPos = n.y;
-			var nodes = new List<Node>();
 			for (int x = -1; x < 1; x++)
 			{
 				for (int y = -1; y < 1; y++)
@@ -83,8 +84,6 @@ public class MapGenerator : MonoBehaviour
 					}
 				}
 			}
-
-			foreach (var node in nodes) { }
 		}
 	}
 
@@ -120,6 +119,8 @@ public class MapGenerator : MonoBehaviour
 		centres.AddRange(roomCentres);
 		List<Edge> edges = new List<Edge>();
 		var currentRoomCentre = roomCentres.OrderBy(x => x.position.x).FirstOrDefault() ?? throw new Exception();
+		startRoom = currentRoomCentre.bounds;
+		endRoom = roomCentres.OrderBy(x => x.position.x).LastOrDefault()?.bounds ?? throw new Exception();
 		while (centres.Any())
 		{
 			var closest = centres.OrderBy(x => Vector2Int.Distance(x.position, currentRoomCentre.position))
@@ -172,9 +173,20 @@ public class MapGenerator : MonoBehaviour
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireCube(MapArgs.Bounds.center, MapArgs.Bounds.size);
 
-		Gizmos.color = Color.white;
 		foreach (var room in offsetRooms)
 		{
+			if (room.center == startRoom.center)
+			{
+				Gizmos.color = Color.cyan;
+			}
+			else if (room.center == endRoom.center)
+			{
+				Gizmos.color = Color.yellow;
+			}
+			else
+			{
+				Gizmos.color = Color.white;
+			}
 			Gizmos.DrawCube(room.center, room.size);
 		}
 

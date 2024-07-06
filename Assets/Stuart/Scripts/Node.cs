@@ -14,6 +14,7 @@ public class Node
 	public float h; //estimated distance from end
 	public Node parent = null;
 	public int cost =0;
+	public BoundsInt bounds;
 
 	public Node(int x, int y, bool walkable)
 	{
@@ -24,6 +25,7 @@ public class Node
 
 	public Node(BoundsInt bounds)
 	{
+		this.bounds = bounds;
 		x = (int) bounds.center.x;
 		y = (int) bounds.center.y;
 	}
