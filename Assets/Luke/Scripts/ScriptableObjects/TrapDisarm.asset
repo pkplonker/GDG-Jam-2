@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: TrapDisarm
   m_EditorClassIdentifier: Assembly-CSharp::CharacterUIDat
-  type: 0
-  chName: 
+  type: 2
+  chName: Trap Disarmer
+  chDesc: 
   chImage: {fileID: 0}

@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: PickUp
   m_EditorClassIdentifier: Assembly-CSharp::CharacterUIDat
-  type: 0
-  chName: 
+  type: 1
+  chName: Pick Up
+  chDesc: 
   chImage: {fileID: 0}

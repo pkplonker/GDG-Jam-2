@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: Scout
   m_EditorClassIdentifier: Assembly-CSharp::CharacterUIDat
   type: 0
-  chName: 
+  chName: Scout Drone
+  chDesc: 
   chImage: {fileID: 0}
