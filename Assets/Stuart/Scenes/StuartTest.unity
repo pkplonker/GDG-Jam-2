@@ -123,6 +123,37 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &25027539
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 25027540}
+  m_Layer: 0
+  m_Name: ScoutObj
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &25027540
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 25027539}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &91908237
 GameObject:
   m_ObjectHideFlags: 0
@@ -655,16 +686,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3751461862581656856, guid: 40ba60e85865add44b6a750aed7820fa,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3751461862581656856, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3751461862581656856, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 50
       objectReference: {fileID: 0}
@@ -715,44 +736,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
         type: 3}
+      propertyPath: startSize
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
+        type: 3}
       propertyPath: testObject
       value: 
       objectReference: {fileID: 91908237}
     - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
         type: 3}
-      propertyPath: hiddenColor.a
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: hiddenColor.b
-      value: 0.23529413
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: hiddenColor.g
-      value: 0.23529413
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: hiddenColor.r
-      value: 0.23529413
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: revealedColor.b
-      value: 0.23529413
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: revealedColor.g
-      value: 0.23529413
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: revealedColor.r
-      value: 0.23529413
-      objectReference: {fileID: 0}
+      propertyPath: scoutObject
+      value: 
+      objectReference: {fileID: 25027539}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -769,3 +765,4 @@ SceneRoots:
   - {fileID: 2038388823}
   - {fileID: 2726067789717966742}
   - {fileID: 91908238}
+  - {fileID: 25027540}

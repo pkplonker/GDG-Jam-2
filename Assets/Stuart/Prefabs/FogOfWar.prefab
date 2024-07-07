@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 49.25256, y: 33.388187, z: -61.87323}
-  m_LocalScale: {x: 10, y: 5, z: 10}
+  m_LocalScale: {x: 100, y: 100, z: 10}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,3 +97,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 080a3599bf294bc280322699ab6257da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  testObject: {fileID: 0}
+  revealedColor: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 0}
+  hiddenColor: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 1}
+  scoutObject: {fileID: 0}
+  normalRange: 3
+  scoutRange: 5
+  startSize: 15
