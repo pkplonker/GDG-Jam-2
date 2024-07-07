@@ -56,8 +56,8 @@ MonoBehaviour:
     RandomsizeSplit: 1
     RoomCountLimit: 12
     Offset: {x: 1, y: 1, z: 0}
-    Seed: 7
     RoomSeperation: 10
+    seeds: {fileID: 11400000, guid: c0e2633dbcd8537428ae40d15d80380a, type: 2}
   edges:
   - start:
       x: 4

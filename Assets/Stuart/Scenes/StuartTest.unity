@@ -710,6 +710,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: FogOfWar
       objectReference: {fileID: 0}
+    - target: {fileID: 3012019134202961181, guid: 40ba60e85865add44b6a750aed7820fa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3751461862581656856, guid: 40ba60e85865add44b6a750aed7820fa,
         type: 3}
       propertyPath: m_LocalPosition.x

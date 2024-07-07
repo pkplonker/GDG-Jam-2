@@ -11,10 +11,10 @@ public class MapArgs
 	public bool RandomsizeSplit;
 	public int RoomCountLimit;
 	public Vector3Int Offset;
-	public int Seed;
+	public int Seed => seeds.currentSeed;
 	public float RoomSeperation;
-
-	public MapArgs(BoundsInt bounds, int minWidth, int minHeight, float horizontalSplitChance, bool randomsizeSplit, int roomCountLimit, Vector3Int offset, int seed)
+	public SceneSeeds seeds;
+	public MapArgs(BoundsInt bounds, int minWidth, int minHeight, float horizontalSplitChance, bool randomsizeSplit, int roomCountLimit, Vector3Int offset)
 	{
 		Bounds = bounds;
 		MinWidth = minWidth;
@@ -23,7 +23,6 @@ public class MapArgs
 		RandomsizeSplit = randomsizeSplit;
 		RoomCountLimit = roomCountLimit;
 		Offset = offset;
-		Seed = seed;
 
 	}
 

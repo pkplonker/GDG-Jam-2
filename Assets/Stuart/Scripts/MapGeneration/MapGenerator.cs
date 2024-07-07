@@ -10,8 +10,7 @@ using Random = UnityEngine.Random;
 [RequireComponent(typeof(AStarMap))]
 public class MapGenerator : MonoBehaviour
 {
-	[SerializeField]
-	private MapArgs MapArgs;
+	public MapArgs MapArgs;
 
 	[SerializeField]
 	private List<Room> rooms;
@@ -67,7 +66,7 @@ public class MapGenerator : MonoBehaviour
 	[SerializeField]
 	private int debugIndex;
 
-	private HashSet<Room> keyFindRooms;
+	public HashSet<Room> keyFindRooms;
 	private HashSet<Room> keyUseRooms;
 
 	[SerializeField]
@@ -667,6 +666,10 @@ public class MapGenerator : MonoBehaviour
 		pathPoints = new List<Vector3>();
 		possibleKeyRoomsForPrimaryRoom = new Dictionary<Room, HashSet<Room>>();
 		traps = new List<Trap>();
+		foreach (var t in transform.GetComponentsInChildren<Transform>().Where(t=>t!=transform))
+		{
+			Destroy(t.gameObject);
+		}
 	}
 
 	private void OnDrawGizmos()
@@ -675,23 +678,26 @@ public class MapGenerator : MonoBehaviour
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireCube(MapArgs.Bounds.center, MapArgs.Bounds.size);
 
-		// foreach (var room in offsetRooms)
-		// {
-		// 	if (room.center == startRoom.center)
-		// 	{
-		// 		Gizmos.color = Color.cyan;
-		// 	}
-		// 	else if (room.center == endRoom.center)
-		// 	{
-		// 		Gizmos.color = Color.yellow;
-		// 	}
-		// 	else
-		// 	{
-		// 		Gizmos.color = Color.white;
-		// 	}
-		//
-		// 	Gizmos.DrawCube(room.center, room.size);
-		// }
+		foreach (var room in offsetRooms)
+		{
+			if (room.bounds.center == startRoom.bounds.center)
+			{
+				Gizmos.color = Color.cyan;
+				Gizmos.DrawCube(room.bounds.center, room.bounds.size);
+
+			}
+			else if (room.bounds.center == endRoom.bounds.center)
+			{
+				Gizmos.color = Color.yellow;
+				Gizmos.DrawCube(room.bounds.center, room.bounds.size);
+
+			}
+			// else
+			// {
+			// 	Gizmos.color = Color.white;
+			// }
+		
+		}
 
 		// if (pathPoints != null)
 		// {
