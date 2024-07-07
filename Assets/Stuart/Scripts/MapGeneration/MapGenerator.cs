@@ -104,8 +104,22 @@ public class MapGenerator : MonoBehaviour
 
 	private void SpawnKeys()
 	{
-		keyUseRooms = possibleKeyRoomsForPrimaryRoom.SelectMany(x => x.Value).ToHashSet();
-		keyFindRooms = possibleKeyRoomsForPrimaryRoom.Select(x => x.Key).ToHashSet();
+		keyUseRooms = new HashSet<BoundsInt>();
+		keyFindRooms = new HashSet<BoundsInt>();
+		foreach (var (primaryRoom, tertRooms) in possibleKeyRoomsForPrimaryRoom)
+		{
+			foreach (var tert in tertRooms.ToList().Shuffle(MapArgs.Seed))
+			{
+				if (keyFindRooms.Add(tert))
+				{
+					keyUseRooms.Add(primaryRoom);
+					keyFindRooms.Add(tert);
+					break;
+				}
+			}
+		}
+		// keyUseRooms = possibleKeyRoomsForPrimaryRoom.SelectMany(x => x.Value).ToHashSet();
+		// keyFindRooms = possibleKeyRoomsForPrimaryRoom.Select(x => x.Key).ToHashSet();
 		
 	}
 
@@ -419,39 +433,39 @@ public class MapGenerator : MonoBehaviour
 		// 	Gizmos.DrawSphere(r.center + new Vector3(1.5f, 1.5f, 0), 1);
 		// }
 
-		if (possibleKeyRoomsForPrimaryRoom != null)
+		// if (possibleKeyRoomsForPrimaryRoom != null)
+		// {
+		// 	foreach (var pair in possibleKeyRoomsForPrimaryRoom)
+		// 	{
+		// 		Gizmos.color = GetColorFromHash(pair.Key.GetHashCode());
+		// 		Gizmos.color = Color.red;
+		// 		Gizmos.DrawSphere(pair.Key.center, 1);
+		// 		foreach (var tert in pair.Value)
+		// 		{
+		// 			Gizmos.DrawLine(pair.Key.center, tert.center);
+		// 			Gizmos.color = Color.yellow;
+		// 			Gizmos.DrawSphere(tert.center, 1);
+		// 		}
+		// 	}
+		// }
+
+		if (keyUseRooms != null)
 		{
-			foreach (var pair in possibleKeyRoomsForPrimaryRoom)
+			foreach (var r in keyUseRooms)
 			{
-				Gizmos.color = GetColorFromHash(pair.Key.GetHashCode());
 				Gizmos.color = Color.red;
-				Gizmos.DrawSphere(pair.Key.center, 1);
-				foreach (var tert in pair.Value)
-				{
-					Gizmos.DrawLine(pair.Key.center, tert.center);
-					Gizmos.color = Color.yellow;
-					Gizmos.DrawSphere(tert.center, 1);
-				}
+				Gizmos.DrawSphere(r.center, 1);
 			}
 		}
-
-		// if (keyUseRooms != null)
-		// {
-		// 	foreach (var r in keyUseRooms)
-		// 	{
-		// 		Gizmos.color = Color.red;
-		// 		Gizmos.DrawSphere(r.center, 1);
-		// 	}
-		// }
-		//
-		// if (keyFindRooms != null)
-		// {
-		// 	foreach (var r in keyFindRooms)
-		// 	{
-		// 		Gizmos.color = Color.yellow;
-		// 		Gizmos.DrawSphere(r.center, 1);
-		// 	}
-		// }
+		
+		if (keyFindRooms != null)
+		{
+			foreach (var r in keyFindRooms)
+			{
+				Gizmos.color = Color.yellow;
+				Gizmos.DrawSphere(r.center, 1);
+			}
+		}
 	}
 
 	Color GetColorFromHash(int hash)
