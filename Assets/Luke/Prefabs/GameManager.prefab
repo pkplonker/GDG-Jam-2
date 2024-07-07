@@ -175,12 +175,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   contentCanvas: {fileID: 2281087690018392658}
   mainCanvas: {fileID: 8067334538660232323}
-  hideOnAwake: 0
+  hideOnAwake: 1
   animationSpeed: 0
   characterSelectionPanel: {fileID: 8396999008573453378}
   characterSelectionSingle: {fileID: 421642499321712567, guid: 3cffd5d1329eae3419b3ab72ef21852e,
     type: 3}
   activeCharacter: {fileID: 0}
+  pathCol: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0.5686275}
 --- !u!225 &8067334538660232323
 CanvasGroup:
   m_ObjectHideFlags: 0
