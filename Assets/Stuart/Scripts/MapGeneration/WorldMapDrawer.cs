@@ -13,9 +13,15 @@ public class WorldMapDrawer : MonoBehaviour
 
 	[SerializeField]
 	private FloorColors floorColors;
+
 	private void Awake()
 	{
 		MapGenerator.OnMapGenerated += OnMapGenerated;
+	}
+
+	private void OnDestroy()
+	{
+		MapGenerator.OnMapGenerated -= OnMapGenerated;
 	}
 
 	private void OnMapGenerated(MapGenerator mapGenerator)
@@ -28,7 +34,10 @@ public class WorldMapDrawer : MonoBehaviour
 	{
 		foreach (var t in transform.GetComponentsInChildren<Transform>().Where(x => x != transform))
 		{
-			Destroy(t.gameObject);
+			if (t != null && t.gameObject != null)
+			{
+				Destroy(t.gameObject);
+			}
 		}
 
 		var map = MapGenerator.aStarMap.map;
@@ -60,6 +69,7 @@ public class WorldMapDrawer : MonoBehaviour
 		{
 			sr.color = floorColors.Corridor;
 		}
+
 		node.Floor = sr;
 	}
 

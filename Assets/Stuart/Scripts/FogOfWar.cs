@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class FogOfWar : MonoBehaviour
 {
-	
 	public List<GameObject> characters;
 	public GameObject scoutObject;
 
@@ -19,7 +19,7 @@ public class FogOfWar : MonoBehaviour
 
 	[SerializeField]
 	private Color hiddenColor;
-	
+
 	[SerializeField]
 	private int normalRange = 3;
 
@@ -37,14 +37,21 @@ public class FogOfWar : MonoBehaviour
 		sr = GetComponent<SpriteRenderer>();
 	}
 
+	private void OnDestroy()
+	{
+		MapGenerator.OnMapGenerated -= OnMapGenerated;
+	}
+
 	private void Update()
 	{
+		if (characters == null || !characters.Any()) return;
 		Vector2Int pos = default;
 		foreach (var testObject in characters)
 		{
 			pos = testObject.transform.position.V2Int();
 			SetPosition(pos, normalRange);
 		}
+
 		pos = scoutObject.transform.position.V2Int();
 		SetPosition(pos, scoutRange);
 		tex.Apply();
@@ -52,7 +59,7 @@ public class FogOfWar : MonoBehaviour
 
 	private void SetPosition(Vector2Int pos, int size)
 	{
-		var halfSize = Mathf.FloorToInt((float)size / 2f);
+		var halfSize = Mathf.FloorToInt((float) size / 2f);
 		for (var x = -halfSize; x <= halfSize; x++)
 		{
 			for (var y = -halfSize; y <= halfSize; y++)
@@ -62,10 +69,11 @@ public class FogOfWar : MonoBehaviour
 
 				if (pixelX >= 0 && pixelX < width && pixelY >= 0 && pixelY < height)
 				{
-					if (Vector2Int.Distance(new Vector2Int(pixelX, pixelY),pos) > halfSize)
+					if (Vector2Int.Distance(new Vector2Int(pixelX, pixelY), pos) > halfSize)
 					{
 						continue;
 					}
+
 					tex.SetPixel(pixelX, pixelY, revealedColor);
 				}
 			}
@@ -94,7 +102,7 @@ public class FogOfWar : MonoBehaviour
 		SetPosition(obj.startRoom.bounds.center.V2Int(), startSize);
 		tex.Apply();
 	}
-	
+
 	private void OnDrawGizmos()
 	{
 		// if (mapGenerator != null)
