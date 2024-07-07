@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/CharacterUIData", order = 1)]
 public class CharacterUIDat : ScriptableObject
 {
+    public GameObject characterPrefab;
     public CharacterType type;
     public string chName;
     public string chDesc;

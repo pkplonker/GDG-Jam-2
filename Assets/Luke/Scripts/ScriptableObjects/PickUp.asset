@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: PickUp
   m_EditorClassIdentifier: Assembly-CSharp::CharacterUIDat
+  characterPrefab: {fileID: 8959822165854333339, guid: da52d8b739aa05b46b25e3eda7e5ceb0,
+    type: 3}
   type: 1
   chName: Pick Up
-  chDesc: 
+  chDesc: The Picker Upper
   chImage: {fileID: 0}

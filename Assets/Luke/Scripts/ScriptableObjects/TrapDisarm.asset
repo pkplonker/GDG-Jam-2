@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: TrapDisarm
   m_EditorClassIdentifier: Assembly-CSharp::CharacterUIDat
+  characterPrefab: {fileID: 6923453577515053497, guid: 1373e03e7fa3fbc43886ba95be50689e,
+    type: 3}
   type: 2
   chName: Trap Disarmer
-  chDesc: 
+  chDesc: The Trap Guy
   chImage: {fileID: 0}

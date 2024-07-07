@@ -63,7 +63,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 0}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
@@ -154,6 +154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ad02b698d04b4184b97159d57476627e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  allActiveCharacters: []
+  currActiveCharacter:
+    characterObj: {fileID: 0}
+    currentPosition: {x: 0, y: 0, z: 0}
+    characterType: 0
   allCharacters:
   - {fileID: 11400000, guid: 9ec76f487a062c245a6952138ff42e74, type: 2}
   - {fileID: 11400000, guid: 3173d36d43c9d7046a26a88834a5c652, type: 2}
@@ -162,6 +167,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9ec76f487a062c245a6952138ff42e74, type: 2}
   - {fileID: 11400000, guid: 3173d36d43c9d7046a26a88834a5c652, type: 2}
   - {fileID: 11400000, guid: 0e3fd8c56b3fcf64bbd0c2c7e8191c33, type: 2}
+  moveSpeed: 0.1
 --- !u!114 &6556651175556884974
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +188,7 @@ MonoBehaviour:
   characterSelectionSingle: {fileID: 421642499321712567, guid: 3cffd5d1329eae3419b3ab72ef21852e,
     type: 3}
   activeCharacter: {fileID: 0}
-  pathCol: {r: 0.5566038, g: 0.5566038, b: 0.5566038, a: 0.5686275}
+  pathCol: {r: 0.42930797, g: 0.8396226, b: 0.027723404, a: 1}
 --- !u!225 &8067334538660232323
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -351,7 +357,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 51.25
+  m_fontSize: 51.95
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -452,7 +458,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:

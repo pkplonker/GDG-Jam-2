@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameOverlay : UIComponent
 {
@@ -52,19 +53,21 @@ public class GameOverlay : UIComponent
 
     private void Update()
     {
-        if (generated)
+        if (generated && !EventSystem.current.IsPointerOverGameObject())
         {
-            
-            currMousePos = mainCam.ScreenToWorldPoint(Input.mousePosition+new Vector3(0,0,-mainCam.transform.position.z));
 
-            var points = MapGenerator.CalculatePath(mapGenerator.startRoom.bounds.position,currMousePos);
-            
+            currMousePos = mainCam.ScreenToWorldPoint(Input.mousePosition + new Vector3(0, 0, -mainCam.transform.position.z));
+
+            var points = MapGenerator.CalculatePath(chManager.currActiveCharacter.currentPosition, currMousePos);
+
             traversable = (points != null);
 
             if (traversable && !moving)
             {
-                startPos = new Vector2(mapGenerator.startRoom.bounds.position.x, mapGenerator.startRoom.bounds.position.y);
+                //startPos = new Vector2(chManager.currActiveCharacter.currentPosition.x, chManager.currActiveCharacter.currentPosition.y);
                 //Draw Line Points
+
+                points.Insert(0, chManager.currActiveCharacter.currentPosition);
 
                 //Debug.Log("Traversable");
                 lr.positionCount = points.Count;
@@ -82,9 +85,14 @@ public class GameOverlay : UIComponent
             {
                 //Debug.Log("Not Traversable");
                 lr.positionCount = 0;
-                lr.SetPositions(new Vector3[0]) ;
+                lr.SetPositions(new Vector3[0]);
             }
 
+        }
+        else
+        {
+            lr.positionCount = 0;
+            lr.SetPositions(new Vector3[0]);
         }
     }
 
@@ -114,8 +122,11 @@ public class GameOverlay : UIComponent
 
     private void OnSelectCharacter(CharacterUIDat dat)
     {
-        Debug.Log("Selected: " + dat.chName);
-        chManager.SetActiveCharacter(dat.type);
+        if (!moving)
+        {
+            Debug.Log("Selected: " + dat.chName);
+            chManager.SetActiveCharacter(dat.type);
+        }
     }
 
     private LineRenderer CreateLr(Vector2 pos)

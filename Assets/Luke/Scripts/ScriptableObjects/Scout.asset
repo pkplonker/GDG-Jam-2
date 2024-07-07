@@ -12,7 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 0}
   m_Name: Scout
   m_EditorClassIdentifier: Assembly-CSharp::CharacterUIDat
+  characterPrefab: {fileID: 2688030846483489930, guid: c5a4d1fe59e431e40b5b67387d1a1c3c,
+    type: 3}
   type: 0
   chName: Scout Drone
-  chDesc: 
+  chDesc: The Scout Drone
   chImage: {fileID: 0}
