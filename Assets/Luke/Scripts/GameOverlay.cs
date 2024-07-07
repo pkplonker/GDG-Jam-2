@@ -242,10 +242,10 @@ public class GameOverlay : UIComponent
 	public void PlayAgain()
 	{
 		var currentScene = sceneSeeds.currentSeed;
-		while (sceneSeeds.currentSeed != currentScene)
+		do
 		{
 			sceneSeeds.currentSeed = sceneSeeds.availableSeeds[Random.Range(0, sceneSeeds.availableSeeds.Count)];
-		}
+		} while (sceneSeeds.currentSeed != currentScene);
 
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}

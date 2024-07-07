@@ -58,6 +58,21 @@ public class CharacterManager : MonoBehaviour
 		MapGenerator.OnMapGenerated += GenerateCharacters;
 	}
 
+	private void OnDestroy()
+	{
+		MapGenerator.OnMapGenerated -= GenerateCharacters;
+		if (allActiveCharacters.Any())
+		{
+			foreach (var e in allActiveCharacters)
+			{
+				if (e?.characterObj != null)
+				{
+					Destroy(e?.characterObj);
+				}
+			}
+		}
+	}
+
 	private void GenerateCharacters(MapGenerator mapGen)
 	{
 		currMapGen = mapGen;
@@ -141,7 +156,7 @@ public class CharacterManager : MonoBehaviour
 					    (currActiveCharacter.characterType != CharacterType.EXPLOSIVE_TRAP_DISARM ||
 					     (trap.trapType == TrapType.Trap &&
 					      currActiveCharacter.characterType != CharacterType.TRAP_DISARM)) ||
-						  currActiveCharacter.characterType == CharacterType.PICKUP)
+					    currActiveCharacter.characterType == CharacterType.PICKUP)
 					{
 						OnTrapActivated();
 					}
@@ -199,10 +214,9 @@ public class CharacterManager : MonoBehaviour
 
 	private void OnTrapActivated()
 	{
-
 		Debug.Log("Activated Trap");
 		if (!hasLost)
-        {
+		{
 			hasLost = true;
 			//End The Game
 			AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.globalSoundList.explosion);
@@ -210,7 +224,6 @@ public class CharacterManager : MonoBehaviour
 			Debug.Log("Activated Trap");
 			GameObject.Find("GameManager").GetComponent<GameOverlay>().OnLoseGame();
 		}
-
 	}
 
 	private void OnTrophy()
@@ -224,7 +237,6 @@ public class CharacterManager : MonoBehaviour
 			hasWon = true;
 
 			GameObject.Find("GameManager").GetComponent<GameOverlay>().OnWinGame();
-
 		}
 	}
 
