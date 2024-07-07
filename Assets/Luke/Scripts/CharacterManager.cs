@@ -50,6 +50,7 @@ public class CharacterManager : MonoBehaviour
 	MapGenerator currMapGen;
 	FogOfWar fog;
 	private bool hasWon;
+	private bool hasLost;
 
 	private void Awake()
 	{
@@ -139,7 +140,8 @@ public class CharacterManager : MonoBehaviour
 					if (trap.trapType == TrapType.Explosives &&
 					    (currActiveCharacter.characterType != CharacterType.EXPLOSIVE_TRAP_DISARM ||
 					     (trap.trapType == TrapType.Trap &&
-					      currActiveCharacter.characterType != CharacterType.TRAP_DISARM)))
+					      currActiveCharacter.characterType != CharacterType.TRAP_DISARM)) ||
+						  currActiveCharacter.characterType == CharacterType.PICKUP)
 					{
 						OnTrapActivated();
 					}
@@ -197,10 +199,18 @@ public class CharacterManager : MonoBehaviour
 
 	private void OnTrapActivated()
 	{
-		//End The Game
-		AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.globalSoundList.explosion);
 
 		Debug.Log("Activated Trap");
+		if (!hasLost)
+        {
+			hasLost = true;
+			//End The Game
+			AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.globalSoundList.explosion);
+
+			Debug.Log("Activated Trap");
+			GameObject.Find("GameManager").GetComponent<GameOverlay>().OnLoseGame();
+		}
+
 	}
 
 	private void OnTrophy()
@@ -212,6 +222,9 @@ public class CharacterManager : MonoBehaviour
 
 			Debug.Log("Win");
 			hasWon = true;
+
+			GameObject.Find("GameManager").GetComponent<GameOverlay>().OnWinGame();
+
 		}
 	}
 

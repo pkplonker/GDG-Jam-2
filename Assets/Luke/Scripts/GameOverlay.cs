@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
 using Debug = UnityEngine.Debug;
@@ -40,6 +41,7 @@ public class GameOverlay : UIComponent
         mainCam = Camera.main;
 
         chManager = GetComponent<CharacterManager>();
+        endScreen.SetActive(false);
         MapGenerator.OnMapGenerated += OnMapFinishedGenerating;
     }
 
@@ -200,5 +202,37 @@ public class GameOverlay : UIComponent
         lr.useWorldSpace = true;
         lr.sortingOrder = 20;
         return lr;
+    }
+
+    public TextMeshProUGUI endTitle;
+    public TextMeshProUGUI endDesc;
+    public GameObject endScreen;
+    public void OnLoseGame()
+    {
+
+        endScreen.SetActive(true);
+
+        endDesc.text = "You triggered one of the traps!";
+        endTitle.text = "GAME OVER!";
+    }
+
+    public void OnWinGame()
+    {
+
+        endScreen.SetActive(true);
+
+        endDesc.text = "You successful finished the heist!";
+        endTitle.text = "YOU WIN!";
+    }
+
+    public void ReturnToMain()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+
+    public void PlayAgain()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
