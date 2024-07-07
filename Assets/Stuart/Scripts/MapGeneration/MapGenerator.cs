@@ -396,7 +396,7 @@ public class MapGenerator : MonoBehaviour
 					nodes.Add(node);
 					if (node.Floor != null)
 					{
-						node.Floor.color = floorColors.Trap;
+						
 					}
 				}
 			}
@@ -406,6 +406,7 @@ public class MapGenerator : MonoBehaviour
 		foreach (var n in t.nodes)
 		{
 			n.Trap = t;
+			n.Floor.color = t.trapType == TrapType.Trap ? floorColors.Trap : floorColors.ExplosiveTrap;
 		}
 
 		return t;

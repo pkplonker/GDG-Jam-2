@@ -42,4 +42,10 @@ public static class Extensions
 		return new Vector2Int(Mathf.RoundToInt(position.x),Mathf.RoundToInt(position.y));
 	}
 	
+	public static T GetRandomEnumValue<T>()
+	{
+		System.Array values = System.Enum.GetValues(typeof(T));
+		return (T)values.GetValue(UnityEngine.Random.Range(0, values.Length));
+	}
+	
 }

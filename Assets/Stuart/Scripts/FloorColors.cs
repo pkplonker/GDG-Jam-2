@@ -10,5 +10,6 @@ public class FloorColors : ScriptableObject
     public Color LockedFloor;
     public Color Corridor;
     public Color Trap;
+    public Color ExplosiveTrap;
 
 }
