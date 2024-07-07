@@ -70,6 +70,9 @@ public class MapGenerator : MonoBehaviour
 	private GameObject keyPrefab;
 
 	[SerializeField]
+	private GameObject trophyPrefab;
+
+	[SerializeField]
 	private int nunberOfTraps = 7;
 
 	private List<Trap> traps;
@@ -101,11 +104,37 @@ public class MapGenerator : MonoBehaviour
 				}
 
 				var node = MapData[checkPosition.x, checkPosition.y];
-				if (node.Trap!=null) return node.Trap;
+				if (node.Trap != null) return node.Trap;
 			}
 		}
 
 		return null;
+	}
+
+	public bool IsTrophy(Vector3 position, int range = 3)
+	{
+		var targetPos = position.V2Int();
+		var maxX = MapData.GetLength(0);
+		var maxY = MapData.GetLength(1);
+
+		var halfSize = Mathf.Min(Mathf.FloorToInt((float) range / 2f), 1);
+		for (var x = -halfSize; x <= halfSize; x++)
+		{
+			for (var y = -halfSize; y <= halfSize; y++)
+			{
+				var checkPosition = targetPos + new Vector2Int(x, y);
+				if (checkPosition.x < 0 || checkPosition.y < 0 || checkPosition.y > maxY - 1 ||
+				    checkPosition.x > maxX - 1)
+				{
+					continue;
+				}
+
+				var node = MapData[checkPosition.x, checkPosition.y];
+				if (node.Trophy != false) return true;
+			}
+		}
+
+		return false;
 	}
 
 	public bool IsRoom(Vector3 position, int range = 3)
@@ -212,7 +241,7 @@ public class MapGenerator : MonoBehaviour
 		var maxX = MapData.GetLength(0);
 		var maxY = MapData.GetLength(1);
 
-		var halfSize = Mathf.Min(Mathf.FloorToInt((float) range / 2f), 1);
+		var halfSize = Mathf.Max(Mathf.FloorToInt((float) range / 2f), 1);
 		for (var x = -halfSize; x <= halfSize; x++)
 		{
 			for (var y = -halfSize; y <= halfSize; y++)
@@ -268,7 +297,7 @@ public class MapGenerator : MonoBehaviour
 		var maxX = MapData.GetLength(0);
 		var maxY = MapData.GetLength(1);
 
-		var halfSize = Mathf.Min(Mathf.FloorToInt((float) range / 2f), 1);
+		var halfSize = Mathf.Max(Mathf.FloorToInt((float) range / 2f), 1);
 		for (var x = -halfSize; x <= halfSize; x++)
 		{
 			for (var y = -halfSize; y <= halfSize; y++)
@@ -330,10 +359,26 @@ public class MapGenerator : MonoBehaviour
 
 		DLA();
 		SetupKeyRooms();
+
+		SetupTrophy();
+
 		OnMapGenerated?.Invoke(this);
 		SetupTraps();
 		SetLockedRoomsToNonTraversable();
 		Debug.Log("Generated");
+	}
+
+	private void SetupTrophy()
+	{
+		var location = endRoom.bounds.center;
+		var go = Instantiate(trophyPrefab);
+		go.transform.SetParent(transform);
+		go.transform.position = location;
+		var sr = go.GetComponent<SpriteRenderer>();
+		sr.sortingOrder = 3;
+		var position = location.V2Int();
+
+		MapData[position.x, position.y].Trophy = sr;
 	}
 
 	private void SetupTraps()
@@ -404,10 +449,7 @@ public class MapGenerator : MonoBehaviour
 				{
 					node.IsTrap = true;
 					nodes.Add(node);
-					if (node.Floor != null)
-					{
-						
-					}
+					if (node.Floor != null) { }
 				}
 			}
 		}

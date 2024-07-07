@@ -617,6 +617,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: MapGenerator
       objectReference: {fileID: 0}
+    - target: {fileID: 8339255388049721740, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: trophyPrefab
+      value: 
+      objectReference: {fileID: 7655531361216794705, guid: 01ed266bbc573a7438dca11dc2fb366a,
+        type: 3}
     - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
         type: 3}
       propertyPath: m_LocalPosition.x

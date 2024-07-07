@@ -49,6 +49,7 @@ public class CharacterManager : MonoBehaviour
 
 	MapGenerator currMapGen;
 	FogOfWar fog;
+	private bool hasWon;
 
 	private void Awake()
 	{
@@ -99,7 +100,6 @@ public class CharacterManager : MonoBehaviour
 
 	public void MoveCurrentCharacter(List<Vector3> points)
 	{
-
 		StartCoroutine(StartMove(points, 1));
 
 		//StartCoroutine(TestMoveChar());
@@ -118,38 +118,47 @@ public class CharacterManager : MonoBehaviour
 			//Do Check for tile in MapGenerator
 			var trap = currMapGen.IsTrap(points[moveID]);
 			bool isTrap = trap != null;
-
-			if (currActiveCharacter.characterType == CharacterType.PICKUP)
+			var isTrophy = currMapGen.IsTrophy(points[moveID]);
+			if (isTrophy)
 			{
-				bool isKey = currMapGen.IsKey(points[moveID]);
-				if (isKey && currActiveCharacter.characterType == CharacterType.PICKUP)
+				OnTrophy();
+			}
+			else
+			{
+				if (currActiveCharacter.characterType == CharacterType.PICKUP)
 				{
-					OnPickUpKey(currActiveCharacter);
+					bool isKey = currMapGen.IsKey(points[moveID]);
+					if (isKey && currActiveCharacter.characterType == CharacterType.PICKUP)
+					{
+						OnPickUpKey(currActiveCharacter);
+					}
 				}
-			}
 
-			else if (isTrap && currActiveCharacter.characterType != CharacterType.SCOUT)
-			{
-				if (trap.trapType == TrapType.Explosives &&
-				    (currActiveCharacter.characterType != CharacterType.EXPLOSIVE_TRAP_DISARM ||
-				     (trap.trapType == TrapType.Trap &&
-				      currActiveCharacter.characterType != CharacterType.TRAP_DISARM)))
+				else if (isTrap && currActiveCharacter.characterType != CharacterType.SCOUT)
 				{
-					OnTrapActivated();
+					if (trap.trapType == TrapType.Explosives &&
+					    (currActiveCharacter.characterType != CharacterType.EXPLOSIVE_TRAP_DISARM ||
+					     (trap.trapType == TrapType.Trap &&
+					      currActiveCharacter.characterType != CharacterType.TRAP_DISARM)))
+					{
+						OnTrapActivated();
+					}
 				}
-			}
 
-			if (isTrap &&
-			    ((currActiveCharacter.characterType == CharacterType.TRAP_DISARM && trap.trapType == TrapType.Trap) ||
-			     (currActiveCharacter.characterType == CharacterType.EXPLOSIVE_TRAP_DISARM &&
-			      trap.trapType == TrapType.Explosives)))
-			{
-				OnTrapDisarmed(points[moveID], currActiveCharacter.range);
-			}
+				if (isTrap &&
+				    ((currActiveCharacter.characterType == CharacterType.TRAP_DISARM &&
+				      trap.trapType == TrapType.Trap) ||
+				     (currActiveCharacter.characterType == CharacterType.EXPLOSIVE_TRAP_DISARM &&
+				      trap.trapType == TrapType.Explosives)))
+				{
+					OnTrapDisarmed(points[moveID], currActiveCharacter.range);
+				}
 
-			if (currActiveCharacter.numKeys > 0)
-			{
-				if (currMapGen.TryUseKey(points[moveID], currActiveCharacter.range)) OnUnlockRoom(currActiveCharacter);
+				if (currActiveCharacter.numKeys > 0)
+				{
+					if (currMapGen.TryUseKey(points[moveID], currActiveCharacter.range))
+						OnUnlockRoom(currActiveCharacter);
+				}
 			}
 
 			StartCoroutine(StartMove(points, moveID + 1));
@@ -192,6 +201,18 @@ public class CharacterManager : MonoBehaviour
 		AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.globalSoundList.explosion);
 
 		Debug.Log("Activated Trap");
+	}
+
+	private void OnTrophy()
+	{
+		if (!hasWon)
+		{
+			//End The Game - Win
+			AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.globalSoundList.pickup);
+
+			Debug.Log("Win");
+			hasWon = true;
+		}
 	}
 
 	private IEnumerator TestMoveChar()

@@ -23,6 +23,7 @@ public class Node
 	public bool IsTrap;
 	public Room Room;
 	public Trap Trap;
+	public SpriteRenderer Trophy;
 	public bool IsRoom => cost == 10;
 	public bool IsCorridor => cost == 5;
 
