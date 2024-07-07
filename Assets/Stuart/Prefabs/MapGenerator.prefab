@@ -74,6 +74,7 @@ MonoBehaviour:
         m_Size: {x: 7, y: 4, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
     end:
       x: 4
       y: 33
@@ -89,6 +90,7 @@ MonoBehaviour:
         m_Size: {x: 7, y: 4, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
   - start:
       x: 4
       y: 33
@@ -104,6 +106,7 @@ MonoBehaviour:
         m_Size: {x: 7, y: 4, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
     end:
       x: 8
       y: 46
@@ -119,6 +122,7 @@ MonoBehaviour:
         m_Size: {x: 12, y: 6, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
   - start:
       x: 8
       y: 46
@@ -134,6 +138,7 @@ MonoBehaviour:
         m_Size: {x: 12, y: 6, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
     end:
       x: 21
       y: 46
@@ -149,6 +154,7 @@ MonoBehaviour:
         m_Size: {x: 11, y: 6, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
   - start:
       x: 21
       y: 46
@@ -164,6 +170,7 @@ MonoBehaviour:
         m_Size: {x: 11, y: 6, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
     end:
       x: 36
       y: 33
@@ -179,6 +186,7 @@ MonoBehaviour:
         m_Size: {x: 6, y: 4, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
   - start:
       x: 36
       y: 33
@@ -194,6 +202,7 @@ MonoBehaviour:
         m_Size: {x: 6, y: 4, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
     end:
       x: 47
       y: 33
@@ -209,6 +218,7 @@ MonoBehaviour:
         m_Size: {x: 12, y: 4, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
   - start:
       x: 47
       y: 33
@@ -224,6 +234,7 @@ MonoBehaviour:
         m_Size: {x: 12, y: 4, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
     end:
       x: 55
       y: 39
@@ -239,6 +250,7 @@ MonoBehaviour:
         m_Size: {x: 7, y: 4, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
   - start:
       x: 55
       y: 39
@@ -254,6 +266,7 @@ MonoBehaviour:
         m_Size: {x: 7, y: 4, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
     end:
       x: 59
       y: 19
@@ -269,6 +282,7 @@ MonoBehaviour:
         m_Size: {x: 12, y: 7, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
   - start:
       x: 59
       y: 19
@@ -284,6 +298,7 @@ MonoBehaviour:
         m_Size: {x: 12, y: 7, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
     end:
       x: 71
       y: 15
@@ -299,6 +314,7 @@ MonoBehaviour:
         m_Size: {x: 6, y: 9, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
   - start:
       x: 71
       y: 15
@@ -314,6 +330,7 @@ MonoBehaviour:
         m_Size: {x: 6, y: 9, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
     end:
       x: 76
       y: 25
@@ -329,6 +346,7 @@ MonoBehaviour:
         m_Size: {x: 12, y: 7, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
   - start:
       x: 76
       y: 25
@@ -344,6 +362,7 @@ MonoBehaviour:
         m_Size: {x: 12, y: 7, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
     end:
       x: 93
       y: 33
@@ -359,6 +378,7 @@ MonoBehaviour:
         m_Size: {x: 12, y: 4, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
   - start:
       x: 93
       y: 33
@@ -374,6 +394,7 @@ MonoBehaviour:
         m_Size: {x: 12, y: 4, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
     end:
       x: 59
       y: 6
@@ -389,6 +410,7 @@ MonoBehaviour:
         m_Size: {x: 12, y: 5, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
   - start:
       x: 59
       y: 6
@@ -404,6 +426,7 @@ MonoBehaviour:
         m_Size: {x: 12, y: 5, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
     end:
       x: 37
       y: 7
@@ -419,11 +442,14 @@ MonoBehaviour:
         m_Size: {x: 12, y: 6, z: 0}
       IsLocked: 0
       IsTrap: 0
+      Trophy: {fileID: 0}
   debug: 0
   dlaCycles: 1000
   floorColors: {fileID: 11400000, guid: 08cde85562399b54f901b5f0d512943f, type: 2}
   debugIndex: 0
   keyPrefab: {fileID: 7655531361216794705, guid: b5e4c1a5f6029154799f6e4d13a62a50,
+    type: 3}
+  trophyPrefab: {fileID: 7655531361216794705, guid: 01ed266bbc573a7438dca11dc2fb366a,
     type: 3}
   nunberOfTraps: 7
   closestTrapDistance: 12
