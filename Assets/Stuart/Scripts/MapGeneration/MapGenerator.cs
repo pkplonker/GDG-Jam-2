@@ -51,6 +51,7 @@ public class MapGenerator : MonoBehaviour
 
 	[SerializeField]
 	private FloorColors floorColors;
+
 	private List<Color> distinguishableColors = new()
 	{
 		Color.red, Color.green, Color.blue, Color.yellow, Color.magenta, Color.cyan,
@@ -65,6 +66,7 @@ public class MapGenerator : MonoBehaviour
 
 	private HashSet<Room> keyFindRooms;
 	private HashSet<Room> keyUseRooms;
+
 	[SerializeField]
 	private GameObject keyPrefab;
 
@@ -104,7 +106,27 @@ public class MapGenerator : MonoBehaviour
 		DLA();
 		SetupKeyRooms();
 		OnMapGenerated?.Invoke(this);
+		SetLockedRoomsToNonTraversable();
+		var path = CalculatePath(startRoom.bounds.center, endRoom.bounds.center);
 		Debug.Log("Generated");
+	}
+
+	private void SetLockedRoomsToNonTraversable()
+	{
+		foreach (var lockedRooms in primaryRooms.Where(x => x.Locked))
+		{
+			for (int x = 0; x < MapData.GetLength(0); x++)
+			{
+				for (int y = 0; y < MapData.GetLength(1); y++)
+				{
+					var node = MapData[x, y];
+					if (IsPointInBounds(node.position.ToV3Int(), lockedRooms.bounds))
+					{
+						node.walkable = false;
+					}
+				}
+			}
+		}
 	}
 
 	private void SetupKeyRooms()
@@ -145,6 +167,7 @@ public class MapGenerator : MonoBehaviour
 
 	public void LockRoom(Room room, bool setLock = true)
 	{
+		room.Locked = setLock;
 		for (int x = 0; x < MapData.GetLength(0); x++)
 		{
 			for (int y = 0; y < MapData.GetLength(1); y++)
@@ -210,7 +233,6 @@ public class MapGenerator : MonoBehaviour
 			{
 				if (IsPointInBounds(gridPoint, rn.bounds))
 				{
-					Debug.Log("Match");
 					result.Add(new Room() {bounds = rn.bounds});
 				}
 			}

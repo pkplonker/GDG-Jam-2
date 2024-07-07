@@ -5,6 +5,7 @@ using UnityEngine;
 public class Room : IEquatable<Room>
 {
 	public BoundsInt bounds;
+	public bool Locked;
 
 	private Vector3Int GetCenter() => bounds.position + (bounds.size / 2);
 
