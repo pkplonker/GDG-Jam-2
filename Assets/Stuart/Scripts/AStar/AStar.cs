@@ -59,12 +59,13 @@ public class AStar : MonoBehaviour
 
 	public List<Vector3> CalculatePath(AStarMap aStarMap, Vector2Int start, Vector2Int end) =>
 		CalculatePath(aStarMap, new Vector3(start.x, start.y, 0), new Vector3(end.x, end.y, 0));
-	
+
 	public List<Vector3> CalculatePath(AStarMap aStarMap, Vector3 start, Vector3 end)
 	{
 		aStarMap.ClearNodes();
-		startNode = aStarMap.GetNodeFromLocation(start);
-		endNode = aStarMap.GetNodeFromLocation(end);
+		Node startNode = aStarMap.GetNodeFromLocation(start);
+		Node endNode = aStarMap.GetNodeFromLocation(end);
+
 		if (startNode == null)
 		{
 			Debug.LogError("Failed to get start node");
@@ -83,33 +84,32 @@ public class AStar : MonoBehaviour
 			return null;
 		}
 
-		open = new();
-		closed = new();
+		List<Node> open = new List<Node>();
+		Dictionary<Node, int> closed = new Dictionary<Node, int>();
 		open.Add(startNode);
 		startNode.g = CalculateDistance(startNode, startNode) + startNode.cost; //dist from start
 		startNode.h = CalculateDistance(startNode, endNode);
-		while (open.Count > 0 && !closed.ContainsKey(endNode))
-		{
-			if (open.Count == 0)
-			{
-				Debug.Log("No more open nodes");
-				break;
-			}
 
+		Node closestNode = startNode;
+		float closestDistance = startNode.h;
+
+		while (open.Count > 0)
+		{
 			open = open.OrderBy(n => n.f).ToList();
-			var currentNode = open[0];
-			if (open.Contains(currentNode))
-				open.Remove(currentNode);
+			Node currentNode = open[0];
+			open.Remove(currentNode);
 			closed.Add(currentNode, 0);
+
 			if (currentNode == endNode)
 				return CalculateWaypoints(aStarMap, currentNode);
-			foreach (var neighbour in aStarMap.CalculateNeighbours(currentNode))
+
+			foreach (Node neighbour in aStarMap.CalculateNeighbours(currentNode))
 			{
-				if (!neighbour.walkable) continue;
-				if (closed.ContainsKey(neighbour)) continue;
-				var g = CalculateDistance(neighbour, currentNode) + currentNode.g; //dist from start
-				var h = CalculateDistance(neighbour, endNode);
-				//dist from end
+				if (!neighbour.walkable || closed.ContainsKey(neighbour)) continue;
+
+				float g = CalculateDistance(neighbour, currentNode) + currentNode.g; //dist from start
+				float h = CalculateDistance(neighbour, endNode); //dist from end
+
 				if (!open.Contains(neighbour))
 				{
 					neighbour.parent = currentNode;
@@ -123,16 +123,22 @@ public class AStar : MonoBehaviour
 					neighbour.g = g;
 					neighbour.h = h;
 				}
+
+				if (h < closestDistance)
+				{
+					closestDistance = h;
+					closestNode = neighbour;
+				}
 			}
 		}
 
-		return CalculateWaypoints(aStarMap, endNode);
+		return CalculateWaypoints(aStarMap, closestNode);
 	}
 
 	private float CalculateDistance(Node start, Node end)
 	{
-		var distanceX = Mathf.Abs(start.x - end.x);
-		var distanceY = Mathf.Abs(start.y - end.y);
+		float distanceX = Mathf.Abs(start.x - end.x);
+		float distanceY = Mathf.Abs(start.y - end.y);
 
 		if (distanceX > distanceY)
 			return 1.41421f * distanceY + 1 * (distanceX - distanceY);
@@ -142,12 +148,12 @@ public class AStar : MonoBehaviour
 	private List<Vector3> CalculateWaypoints(AStarMap aStarMap, Node node)
 	{
 		if (node.parent == null) return null;
-		List<Vector3> waypoints = new();
+		List<Vector3> waypoints = new List<Vector3>();
 		while (node.parent != null)
 		{
 			if (waypoints.Count > aStarMap.GetNodeCount())
 			{
-				Debug.LogError("in valid waypoint route");
+				Debug.LogError("Invalid waypoint route");
 				return null;
 			}
 
@@ -156,7 +162,6 @@ public class AStar : MonoBehaviour
 		}
 
 		waypoints.Reverse();
-		points = waypoints;
 		return waypoints;
 	}
 }

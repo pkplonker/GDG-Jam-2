@@ -51,6 +51,9 @@ public class MapGenerator : MonoBehaviour
 	private Dictionary<Room, HashSet<Room>> possibleKeyRoomsForPrimaryRoom;
 
 	[SerializeField]
+	private GameObject testObject;
+
+	[SerializeField]
 	private FloorColors floorColors;
 
 	private List<Color> distinguishableColors = new()
@@ -118,6 +121,7 @@ public class MapGenerator : MonoBehaviour
 		SetupTraps();
 		SetLockedRoomsToNonTraversable();
 		Debug.Log("Generated");
+		//var d = CalculatePath(startRoom.bounds.center, testObject.transform.position);
 	}
 
 	private void SetupTraps()
