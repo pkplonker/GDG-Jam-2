@@ -13,7 +13,8 @@ public class WorldMapDrawer : MonoBehaviour
 
 	[SerializeField]
 	private Color floorColor;
-
+	[SerializeField]
+	private Color lockedRoomColor;
 	private void Awake()
 	{
 		MapGenerator.OnMapGenerated += OnMapGenerated;
@@ -56,7 +57,7 @@ public class WorldMapDrawer : MonoBehaviour
 		go.transform.localScale = new Vector3(100, 100, 0);
 		var sr = go.AddComponent<SpriteRenderer>();
 		sr.sprite = floorSprite;
-		sr.color = floorColor;
+		sr.color = node.IsLocked ? lockedRoomColor : floorColor;
 		node.Floor = sr;
 	}
 
