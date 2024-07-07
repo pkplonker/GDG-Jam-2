@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/CharacterUIData", order = 1)]
+[CreateAssetMenu(fileName = "Data", menuName = "ScriptableObjects/CharacterUIData", order = 3)]
 public class CharacterUIDat : ScriptableObject
 {
     public GameObject characterPrefab;

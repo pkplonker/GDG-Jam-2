@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using TMPro;
 
 public class GameOverlay : UIComponent
 {
@@ -10,10 +11,10 @@ public class GameOverlay : UIComponent
 
     public RectTransform characterSelectionPanel;
     public GameObject characterSelectionSingle;
-
+    public TextMeshProUGUI moveCommandText;
 
     public CharacterSelectionSingle activeCharacter;
-
+    public List<CharacterSelectionSingle> allCharacters = new List<CharacterSelectionSingle>();
 
     bool generated;
     bool moving;
@@ -44,6 +45,8 @@ public class GameOverlay : UIComponent
         mapGenerator = mapGen;
         DisplayComponent(this,true);
         GenerateUI();
+        moveCommandText.gameObject.SetActive(false);
+        StartCoroutine(MovingTextChange());
         generated = true;
 
         chManager.OnFinishedMoving += SetAbleToMove;
@@ -78,6 +81,13 @@ public class GameOverlay : UIComponent
                     //Set waypoint
                     moving = true;
                     chManager.MoveCurrentCharacter(points);
+                    moveCommandText.gameObject.SetActive(true);
+
+                    foreach (CharacterSelectionSingle cs in allCharacters)
+                    { 
+                        cs.onSelectButton.interactable = false;
+                    }
+
                 }
 
             }
@@ -96,9 +106,25 @@ public class GameOverlay : UIComponent
         }
     }
 
+    private IEnumerator MovingTextChange()
+    {
+        yield return new WaitForSeconds(0.5f);
+        moveCommandText.text += ".";
+
+        if (moveCommandText.text == "Executing Move Command....") moveCommandText.text = "Executing Move Command";
+        StartCoroutine(MovingTextChange());
+    }
+
     private void SetAbleToMove()
     {
         moving = false;
+        moveCommandText.gameObject.SetActive(false);
+
+
+        foreach (CharacterSelectionSingle cs in allCharacters)
+        {
+            cs.onSelectButton.interactable = true;
+        }
     }
 
     private void GenerateUI()
@@ -117,15 +143,26 @@ public class GameOverlay : UIComponent
 
             go.GetComponent<CharacterSelectionSingle>().SetCharacter(currCharacter,OnSelectCharacter);
 
+            allCharacters.Add(go.GetComponent<CharacterSelectionSingle>());
+
         }
+        OnSelectCharacter(allCharacters[0]);
     }
 
-    private void OnSelectCharacter(CharacterUIDat dat)
+    private void OnSelectCharacter(CharacterSelectionSingle curr)
     {
         if (!moving)
         {
-            Debug.Log("Selected: " + dat.chName);
-            chManager.SetActiveCharacter(dat.type);
+            Debug.Log("Selected: " + curr.thisDat.chName);
+            chManager.SetActiveCharacter(curr.thisDat.type);
+
+            foreach (CharacterSelectionSingle cs in allCharacters)
+            {
+                cs.panelBG.color = new Color(0.8f, 0.8f, 0.8f);
+            }
+
+            curr.panelBG.color = Color.green;
+
         }
     }
 

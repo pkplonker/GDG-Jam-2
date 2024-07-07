@@ -8,15 +8,16 @@ using TMPro;
 
 public class CharacterSelectionSingle : MonoBehaviour
 {
+    public Image panelBG;
     public Image chImage;
     public TextMeshProUGUI chName;
     public TextMeshProUGUI chDesc;
 
     public Button onSelectButton;
 
-    private CharacterUIDat thisDat;
+    public CharacterUIDat thisDat;
 
-    public void SetCharacter(CharacterUIDat dat, Action<CharacterUIDat> OnSelect)
+    public void SetCharacter(CharacterUIDat dat, Action<CharacterSelectionSingle> OnSelect)
     {
         thisDat = dat;
 
@@ -24,6 +25,6 @@ public class CharacterSelectionSingle : MonoBehaviour
         chDesc.text = thisDat.chDesc;
         chImage.sprite = thisDat.chImage;
 
-        onSelectButton.onClick.AddListener(() => OnSelect(thisDat));
+        onSelectButton.onClick.AddListener(() => OnSelect(this));
     }
 }

@@ -419,6 +419,7 @@ MonoBehaviour:
   closeButton: {fileID: 9208006682147992709}
   settings: {fileID: 3555006082442080378}
   credits: {fileID: 7384483456629476574}
+  sceneSeeds: {fileID: 11400000, guid: c0e2633dbcd8537428ae40d15d80380a, type: 2}
 --- !u!225 &3074088759113256624
 CanvasGroup:
   m_ObjectHideFlags: 0

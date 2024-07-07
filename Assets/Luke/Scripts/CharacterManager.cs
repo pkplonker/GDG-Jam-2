@@ -39,8 +39,10 @@ public class CharacterManager : MonoBehaviour
     public float moveSpeed;
 
     MapGenerator currMapGen;
+    FogOfWar fog;
     private void Awake()
     {
+        fog = GameObject.Find("FogOfWar").GetComponent<FogOfWar>();
         MapGenerator.OnMapGenerated += GenerateCharacters;
 
     }
@@ -54,7 +56,7 @@ public class CharacterManager : MonoBehaviour
             Destroy(allActiveCharacters[i].characterObj);
         }
         allActiveCharacters.Clear();
-
+        fog.characters.Clear();
 
         int spawnId = 0;
         foreach(CharacterUIDat dat in availableCharacters)
@@ -64,6 +66,12 @@ public class CharacterManager : MonoBehaviour
             allActiveCharacters.Add(new ActiveCharacterData() { characterObj = go, characterType = dat.type, currentPosition = go.transform.position, range = dat.range });
 
             spawnId++;
+
+            if (dat.type == CharacterType.SCOUT)
+            {
+                fog.scoutObject = go;
+            }
+            else fog.characters.Add(go);
         }
 
         currActiveCharacter = allActiveCharacters[0];

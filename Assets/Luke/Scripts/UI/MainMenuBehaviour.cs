@@ -11,6 +11,8 @@ public class MainMenuBehaviour : UIComponent
     public SettingsMenuBehaviour settings;
     public CreditsMenuBehaviour credits;
 
+    public SceneSeeds sceneSeeds;
+
     protected override void Awake()
     {
         base.Awake();
@@ -25,7 +27,11 @@ public class MainMenuBehaviour : UIComponent
     {
         Debug.Log("Starting Game");
         //Select Seed
-        
+
+        sceneSeeds.currentSeed = sceneSeeds.availableSeeds[Random.Range(0,sceneSeeds.availableSeeds.Count)];
+
+
+
         SceneManager.LoadScene("GameScene");
     }
 

@@ -103,5 +103,5 @@ MonoBehaviour:
   revealedColor: {r: 0.23529413, g: 0.23529413, b: 0.23529413, a: 0}
   hiddenColor: {r: 0, g: 0, b: 0, a: 1}
   normalRange: 3
-  scoutRange: 5
+  scoutRange: 8
   startSize: 10
