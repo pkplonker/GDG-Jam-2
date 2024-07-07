@@ -32,8 +32,7 @@ public class MapGenerator : MonoBehaviour
 	public Room startRoom;
 	public Room endRoom;
 
-	[SerializeField]
-	private List<Room> primaryRooms;
+	private static List<Room> primaryRooms;
 
 	[SerializeField]
 	private List<Room> tertiaryRooms;
@@ -85,6 +84,145 @@ public class MapGenerator : MonoBehaviour
 	private void Start()
 	{
 		Generate();
+	}
+
+	public bool IsTrap(Vector3 position)
+	{
+		var v = position.V2Int();
+		return MapData[v.x, v.y].IsTrap;
+	}
+
+	public bool IsRoom(Vector3 position)
+	{
+		var v = position.V2Int();
+		return MapData[v.x, v.y].IsRoom;
+	}
+
+	public bool IsCorridor(Vector3 position)
+	{
+		var v = position.V2Int();
+		return MapData[v.x, v.y].IsCorridor;
+	}
+
+	public bool IsLocked(Vector3 position)
+	{
+		var v = position.V2Int();
+		return MapData[v.x, v.y].IsLocked;
+	}
+
+	public bool IsKey(Vector3 position)
+	{
+		var v = position.V2Int();
+		return MapData[v.x, v.y].Prop != null;
+	}
+
+	/// <summary>
+	/// return true if key is used and room is unlocked
+	/// </summary>
+	/// <param name="position"></param>
+	/// <param name="range"></param>
+	/// <returns></returns>
+	public bool TryUseKey(Vector3 position, int range)
+	{
+		var v = position.V2Int();
+		var maxX = MapData.GetLength(0);
+		var maxY = MapData.GetLength(1);
+
+		var halfSize = Mathf.FloorToInt((float) range / 2f);
+		for (var x = -halfSize; x <= halfSize; x++)
+		{
+			for (var y = -halfSize; y <= halfSize; y++)
+			{
+				var pos = v + new Vector2Int(x, y);
+				if (pos.x < 0 || pos.y < 0 || pos.y > maxY - 1 || pos.x > maxX - 1)
+				{
+					continue;
+				}
+
+				var node = MapData[pos.x, pos.y];
+				if (node != null && node.IsLocked)
+				{
+					return UnlockRoom(node);
+				}
+			}
+		}
+
+		return false;
+	}
+
+	private bool UnlockRoom(Node node)
+	{
+		foreach (var lockedRoom in primaryRooms.Where(x => x.Locked))
+		{
+			if (IsPointInBounds(node.position.ToV3Int(), lockedRoom.bounds))
+			{
+				lockedRoom.Locked = false;
+				foreach (var n in lockedRoom.Nodes)
+				{
+					n.IsLocked = false;
+					n.Floor.color = floorColors.Floor;
+				}
+
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/// <summary>
+	/// return true if trap is disarmed
+	/// </summary>
+	/// <param name="position"></param>
+	/// <param name="range"></param>
+	/// <returns></returns>
+	public bool TryDisarm(Vector3 position, int range)
+	{
+		var v = position.V2Int();
+		var maxX = MapData.GetLength(0);
+		var maxY = MapData.GetLength(1);
+
+		var halfSize = Mathf.FloorToInt((float) range / 2f);
+		for (var x = -halfSize; x <= halfSize; x++)
+		{
+			for (var y = -halfSize; y <= halfSize; y++)
+			{
+				var pos = v + new Vector2Int(x, y);
+				if (pos.x < 0 || pos.y < 0 || pos.y > maxY - 1 || pos.x > maxX - 1)
+				{
+					continue;
+				}
+
+				var node = MapData[pos.x, pos.y];
+				if (node != null && node.IsTrap)
+				{
+					return DisarmTrap(node);
+				}
+			}
+		}
+
+		return false;
+	}
+
+	private bool DisarmTrap(Node node)
+	{
+		foreach (var lockedRoom in primaryRooms.Where(x => x.Locked))
+		{
+			if (IsPointInBounds(node.position.ToV3Int(), lockedRoom.bounds))
+			{
+				lockedRoom.Locked = false;
+				foreach (var n in lockedRoom.Nodes)
+				{
+					n.IsTrap = false;
+					n.Trap = null;
+					n.Floor.color = floorColors.Corridor;
+				}
+
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	public static List<Vector3> CalculatePath(Vector3 start, Vector3 end) => aStar.CalculatePath(aStarMap, start, end);
@@ -186,6 +324,7 @@ public class MapGenerator : MonoBehaviour
 				{
 					continue;
 				}
+
 				var node = MapData[candidate.x + x, candidate.y + y];
 				if (node.IsCorridor)
 				{
@@ -199,7 +338,13 @@ public class MapGenerator : MonoBehaviour
 			}
 		}
 
-		return new Trap(nodes);
+		var t = new Trap(nodes);
+		foreach (var n in t.nodes)
+		{
+			n.Trap = t;
+		}
+
+		return t;
 	}
 
 	private void SetLockedRoomsToNonTraversable()
@@ -253,10 +398,14 @@ public class MapGenerator : MonoBehaviour
 		var go = Instantiate(keyPrefab);
 		go.transform.SetParent(transform);
 		go.transform.position = room.bounds.center;
-		go.GetComponent<SpriteRenderer>().sortingOrder = 3;
+		var sr = go.GetComponent<SpriteRenderer>();
+		sr.sortingOrder = 3;
+		var position = room.bounds.center.V2Int();
+
+		MapData[position.x, position.y].Prop = sr;
 	}
 
-	public void LockRoom(Room room, bool setLock = true)
+	private void LockRoom(Room room, bool setLock = true)
 	{
 		room.Locked = setLock;
 		for (int x = 0; x < MapData.GetLength(0); x++)
@@ -369,7 +518,7 @@ public class MapGenerator : MonoBehaviour
 		return null;
 	}
 
-	private bool IsPointInBounds(Vector3Int point, BoundsInt bounds) =>
+	private static bool IsPointInBounds(Vector3Int point, BoundsInt bounds) =>
 		point.x >= bounds.xMin && point.x <= bounds.xMax &&
 		point.y >= bounds.yMin && point.y <= bounds.yMax;
 
@@ -473,7 +622,7 @@ public class MapGenerator : MonoBehaviour
 		return result;
 	}
 
-	public List<Room> GenerateRoomSubset(List<Room> rooms)
+	private List<Room> GenerateRoomSubset(List<Room> rooms)
 	{
 		List<Room> shuffledRooms = rooms.OrderBy(r => UnityEngine.Random.Range(0, 10000)).ToList();
 

@@ -31,7 +31,10 @@ public class AStarMap : MonoBehaviour
 			{
 				for (int y = 0; y < room.bounds.size.y; y++)
 				{
-					map[room.bounds.min.x + x, room.bounds.min.y + y].cost = 10;
+					var node = map[room.bounds.min.x + x, room.bounds.min.y + y];
+					node.cost = 10;
+					node.Room = room;
+					room.Nodes.Add(node);
 				}
 			}
 		}

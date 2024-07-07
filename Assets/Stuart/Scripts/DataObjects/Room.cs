@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -6,6 +7,7 @@ public class Room : IEquatable<Room>
 {
 	public BoundsInt bounds;
 	public bool Locked;
+	public List<Node> Nodes = new ();
 
 	private Vector3Int GetCenter() => bounds.position + (bounds.size / 2);
 
