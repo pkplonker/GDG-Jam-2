@@ -109,10 +109,10 @@ public class FogOfWar : MonoBehaviour
 
 	private void OnDrawGizmos()
 	{
-		if (mapGenerator != null)
-		{
-			Gizmos.color = Color.red;
-			Gizmos.DrawSphere(mapGenerator.startRoom.bounds.center, 1f);
-		}
+		// if (mapGenerator != null)
+		// {
+		// 	Gizmos.color = Color.red;
+		// 	Gizmos.DrawSphere(mapGenerator.startRoom.bounds.center, 1f);
+		// }
 	}
 }
