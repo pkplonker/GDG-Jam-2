@@ -4,173 +4,186 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
-
-public enum CharacterType { SCOUT,PICKUP,TRAP_DISARM}
+public enum CharacterType
+{
+	SCOUT,
+	PICKUP,
+	TRAP_DISARM
+}
 
 [System.Serializable]
 public class ActiveCharacterData
 {
-    public GameObject characterObj;
-    public Vector3 currentPosition;
-    public CharacterType characterType;
+	public GameObject characterObj;
+	public Vector3 currentPosition;
+	public CharacterType characterType;
 
-    public int numKeys = 0;
-    public int range;
+	public int numKeys = 0;
+	public int range;
 }
+
 public class CharacterManager : MonoBehaviour
 {
-    Vector2Int[] startPos = {   new Vector2Int(0, 1),
-                                new Vector2Int(0, -1),
-                                new Vector2Int(1, 0),
-                                new Vector2Int(-1, 0),
-                                new Vector2Int(1, 1),
-                                new Vector2Int(-1, 1),
-                                new Vector2Int(-1, -1),
-                                new Vector2Int(1, -1)};
+	Vector2Int[] startPos =
+	{
+		new Vector2Int(0, 1),
+		new Vector2Int(0, -1),
+		new Vector2Int(1, 0),
+		new Vector2Int(-1, 0),
+		new Vector2Int(1, 1),
+		new Vector2Int(-1, 1),
+		new Vector2Int(-1, -1),
+		new Vector2Int(1, -1)
+	};
 
-    public List<ActiveCharacterData> allActiveCharacters = new List<ActiveCharacterData>();
-    public ActiveCharacterData currActiveCharacter;
+	public List<ActiveCharacterData> allActiveCharacters = new List<ActiveCharacterData>();
+	public ActiveCharacterData currActiveCharacter;
 
-    public List<CharacterUIDat> allCharacters;
-    public List<CharacterUIDat> availableCharacters;
+	public List<CharacterUIDat> allCharacters;
+	public List<CharacterUIDat> availableCharacters;
 
-    public event Action OnFinishedMoving;
+	public event Action OnFinishedMoving;
 
-    public float moveSpeed;
+	public float moveSpeed;
 
-    MapGenerator currMapGen;
-    FogOfWar fog;
-    private void Awake()
-    {
-        fog = GameObject.Find("FogOfWar").GetComponent<FogOfWar>();
-        MapGenerator.OnMapGenerated += GenerateCharacters;
+	MapGenerator currMapGen;
+	FogOfWar fog;
 
-    }
+	private void Awake()
+	{
+		fog = GameObject.Find("FogOfWar").GetComponent<FogOfWar>();
+		MapGenerator.OnMapGenerated += GenerateCharacters;
+	}
 
-    private void GenerateCharacters(MapGenerator mapGen)
-    {
-        currMapGen = mapGen;
+	private void GenerateCharacters(MapGenerator mapGen)
+	{
+		currMapGen = mapGen;
 
-        for (int i = 0; i<allActiveCharacters.Count;i++)
-        {
-            Destroy(allActiveCharacters[i].characterObj);
-        }
-        allActiveCharacters.Clear();
-        fog.characters.Clear();
+		for (int i = 0; i < allActiveCharacters.Count; i++)
+		{
+			Destroy(allActiveCharacters[i].characterObj);
+		}
 
-        int spawnId = 0;
-        foreach(CharacterUIDat dat in availableCharacters)
-        {
-            GameObject go = Instantiate(dat.characterPrefab, mapGen.startRoom.bounds.center + new Vector3(startPos[spawnId].x, startPos[spawnId].y,0),Quaternion.identity);
+		allActiveCharacters.Clear();
+		fog.characters.Clear();
 
-            allActiveCharacters.Add(new ActiveCharacterData() { characterObj = go, characterType = dat.type, currentPosition = go.transform.position, range = dat.range });
+		int spawnId = 0;
+		foreach (CharacterUIDat dat in availableCharacters)
+		{
+			GameObject go = Instantiate(dat.characterPrefab,
+				mapGen.startRoom.bounds.center + new Vector3(startPos[spawnId].x, startPos[spawnId].y, 0),
+				Quaternion.identity);
 
-            spawnId++;
+			allActiveCharacters.Add(new ActiveCharacterData()
+			{
+				characterObj = go, characterType = dat.type, currentPosition = go.transform.position, range = dat.range
+			});
 
-            if (dat.type == CharacterType.SCOUT)
-            {
-                fog.scoutObject = go;
-            }
-            else fog.characters.Add(go);
-        }
+			spawnId++;
 
-        currActiveCharacter = allActiveCharacters[0];
-    }
+			if (dat.type == CharacterType.SCOUT)
+			{
+				fog.scoutObject = go;
+			}
+			else fog.characters.Add(go);
+		}
 
-    public void SetActiveCharacter(CharacterType ch)
-    {
-        currActiveCharacter = allActiveCharacters.FirstOrDefault(x => x.characterType == ch);
-    }
+		currActiveCharacter = allActiveCharacters[0];
+	}
 
-    public void MoveCurrentCharacter(List<Vector3> points)
-    {
+	public void SetActiveCharacter(CharacterType ch)
+	{
+		currActiveCharacter = allActiveCharacters.FirstOrDefault(x => x.characterType == ch);
+	}
 
-        Debug.Log("Moving Character");
+	public void MoveCurrentCharacter(List<Vector3> points)
+	{
+		Debug.Log("Moving Character");
 
-        StartCoroutine(StartMove(points,1));
+		StartCoroutine(StartMove(points, 1));
 
-        //StartCoroutine(TestMoveChar());
-    }
+		//StartCoroutine(TestMoveChar());
+	}
 
+	private IEnumerator StartMove(List<Vector3> points, int moveID)
+	{
+		yield return new WaitForSeconds(moveSpeed);
 
+		if (moveID == points.Count) OnFinishedMoving?.Invoke();
+		else
+		{
+			currActiveCharacter.currentPosition = points[moveID];
+			currActiveCharacter.characterObj.transform.position = points[moveID];
 
-    private IEnumerator StartMove(List<Vector3> points, int moveID)
-    {
-        yield return new WaitForSeconds(moveSpeed);
+			//Do Check for tile in MapGenerator
 
-        if(moveID == points.Count) OnFinishedMoving?.Invoke();
-        else
-        {
-            currActiveCharacter.currentPosition = points[moveID];
-            currActiveCharacter.characterObj.transform.position = points[moveID];
+			bool isTrap = currMapGen.IsTrap(points[moveID]);
+			Debug.Log(isTrap);
+			if (currActiveCharacter.characterType == CharacterType.PICKUP)
+			{
+				bool isKey = currMapGen.IsKey(points[moveID]);
+				if (isKey && currActiveCharacter.characterType == CharacterType.PICKUP)
+				{
+					OnPickUpKey(currActiveCharacter);
+				}
+			}
 
-            //Do Check for tile in MapGenerator
+			else if (isTrap && !(currActiveCharacter.characterType == CharacterType.TRAP_DISARM ||
+			                     currActiveCharacter.characterType == CharacterType.SCOUT))
+			{
+				OnTrapActivated();
+			}
 
-            bool isKey = currMapGen.IsKey(points[moveID]);
-            bool isTrap = currMapGen.IsTrap(points[moveID]);
-            Debug.Log(isTrap);
-            if(isKey && currActiveCharacter.characterType == CharacterType.PICKUP)
-            {
-                OnPickUpKey(currActiveCharacter);
-            }
-            else if(isTrap && !(currActiveCharacter.characterType == CharacterType.TRAP_DISARM || currActiveCharacter.characterType == CharacterType.SCOUT))
-            {
-                OnTrapActivated();
-            }
+			if (isTrap && currActiveCharacter.characterType == CharacterType.TRAP_DISARM)
+			{
+				OnTrapDisarmed(points[moveID], currActiveCharacter.range);
+			}
 
-            if(isTrap && currActiveCharacter.characterType == CharacterType.TRAP_DISARM)
-            {
-                OnTrapDisarmed(points[moveID],currActiveCharacter.range);
-            }
+			if (currActiveCharacter.numKeys > 0)
+			{
+				if (currMapGen.TryUseKey(points[moveID], currActiveCharacter.range)) OnUnlockRoom(currActiveCharacter);
+			}
 
-            if(currActiveCharacter.numKeys > 0)
-            {
-                if (currMapGen.TryUseKey(points[moveID], currActiveCharacter.range)) OnUnlockRoom(currActiveCharacter);
-            }
+			StartCoroutine(StartMove(points, moveID + 1));
+		}
+	}
 
+	private void OnPickUpKey(ActiveCharacterData character)
+	{
+		character.numKeys++;
 
-            StartCoroutine(StartMove(points,moveID+1));
-        }
+		//Play Sound
+		Debug.Log("Picking Up Key");
+	}
 
-    }
+	private void OnUnlockRoom(ActiveCharacterData character)
+	{
+		character.numKeys--;
 
+		Debug.Log("Unlocking Room");
+	}
 
-    private void OnPickUpKey(ActiveCharacterData character)
-    {
-        character.numKeys++;
+	private void OnTrapDisarmed(Vector3 position, int range)
+	{
+		Debug.Log("Trying to Disarm Trap");
+		if (currMapGen.TryDisarm(position, range))
+		{
+			//Play Sound
 
-        //Play Sound
-        Debug.Log("Picking Up Key");
-    }
-    private void OnUnlockRoom(ActiveCharacterData character)
-    {
-        character.numKeys--;
+			Debug.Log("Disarming Trap");
+		}
+	}
 
-        Debug.Log("Unlocking Room");
-    }
+	private void OnTrapActivated()
+	{
+		//End The Game
 
-    private void OnTrapDisarmed(Vector3 position, int range)
-    {
+		Debug.Log("Activated Trap");
+	}
 
-        Debug.Log("Trying to Disarm Trap");
-        if (currMapGen.TryDisarm(position, range))
-        {
-            //Play Sound
-
-            Debug.Log("Disarming Trap");
-        }
-    }
-
-    private void OnTrapActivated()
-    {
-        //End The Game
-
-        Debug.Log("Activated Trap");
-    }
-
-    private IEnumerator TestMoveChar()
-    {
-        yield return new WaitForSeconds(1);
-        OnFinishedMoving?.Invoke();
-    }
+	private IEnumerator TestMoveChar()
+	{
+		yield return new WaitForSeconds(1);
+		OnFinishedMoving?.Invoke();
+	}
 }
