@@ -18,3 +18,4 @@ MonoBehaviour:
   chName: Scout Drone
   chDesc: The Scout Drone
   chImage: {fileID: 0}
+  range: 5

@@ -18,3 +18,4 @@ MonoBehaviour:
   chName: Pick Up
   chDesc: The Picker Upper
   chImage: {fileID: 0}
+  range: 1

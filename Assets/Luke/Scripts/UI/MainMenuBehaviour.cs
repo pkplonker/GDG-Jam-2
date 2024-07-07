@@ -24,9 +24,9 @@ public class MainMenuBehaviour : UIComponent
     public void OnStartGame()
     {
         Debug.Log("Starting Game");
+        //Select Seed
         
-        
-        //SceneManager.LoadScene("Level1");
+        SceneManager.LoadScene("GameScene");
     }
 
     public void OnSettings()

@@ -18,3 +18,4 @@ MonoBehaviour:
   chName: Trap Disarmer
   chDesc: The Trap Guy
   chImage: {fileID: 0}
+  range: 1

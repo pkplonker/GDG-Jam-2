@@ -13,6 +13,9 @@ public class ActiveCharacterData
     public GameObject characterObj;
     public Vector3 currentPosition;
     public CharacterType characterType;
+
+    public int numKeys = 0;
+    public int range;
 }
 public class CharacterManager : MonoBehaviour
 {
@@ -58,7 +61,7 @@ public class CharacterManager : MonoBehaviour
         {
             GameObject go = Instantiate(dat.characterPrefab, mapGen.startRoom.bounds.center + new Vector3(startPos[spawnId].x, startPos[spawnId].y,0),Quaternion.identity);
 
-            allActiveCharacters.Add(new ActiveCharacterData() { characterObj = go, characterType = dat.type, currentPosition = go.transform.position });
+            allActiveCharacters.Add(new ActiveCharacterData() { characterObj = go, characterType = dat.type, currentPosition = go.transform.position, range = dat.range });
 
             spawnId++;
         }
@@ -95,6 +98,27 @@ public class CharacterManager : MonoBehaviour
 
             //Do Check for tile in MapGenerator
 
+            bool isKey = currMapGen.IsKey(points[moveID]);
+            bool isTrap = currMapGen.IsTrap(points[moveID]);
+            Debug.Log(isTrap);
+            if(isKey && currActiveCharacter.characterType == CharacterType.PICKUP)
+            {
+                OnPickUpKey(currActiveCharacter);
+            }
+            else if(isTrap && !(currActiveCharacter.characterType == CharacterType.TRAP_DISARM || currActiveCharacter.characterType == CharacterType.SCOUT))
+            {
+                OnTrapActivated();
+            }
+
+            if(isTrap && currActiveCharacter.characterType == CharacterType.TRAP_DISARM)
+            {
+                OnTrapDisarmed(points[moveID],currActiveCharacter.range);
+            }
+
+            if(currActiveCharacter.numKeys > 0)
+            {
+                if (currMapGen.TryUseKey(points[moveID], currActiveCharacter.range)) OnUnlockRoom(currActiveCharacter);
+            }
 
 
             StartCoroutine(StartMove(points,moveID+1));
@@ -102,6 +126,39 @@ public class CharacterManager : MonoBehaviour
 
     }
 
+
+    private void OnPickUpKey(ActiveCharacterData character)
+    {
+        character.numKeys++;
+
+        //Play Sound
+        Debug.Log("Picking Up Key");
+    }
+    private void OnUnlockRoom(ActiveCharacterData character)
+    {
+        character.numKeys--;
+
+        Debug.Log("Unlocking Room");
+    }
+
+    private void OnTrapDisarmed(Vector3 position, int range)
+    {
+
+        Debug.Log("Trying to Disarm Trap");
+        if (currMapGen.TryDisarm(position, range))
+        {
+            //Play Sound
+
+            Debug.Log("Disarming Trap");
+        }
+    }
+
+    private void OnTrapActivated()
+    {
+        //End The Game
+
+        Debug.Log("Activated Trap");
+    }
 
     private IEnumerator TestMoveChar()
     {

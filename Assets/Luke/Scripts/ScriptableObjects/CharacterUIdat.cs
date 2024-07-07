@@ -10,4 +10,5 @@ public class CharacterUIDat : ScriptableObject
     public string chName;
     public string chDesc;
     public Sprite chImage;
+    public int range;
 }
