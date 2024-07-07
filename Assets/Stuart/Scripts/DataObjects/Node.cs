@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [Serializable]
@@ -9,12 +10,17 @@ public class Node
 	public int y;
 	public bool walkable;
 	public float f => g + h;
+	public List<LineRenderer> Walls = new();
+	public SpriteRenderer Floor;
+	public SpriteRenderer Prop;
 
 	public float g; //distance from start
 	public float h; //estimated distance from end
 	public Node parent = null;
-	public int cost =0;
+	public int cost = 0;
 	public BoundsInt bounds;
+	public bool IsRoom => cost == 10;
+	public bool IsCorridor => cost == 5;
 
 	public Node(int x, int y, bool walkable)
 	{

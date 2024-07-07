@@ -41,13 +41,13 @@ public class WorldMapDrawer : MonoBehaviour
 				GenerateWall(map, x, y);
 				if (node.walkable)
 				{
-					CreateSprite(node);
+					CreateFloorSprite(node);
 				}
 			}
 		}
 	}
 
-	private void CreateSprite(Node node)
+	private void CreateFloorSprite(Node node)
 	{
 		var go = new GameObject();
 		go.name = "Floor";
@@ -57,6 +57,7 @@ public class WorldMapDrawer : MonoBehaviour
 		var sr = go.AddComponent<SpriteRenderer>();
 		sr.sprite = floorSprite;
 		sr.color = floorColor;
+		node.Floor = sr;
 	}
 
 	private void GenerateWall(Node[,] map, int x, int y)
@@ -75,6 +76,7 @@ public class WorldMapDrawer : MonoBehaviour
 			lr.positionCount = positions.Count;
 			lr.SetPositions(positions.ToArray());
 			debugCentres.Add(new Vector3(startPos.x, startPos.y, 0));
+			node.Walls.Add(lr);
 		}
 
 		if (y < map.GetLength(1) - 1)

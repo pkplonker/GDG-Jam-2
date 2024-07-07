@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AStarMap))]
 public class MapGenerator : MonoBehaviour
@@ -45,8 +46,22 @@ public class MapGenerator : MonoBehaviour
 
 	public static Node[,] MapData => aStarMap.map;
 	public static event Action<MapGenerator> OnMapGenerated;
-	private Dictionary<BoundsInt, HashSet<BoundsInt>> primaryRoomsToTertiaryRoom;
-	private Dictionary<BoundsInt, HashSet<BoundsInt>> tertiaryRoomsToPrimaryRoom;
+	private Dictionary<BoundsInt, HashSet<BoundsInt>> possibleKeyRoomsForPrimaryRoom;
+
+	private List<Color> distinguishableColors = new()
+	{
+		Color.red, Color.green, Color.blue, Color.yellow, Color.magenta, Color.cyan,
+		new(1.0f, 0.5f, 0.0f),
+		new(0.5f, 0.0f, 0.5f),
+		new(0.0f, 0.5f, 0.5f),
+		Color.gray
+	};
+
+	[SerializeField]
+	private int debugIndex;
+
+	private HashSet<BoundsInt> keyFindRooms;
+	private HashSet<BoundsInt> keyUseRooms;
 
 	private void Start()
 	{
@@ -79,44 +94,53 @@ public class MapGenerator : MonoBehaviour
 		primaryRooms = IdentifyPrimaryRooms(roomNodes);
 		tertiaryRooms = offsetRooms.Except(primaryRooms).ToList();
 
-		primaryRoomsToTertiaryRoom = new Dictionary<BoundsInt, HashSet<BoundsInt>>();
-		tertiaryRoomsToPrimaryRoom = new Dictionary<BoundsInt, HashSet<BoundsInt>>();
-
-		foreach (var tertRoom in tertiaryRooms)
-		{
-			var path = CalculatePath(tertRoom.center, startRoom.center);
-
-			primaryRoomsToTertiaryRoom.Add(tertRoom,
-				GetRoomsFromPath(path, roomNodes).Where(x => primaryRooms.Contains(x)).ToHashSet());
-		}
-
-		foreach (var primaryRoom in primaryRooms)
-		{
-			var result = new HashSet<BoundsInt>(tertiaryRooms);
-			foreach (var element in primaryRoomsToTertiaryRoom)
-			{
-				if (element.Value.Contains(primaryRoom))
-				{
-					result.Remove(element.Key);
-				}
-			}
-
-			if (result.Any())
-			{
-				tertiaryRoomsToPrimaryRoom.Add(primaryRoom, result);
-			}
-		}
+		CreateRoomDictionaries(roomNodes);
 
 		DLA();
-
+		SpawnKeys();
 		OnMapGenerated?.Invoke(this);
 		Debug.Log("Generated");
 	}
 
+	private void SpawnKeys()
+	{
+		keyUseRooms = possibleKeyRoomsForPrimaryRoom.SelectMany(x => x.Value).ToHashSet();
+		keyFindRooms = possibleKeyRoomsForPrimaryRoom.Select(x => x.Key).ToHashSet();
+		
+	}
+
+	/// <summary>
+	/// This isn't 100% accurate as it's using pathing and not graphing in a conventional sense
+	/// So can miss rooms, but the inaccuracy will not cause an invalid result, only missed ones
+	/// </summary>
+	/// <param name="roomNodes"></param>
+	private void CreateRoomDictionaries(IEnumerable<Node> roomNodes)
+	{
+		possibleKeyRoomsForPrimaryRoom = new Dictionary<BoundsInt, HashSet<BoundsInt>>();
+		foreach (var pr in primaryRooms.Where(x => x.center != startRoom.center))
+		{
+			possibleKeyRoomsForPrimaryRoom.Add(pr, new HashSet<BoundsInt>());
+		}
+
+		foreach (var tertRoom in tertiaryRooms)
+		{
+			var path = CalculatePath(tertRoom.center, startRoom.center);
+			var primaryRoomsOnRoute = GetRoomsFromPath(path, roomNodes);
+
+			var primaryRoomsAfter = primaryRooms.Except(primaryRoomsOnRoute);
+			foreach (var pr in primaryRoomsAfter)
+			{
+				possibleKeyRoomsForPrimaryRoom[pr].Add(tertRoom);
+			}
+		}
+
+		possibleKeyRoomsForPrimaryRoom = possibleKeyRoomsForPrimaryRoom
+			.Where(x => x.Value.Any())
+			.ToDictionary(x => x.Key, x => x.Value);
+	}
+
 	private List<BoundsInt> IdentifyPrimaryRooms(IEnumerable<Node> roomNodes)
 	{
-		var result = new HashSet<BoundsInt>();
-
 		pathPoints = CalculatePath(startRoom.center, endRoom.center);
 
 		return GetRoomsFromPath(pathPoints, roomNodes).ToList();
@@ -326,6 +350,7 @@ public class MapGenerator : MonoBehaviour
 		primaryRooms = new List<BoundsInt>();
 		tertiaryRooms = new List<BoundsInt>();
 		pathPoints = new List<Vector3>();
+		possibleKeyRoomsForPrimaryRoom = new Dictionary<BoundsInt, HashSet<BoundsInt>>();
 	}
 
 	private void OnDrawGizmos()
@@ -382,54 +407,52 @@ public class MapGenerator : MonoBehaviour
 		// 	Gizmos.DrawLine(edge.start.position.ToV3(), edge.end.position.ToV3());
 		// }
 
-		foreach (var r in primaryRooms)
-		{
-			Gizmos.color = Color.green;
-			Gizmos.DrawSphere(r.center, 1);
-		}
-
-		foreach (var r in tertiaryRooms)
-		{
-			Gizmos.color = Color.yellow;
-			Gizmos.DrawSphere(r.center, 1);
-		}
-
-		// if (primaryRoomsToTertiaryRoom != null)
+		// foreach (var r in primaryRooms)
 		// {
-		// 	foreach (var pair in primaryRoomsToTertiaryRoom)
-		// 	{
-		// 		Gizmos.color = GetColorFromHash(pair.Key.GetHashCode());
-		// 		foreach (var tert in pair.Value)
-		// 		{
-		// 			Gizmos.DrawLine(pair.Key.center, tert.center);
-		// 		}
-		// 	}
+		// 	Gizmos.color = Color.green;
+		// 	Gizmos.DrawSphere(r.center + new Vector3(1.5f, 1.5f, 0), 1);
+		// }
+		//
+		// foreach (var r in tertiaryRooms)
+		// {
+		// 	Gizmos.color = Color.cyan;
+		// 	Gizmos.DrawSphere(r.center + new Vector3(1.5f, 1.5f, 0), 1);
 		// }
 
-		if (tertiaryRoomsToPrimaryRoom != null)
+		if (possibleKeyRoomsForPrimaryRoom != null)
 		{
-			foreach (var pair in tertiaryRoomsToPrimaryRoom)
+			foreach (var pair in possibleKeyRoomsForPrimaryRoom)
 			{
 				Gizmos.color = GetColorFromHash(pair.Key.GetHashCode());
+				Gizmos.color = Color.red;
+				Gizmos.DrawSphere(pair.Key.center, 1);
 				foreach (var tert in pair.Value)
 				{
 					Gizmos.DrawLine(pair.Key.center, tert.center);
+					Gizmos.color = Color.yellow;
+					Gizmos.DrawSphere(tert.center, 1);
 				}
 			}
 		}
+
+		// if (keyUseRooms != null)
+		// {
+		// 	foreach (var r in keyUseRooms)
+		// 	{
+		// 		Gizmos.color = Color.red;
+		// 		Gizmos.DrawSphere(r.center, 1);
+		// 	}
+		// }
+		//
+		// if (keyFindRooms != null)
+		// {
+		// 	foreach (var r in keyFindRooms)
+		// 	{
+		// 		Gizmos.color = Color.yellow;
+		// 		Gizmos.DrawSphere(r.center, 1);
+		// 	}
+		// }
 	}
-
-	private List<Color> distinguishableColors = new List<Color>
-	{
-		Color.red, Color.green, Color.blue, Color.yellow, Color.magenta, Color.cyan,
-		new Color(1.0f, 0.5f, 0.0f),
-		new Color(0.5f, 0.0f, 0.5f),
-		new Color(0.0f, 0.5f, 0.5f),
-		Color.gray
-	};
-
-	[SerializeField]
-	private int debugIndex;
 
 	Color GetColorFromHash(int hash)
 	{
