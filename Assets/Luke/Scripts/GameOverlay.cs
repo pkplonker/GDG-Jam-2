@@ -57,16 +57,16 @@ public class GameOverlay : UIComponent
             
             currMousePos = mainCam.ScreenToWorldPoint(Input.mousePosition+new Vector3(0,0,-mainCam.transform.position.z));
 
-            var points = MapGenerator.CalculatePath(mapGenerator.startRoom.position,currMousePos);
+            var points = MapGenerator.CalculatePath(mapGenerator.startRoom.bounds.position,currMousePos);
             
             traversable = (points != null);
 
             if (traversable && !moving)
             {
-                startPos = new Vector2(mapGenerator.startRoom.position.x, mapGenerator.startRoom.position.y);
+                startPos = new Vector2(mapGenerator.startRoom.bounds.position.x, mapGenerator.startRoom.bounds.position.y);
                 //Draw Line Points
 
-                Debug.Log("Traversable");
+                //Debug.Log("Traversable");
                 lr.positionCount = points.Count;
                 lr.SetPositions(points.ToArray());
 
@@ -80,7 +80,7 @@ public class GameOverlay : UIComponent
             }
             else
             {
-                Debug.Log("Not Traversable");
+                //Debug.Log("Not Traversable");
                 lr.positionCount = 0;
                 lr.SetPositions(new Vector3[0]) ;
             }
