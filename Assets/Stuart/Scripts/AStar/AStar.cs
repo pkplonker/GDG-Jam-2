@@ -68,19 +68,16 @@ public class AStar : MonoBehaviour
 
 		if (startNode == null)
 		{
-			Debug.LogError("Failed to get start node");
 			return null;
 		}
 
 		if (endNode == null)
 		{
-			Debug.LogError("Failed to get end node");
 			return null;
 		}
 
 		if (startNode == endNode)
 		{
-			Debug.Log("Already at destination");
 			return null;
 		}
 

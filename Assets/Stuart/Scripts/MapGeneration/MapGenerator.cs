@@ -82,18 +82,30 @@ public class MapGenerator : MonoBehaviour
 		Generate();
 	}
 
-	public bool IsTrap(Vector3 position, int range = 3)
+	public Trap IsTrap(Vector3 position, int range = 3)
 	{
-		return PerformActionOnCondition(position, range, checkPosition =>
-		{
-			var node = MapData[checkPosition.x, checkPosition.y];
-			if (node != null)
-			{
-				if (node.IsTrap) return true;
-			}
+		var targetPos = position.V2Int();
+		var maxX = MapData.GetLength(0);
+		var maxY = MapData.GetLength(1);
 
-			return false;
-		});
+		var halfSize = Mathf.Min(Mathf.FloorToInt((float) range / 2f), 1);
+		for (var x = -halfSize; x <= halfSize; x++)
+		{
+			for (var y = -halfSize; y <= halfSize; y++)
+			{
+				var checkPosition = targetPos + new Vector2Int(x, y);
+				if (checkPosition.x < 0 || checkPosition.y < 0 || checkPosition.y > maxY - 1 ||
+				    checkPosition.x > maxX - 1)
+				{
+					continue;
+				}
+
+				var node = MapData[checkPosition.x, checkPosition.y];
+				if (node.Trap!=null) return node.Trap;
+			}
+		}
+
+		return null;
 	}
 
 	public bool IsRoom(Vector3 position, int range = 3)
@@ -270,7 +282,7 @@ public class MapGenerator : MonoBehaviour
 				var node = MapData[pos.x, pos.y];
 				if (node != null && node.IsTrap)
 				{
-					return DisarmTrap(node.Trap);
+					DisarmTrap(node.Trap);
 				}
 			}
 		}
@@ -278,7 +290,7 @@ public class MapGenerator : MonoBehaviour
 		return false;
 	}
 
-	private bool DisarmTrap(Trap trap)
+	private void DisarmTrap(Trap trap)
 	{
 		foreach (var n in trap.nodes)
 		{
@@ -286,8 +298,6 @@ public class MapGenerator : MonoBehaviour
 			n.Trap = null;
 			n.Floor.color = floorColors.Corridor;
 		}
-
-		return false;
 	}
 
 	public static List<Vector3> CalculatePath(Vector3 start, Vector3 end) => aStar.CalculatePath(aStarMap, start, end);
