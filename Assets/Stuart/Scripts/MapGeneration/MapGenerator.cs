@@ -85,33 +85,65 @@ public class MapGenerator : MonoBehaviour
 		Generate();
 	}
 
-	public bool IsTrap(Vector3 position)
+	public bool IsTrap(Vector3 position, int range = 3)
 	{
-		var v = position.V2Int();
-		return MapData[v.x, v.y].IsTrap || MapData[v.x, v.y].Trap != null;
+		return PerformActionOnCondition(position, range, checkPosition =>
+		{
+			var node = MapData[checkPosition.x, checkPosition.y];
+			if (node != null)
+			{
+				if (node.IsTrap) return true;
+			}
+
+			return false;
+		});
 	}
 
-	public bool IsRoom(Vector3 position)
+	public bool IsRoom(Vector3 position, int range = 3)
 	{
-		var v = position.V2Int();
-		return MapData[v.x, v.y].IsRoom;
+		return PerformActionOnCondition(position, range, checkPosition =>
+		{
+			var node = MapData[checkPosition.x, checkPosition.y];
+			if (node != null)
+			{
+				if (node.IsRoom) return true;
+			}
+
+			return false;
+		});
 	}
 
-	public bool IsCorridor(Vector3 position)
+	public bool IsCorridor(Vector3 position, int range = 3)
 	{
-		var v = position.V2Int();
-		return MapData[v.x, v.y].IsCorridor;
+		return PerformActionOnCondition(position, range, checkPosition =>
+		{
+			var node = MapData[checkPosition.x, checkPosition.y];
+			if (node != null)
+			{
+				if (node.IsCorridor) return true;
+			}
+
+			return false;
+		});
 	}
 
-	public bool IsLocked(Vector3 position)
+	public bool IsLocked(Vector3 position, int range = 3)
 	{
-		var v = position.V2Int();
-		return MapData[v.x, v.y].IsLocked;
+		return PerformActionOnCondition(position, range, checkPosition =>
+		{
+			var node = MapData[checkPosition.x, checkPosition.y];
+			if (node != null)
+			{
+				if (node.IsLocked) return true;
+			}
+
+			return false;
+		});
 	}
 
 	public bool IsKey(Vector3 position, int range = 3)
 	{
-		return PerformActionOnCondition(position, range, (checkPosition, targetPos) =>
+		return PerformActionOnCondition(position, range, checkPosition =>
 		{
 			var node = MapData[checkPosition.x, checkPosition.y];
 			if (node != null && node.Prop != null)
@@ -124,7 +156,7 @@ public class MapGenerator : MonoBehaviour
 		});
 	}
 
-	private bool PerformActionOnCondition(Vector3 position, int range, Func<Vector2Int, Vector2Int, bool> action)
+	private bool PerformActionOnCondition(Vector3 position, int range, Func<Vector2Int, bool> action)
 	{
 		var targetPos = position.V2Int();
 		var maxX = MapData.GetLength(0);
@@ -142,7 +174,7 @@ public class MapGenerator : MonoBehaviour
 					continue;
 				}
 
-				var result = action.Invoke(checkPosition, targetPos);
+				var result = action.Invoke(checkPosition);
 				if (result) return true;
 			}
 		}
@@ -222,6 +254,7 @@ public class MapGenerator : MonoBehaviour
 	/// <returns></returns>
 	public bool TryDisarm(Vector3 position, int range)
 	{
+		range = 3;
 		var v = position.V2Int();
 		var maxX = MapData.GetLength(0);
 		var maxY = MapData.GetLength(1);
