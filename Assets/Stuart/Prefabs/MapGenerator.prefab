@@ -420,8 +420,7 @@ MonoBehaviour:
       IsLocked: 0
       IsTrap: 0
   debug: 0
-  dlaCycles: 2500
-  testObject: {fileID: 0}
+  dlaCycles: 1000
   floorColors: {fileID: 11400000, guid: 08cde85562399b54f901b5f0d512943f, type: 2}
   debugIndex: 0
   keyPrefab: {fileID: 7655531361216794705, guid: b5e4c1a5f6029154799f6e4d13a62a50,
