@@ -16,6 +16,6 @@ MonoBehaviour:
     type: 3}
   type: 1
   chName: Pick Up
-  chDesc: The Picker Upper
+  chDesc: Pick Up Guy
   chImage: {fileID: 0}
   range: 1

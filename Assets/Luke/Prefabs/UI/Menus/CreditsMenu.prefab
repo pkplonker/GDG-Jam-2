@@ -1116,7 +1116,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -106, y: 145.06372}
+  m_AnchoredPosition: {x: -121, y: 145.06372}
   m_SizeDelta: {x: -40, y: -490.1274}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1249986486279758885
@@ -1147,7 +1147,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\n\nStuart Heath\n\nLuke Owen\n\nHosted by \nThe GDG"
+  m_text: "\n\nStuart Heath  \n\nLuke Owen  \n\nHosted by \nThe GDG"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b0ef21ca9b04cdc4b853cbfe94beb5c3, type: 2}
   m_sharedMaterial: {fileID: 7797904913949427400, guid: b0ef21ca9b04cdc4b853cbfe94beb5c3,
