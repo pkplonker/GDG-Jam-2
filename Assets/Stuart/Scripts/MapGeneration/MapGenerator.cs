@@ -117,6 +117,7 @@ public class MapGenerator : MonoBehaviour
 		{
 			DestroyKey(MapData[v.x, v.y]);
 		}
+
 		return res;
 	}
 
@@ -141,7 +142,7 @@ public class MapGenerator : MonoBehaviour
 		var maxX = MapData.GetLength(0);
 		var maxY = MapData.GetLength(1);
 
-		var halfSize = Mathf.Min(Mathf.FloorToInt((float) range / 2f),1);
+		var halfSize = Mathf.Min(Mathf.FloorToInt((float) range / 2f), 1);
 		for (var x = -halfSize; x <= halfSize; x++)
 		{
 			for (var y = -halfSize; y <= halfSize; y++)
@@ -174,6 +175,7 @@ public class MapGenerator : MonoBehaviour
 				{
 					n.IsLocked = false;
 					n.Floor.color = floorColors.Floor;
+					n.walkable = true;
 				}
 
 				return true;
@@ -195,7 +197,7 @@ public class MapGenerator : MonoBehaviour
 		var maxX = MapData.GetLength(0);
 		var maxY = MapData.GetLength(1);
 
-		var halfSize = Mathf.Min(Mathf.FloorToInt((float) range / 2f),1);
+		var halfSize = Mathf.Min(Mathf.FloorToInt((float) range / 2f), 1);
 		for (var x = -halfSize; x <= halfSize; x++)
 		{
 			for (var y = -halfSize; y <= halfSize; y++)
@@ -355,16 +357,9 @@ public class MapGenerator : MonoBehaviour
 	{
 		foreach (var lockedRooms in primaryRooms.Where(x => x.Locked))
 		{
-			for (var x = 0; x < MapData.GetLength(0); x++)
+			foreach (var node in lockedRooms.Nodes)
 			{
-				for (var y = 0; y < MapData.GetLength(1); y++)
-				{
-					var node = MapData[x, y];
-					if (IsPointInBounds(node.position.ToV3Int(), lockedRooms.bounds))
-					{
-						node.walkable = false;
-					}
-				}
+				node.walkable = false;
 			}
 		}
 	}
@@ -463,7 +458,25 @@ public class MapGenerator : MonoBehaviour
 	{
 		pathPoints = CalculatePath(startRoom.bounds.center, endRoom.bounds.center);
 
-		return GetRoomsFromPath(pathPoints, roomNodes).ToList();
+		var result = new HashSet<Room>();
+		foreach (var p in pathPoints)
+		{
+			var gridPoint = new Vector3Int(Mathf.FloorToInt(p.x), Mathf.FloorToInt(p.y), 0);
+
+			foreach (var rn in roomNodes)
+			{
+				if (IsPointInBounds(gridPoint, rn.bounds))
+				{
+					var foundRoom = offsetRooms.FirstOrDefault(x => rn.bounds.center == x.bounds.center);
+					if (foundRoom != null)
+					{
+						result.Add(foundRoom);
+					}
+				}
+			}
+		}
+
+		return result.ToList();
 	}
 
 	private HashSet<Room> GetRoomsFromPath(List<Vector3> pathPoints, IEnumerable<Node> roomNodes)
@@ -671,7 +684,7 @@ public class MapGenerator : MonoBehaviour
 		pathPoints = new List<Vector3>();
 		possibleKeyRoomsForPrimaryRoom = new Dictionary<Room, HashSet<Room>>();
 		traps = new List<Trap>();
-		foreach (var t in transform.GetComponentsInChildren<Transform>().Where(t=>t!=transform))
+		foreach (var t in transform.GetComponentsInChildren<Transform>().Where(t => t != transform))
 		{
 			Destroy(t.gameObject);
 		}
@@ -689,19 +702,16 @@ public class MapGenerator : MonoBehaviour
 			{
 				Gizmos.color = Color.cyan;
 				Gizmos.DrawCube(room.bounds.center, room.bounds.size);
-
 			}
 			else if (room.bounds.center == endRoom.bounds.center)
 			{
 				Gizmos.color = Color.yellow;
 				Gizmos.DrawCube(room.bounds.center, room.bounds.size);
-
 			}
 			// else
 			// {
 			// 	Gizmos.color = Color.white;
 			// }
-		
 		}
 
 		// if (pathPoints != null)

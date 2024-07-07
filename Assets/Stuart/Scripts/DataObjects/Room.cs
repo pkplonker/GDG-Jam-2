@@ -8,6 +8,10 @@ public class Room : IEquatable<Room>
 	public bool Locked;
 	public List<Node> Nodes = new ();
 
+	// public Room(List<Node> nodes)
+	// {
+	// 	
+	// }
 	private Vector3Int GetCenter() => bounds.position + (bounds.size / 2);
 
 	public bool Equals(Room other)
