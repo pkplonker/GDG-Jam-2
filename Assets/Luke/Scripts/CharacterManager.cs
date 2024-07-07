@@ -134,6 +134,9 @@ public class CharacterManager : MonoBehaviour
 			//Do Check for tile in MapGenerator
 			var trap = currMapGen.IsTrap(points[moveID]);
 			bool isTrap = trap != null;
+
+			Debug.Log(isTrap);
+
 			var isTrophy = currMapGen.IsTrophy(points[moveID]);
 			if (isTrophy)
 			{
@@ -143,24 +146,45 @@ public class CharacterManager : MonoBehaviour
 			{
 				if (currActiveCharacter.characterType == CharacterType.PICKUP)
 				{
+
+
+					if (isTrap)
+					{
+						OnTrapActivated();
+
+					}
+
 					bool isKey = currMapGen.IsKey(points[moveID]);
 					if (isKey && currActiveCharacter.characterType == CharacterType.PICKUP)
 					{
 						OnPickUpKey(currActiveCharacter);
 					}
 				}
-
 				else if (isTrap && currActiveCharacter.characterType != CharacterType.SCOUT)
 				{
-					if (trap.trapType == TrapType.Explosives &&
-					    (currActiveCharacter.characterType != CharacterType.EXPLOSIVE_TRAP_DISARM ||
-					     (trap.trapType == TrapType.Trap &&
-					      currActiveCharacter.characterType != CharacterType.TRAP_DISARM)) ||
-					    currActiveCharacter.characterType == CharacterType.PICKUP)
-					{
+					if (currActiveCharacter.characterType == CharacterType.PICKUP)
+                    {
 						OnTrapActivated();
-					}
+                    }
+					else if (trap.trapType == TrapType.Explosives &&
+						currActiveCharacter.characterType != CharacterType.EXPLOSIVE_TRAP_DISARM)
+					{ OnTrapActivated(); }
+
+					else if (trap.trapType == TrapType.Trap &&
+						currActiveCharacter.characterType != CharacterType.TRAP_DISARM)
+					{ OnTrapActivated(); }
+
+
+					//if (trap.trapType == TrapType.Explosives &&
+					//    (currActiveCharacter.characterType != CharacterType.EXPLOSIVE_TRAP_DISARM ||
+					//     (trap.trapType == TrapType.Trap &&
+					//      currActiveCharacter.characterType != CharacterType.TRAP_DISARM)) ||
+					//    currActiveCharacter.characterType == CharacterType.PICKUP)
+					//{
+					//	OnTrapActivated();
+					//}
 				}
+
 
 				if (isTrap &&
 				    ((currActiveCharacter.characterType == CharacterType.TRAP_DISARM &&

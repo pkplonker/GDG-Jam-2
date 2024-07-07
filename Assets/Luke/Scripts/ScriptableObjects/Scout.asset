@@ -17,5 +17,5 @@ MonoBehaviour:
   type: 0
   chName: Scout
   chDesc: Sees things
-  chImage: {fileID: 0}
+  chImage: {fileID: 21300000, guid: 64abde37f5ecfd240bb9164dbacfda85, type: 3}
   range: 4
