@@ -112,7 +112,21 @@ public class MapGenerator : MonoBehaviour
 	public bool IsKey(Vector3 position)
 	{
 		var v = position.V2Int();
-		return MapData[v.x, v.y].Prop != null;
+		var res = MapData[v.x, v.y].Prop != null;
+		if (res)
+		{
+			DestroyKey(MapData[v.x, v.y]);
+		}
+		return res;
+	}
+
+	private void DestroyKey(Node node)
+	{
+		if (node != null && node.Prop != null)
+		{
+			Destroy(node.Prop.gameObject);
+			node.Prop = null;
+		}
 	}
 
 	/// <summary>
@@ -127,7 +141,7 @@ public class MapGenerator : MonoBehaviour
 		var maxX = MapData.GetLength(0);
 		var maxY = MapData.GetLength(1);
 
-		var halfSize = Mathf.FloorToInt((float) range / 2f);
+		var halfSize = Mathf.Min(Mathf.FloorToInt((float) range / 2f),1);
 		for (var x = -halfSize; x <= halfSize; x++)
 		{
 			for (var y = -halfSize; y <= halfSize; y++)
@@ -181,7 +195,7 @@ public class MapGenerator : MonoBehaviour
 		var maxX = MapData.GetLength(0);
 		var maxY = MapData.GetLength(1);
 
-		var halfSize = Mathf.FloorToInt((float) range / 2f);
+		var halfSize = Mathf.Min(Mathf.FloorToInt((float) range / 2f),1);
 		for (var x = -halfSize; x <= halfSize; x++)
 		{
 			for (var y = -halfSize; y <= halfSize; y++)
@@ -195,7 +209,7 @@ public class MapGenerator : MonoBehaviour
 				var node = MapData[pos.x, pos.y];
 				if (node != null && node.IsTrap)
 				{
-					return DisarmTrap(node);
+					return DisarmTrap(node.Trap);
 				}
 			}
 		}
@@ -203,22 +217,13 @@ public class MapGenerator : MonoBehaviour
 		return false;
 	}
 
-	private bool DisarmTrap(Node node)
+	private bool DisarmTrap(Trap trap)
 	{
-		foreach (var lockedRoom in primaryRooms.Where(x => x.Locked))
+		foreach (var n in trap.nodes)
 		{
-			if (IsPointInBounds(node.position.ToV3Int(), lockedRoom.bounds))
-			{
-				lockedRoom.Locked = false;
-				foreach (var n in lockedRoom.Nodes)
-				{
-					n.IsTrap = false;
-					n.Trap = null;
-					n.Floor.color = floorColors.Corridor;
-				}
-
-				return true;
-			}
+			n.IsTrap = false;
+			n.Trap = null;
+			n.Floor.color = floorColors.Corridor;
 		}
 
 		return false;
