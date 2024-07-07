@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8816785801226002987}
-  - component: {fileID: 3799355981811959714}
-  - component: {fileID: 1245912656952979213}
-  - component: {fileID: 4483308562459114577}
+  - component: {fileID: 8339255388049721740}
+  - component: {fileID: 4903018891550057765}
+  - component: {fileID: 8729370592868989388}
   m_Layer: 0
   m_Name: MapGenerator
   m_TagString: Untagged
@@ -34,7 +34,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3799355981811959714
+--- !u!114 &8339255388049721740
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -43,7 +43,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1649871886267928273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 395e9bb99fb9c8447a23c0ce347ed301, type: 3}
+  m_Script: {fileID: 11500000, guid: d342eab52d89b55489286038c8d01684, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   MapArgs:
@@ -56,407 +56,24 @@ MonoBehaviour:
     RandomsizeSplit: 1
     RoomCountLimit: 12
     Offset: {x: 1, y: 1, z: 0}
-    Seed: 7
+    Seed: 0
     RoomSeperation: 10
-  rooms:
-  - m_Position: {x: 23, y: 44, z: 0}
-    m_Size: {x: 12, y: 6, z: 0}
-  - m_Position: {x: 26, y: 4, z: 0}
-    m_Size: {x: 9, y: 8, z: 0}
-  - m_Position: {x: 19, y: 12, z: 0}
-    m_Size: {x: 11, y: 9, z: 0}
-  - m_Position: {x: 0, y: 12, z: 0}
-    m_Size: {x: 14, y: 9, z: 0}
-  - m_Position: {x: 5, y: 44, z: 0}
-    m_Size: {x: 8, y: 6, z: 0}
-  - m_Position: {x: 13, y: 44, z: 0}
-    m_Size: {x: 10, y: 6, z: 0}
-  - m_Position: {x: 35, y: 0, z: 0}
-    m_Size: {x: 14, y: 6, z: 0}
-  - m_Position: {x: 49, y: 0, z: 0}
-    m_Size: {x: 12, y: 6, z: 0}
-  - m_Position: {x: 61, y: 0, z: 0}
-    m_Size: {x: 10, y: 6, z: 0}
-  - m_Position: {x: 66, y: 37, z: 0}
-    m_Size: {x: 12, y: 7, z: 0}
-  - m_Position: {x: 66, y: 44, z: 0}
-    m_Size: {x: 12, y: 6, z: 0}
-  - m_Position: {x: 78, y: 39, z: 0}
-    m_Size: {x: 15, y: 11, z: 0}
-  - m_Position: {x: 35, y: 6, z: 0}
-    m_Size: {x: 12, y: 11, z: 0}
-  - m_Position: {x: 36, y: 25, z: 0}
-    m_Size: {x: 9, y: 7, z: 0}
-  - m_Position: {x: 45, y: 25, z: 0}
-    m_Size: {x: 12, y: 7, z: 0}
-  - m_Position: {x: 0, y: 2, z: 0}
-    m_Size: {x: 13, y: 10, z: 0}
-  - m_Position: {x: 0, y: 29, z: 0}
-    m_Size: {x: 10, y: 9, z: 0}
-  - m_Position: {x: 74, y: 0, z: 0}
-    m_Size: {x: 15, y: 6, z: 0}
-  - m_Position: {x: 92, y: 6, z: 0}
-    m_Size: {x: 8, y: 11, z: 0}
-  - m_Position: {x: 91, y: 25, z: 0}
-    m_Size: {x: 9, y: 7, z: 0}
-  - m_Position: {x: 39, y: 42, z: 0}
-    m_Size: {x: 8, y: 8, z: 0}
-  - m_Position: {x: 47, y: 41, z: 0}
-    m_Size: {x: 9, y: 9, z: 0}
-  - m_Position: {x: 0, y: 21, z: 0}
-    m_Size: {x: 13, y: 8, z: 0}
-  - m_Position: {x: 13, y: 21, z: 0}
-    m_Size: {x: 13, y: 8, z: 0}
-  - m_Position: {x: 10, y: 29, z: 0}
-    m_Size: {x: 10, y: 9, z: 0}
-  - m_Position: {x: 20, y: 29, z: 0}
-    m_Size: {x: 10, y: 9, z: 0}
-  - m_Position: {x: 78, y: 6, z: 0}
-    m_Size: {x: 14, y: 11, z: 0}
-  - m_Position: {x: 57, y: 25, z: 0}
-    m_Size: {x: 13, y: 7, z: 0}
-  - m_Position: {x: 70, y: 25, z: 0}
-    m_Size: {x: 9, y: 7, z: 0}
-  - m_Position: {x: 51, y: 6, z: 0}
-    m_Size: {x: 14, y: 11, z: 0}
-  chosenRooms:
-  - m_Position: {x: 26, y: 4, z: 0}
-    m_Size: {x: 9, y: 8, z: 0}
-  - m_Position: {x: 57, y: 25, z: 0}
-    m_Size: {x: 13, y: 7, z: 0}
-  - m_Position: {x: 20, y: 29, z: 0}
-    m_Size: {x: 10, y: 9, z: 0}
-  - m_Position: {x: 23, y: 44, z: 0}
-    m_Size: {x: 12, y: 6, z: 0}
-  - m_Position: {x: 91, y: 25, z: 0}
-    m_Size: {x: 9, y: 7, z: 0}
-  - m_Position: {x: 78, y: 39, z: 0}
-    m_Size: {x: 15, y: 11, z: 0}
-  - m_Position: {x: 5, y: 44, z: 0}
-    m_Size: {x: 8, y: 6, z: 0}
-  - m_Position: {x: 0, y: 2, z: 0}
-    m_Size: {x: 13, y: 10, z: 0}
-  - m_Position: {x: 36, y: 25, z: 0}
-    m_Size: {x: 9, y: 7, z: 0}
-  - m_Position: {x: 13, y: 21, z: 0}
-    m_Size: {x: 13, y: 8, z: 0}
-  - m_Position: {x: 0, y: 29, z: 0}
-    m_Size: {x: 10, y: 9, z: 0}
-  - m_Position: {x: 35, y: 6, z: 0}
-    m_Size: {x: 12, y: 11, z: 0}
-  offsetRooms:
-  - m_Position: {x: 36, y: 7, z: 0}
-    m_Size: {x: 10, y: 9, z: 0}
-  - m_Position: {x: 1, y: 30, z: 0}
-    m_Size: {x: 8, y: 7, z: 0}
-  - m_Position: {x: 14, y: 22, z: 0}
-    m_Size: {x: 11, y: 6, z: 0}
-  - m_Position: {x: 37, y: 26, z: 0}
-    m_Size: {x: 7, y: 5, z: 0}
-  - m_Position: {x: 1, y: 3, z: 0}
-    m_Size: {x: 11, y: 8, z: 0}
-  - m_Position: {x: 6, y: 45, z: 0}
-    m_Size: {x: 6, y: 4, z: 0}
-  - m_Position: {x: 79, y: 40, z: 0}
-    m_Size: {x: 13, y: 9, z: 0}
-  - m_Position: {x: 92, y: 26, z: 0}
-    m_Size: {x: 7, y: 5, z: 0}
-  - m_Position: {x: 24, y: 45, z: 0}
-    m_Size: {x: 10, y: 4, z: 0}
-  - m_Position: {x: 21, y: 30, z: 0}
-    m_Size: {x: 8, y: 7, z: 0}
-  - m_Position: {x: 58, y: 26, z: 0}
-    m_Size: {x: 11, y: 5, z: 0}
-  - m_Position: {x: 27, y: 5, z: 0}
-    m_Size: {x: 7, y: 6, z: 0}
-  edges:
-  - start:
-      x: 5
-      y: 33
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 1, y: 30, z: 0}
-        m_Size: {x: 8, y: 7, z: 0}
-    end:
-      x: 5
-      y: 33
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 1, y: 30, z: 0}
-        m_Size: {x: 8, y: 7, z: 0}
-  - start:
-      x: 5
-      y: 33
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 1, y: 30, z: 0}
-        m_Size: {x: 8, y: 7, z: 0}
-    end:
-      x: 9
-      y: 47
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 6, y: 45, z: 0}
-        m_Size: {x: 6, y: 4, z: 0}
-  - start:
-      x: 9
-      y: 47
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 6, y: 45, z: 0}
-        m_Size: {x: 6, y: 4, z: 0}
-    end:
-      x: 29
-      y: 47
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 24, y: 45, z: 0}
-        m_Size: {x: 10, y: 4, z: 0}
-  - start:
-      x: 29
-      y: 47
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 24, y: 45, z: 0}
-        m_Size: {x: 10, y: 4, z: 0}
-    end:
-      x: 25
-      y: 33
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 21, y: 30, z: 0}
-        m_Size: {x: 8, y: 7, z: 0}
-  - start:
-      x: 25
-      y: 33
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 21, y: 30, z: 0}
-        m_Size: {x: 8, y: 7, z: 0}
-    end:
-      x: 19
-      y: 25
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 14, y: 22, z: 0}
-        m_Size: {x: 11, y: 6, z: 0}
-  - start:
-      x: 19
-      y: 25
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 14, y: 22, z: 0}
-        m_Size: {x: 11, y: 6, z: 0}
-    end:
-      x: 30
-      y: 8
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 27, y: 5, z: 0}
-        m_Size: {x: 7, y: 6, z: 0}
-  - start:
-      x: 30
-      y: 8
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 27, y: 5, z: 0}
-        m_Size: {x: 7, y: 6, z: 0}
-    end:
-      x: 41
-      y: 11
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 36, y: 7, z: 0}
-        m_Size: {x: 10, y: 9, z: 0}
-  - start:
-      x: 41
-      y: 11
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 36, y: 7, z: 0}
-        m_Size: {x: 10, y: 9, z: 0}
-    end:
-      x: 40
-      y: 28
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 37, y: 26, z: 0}
-        m_Size: {x: 7, y: 5, z: 0}
-  - start:
-      x: 40
-      y: 28
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 37, y: 26, z: 0}
-        m_Size: {x: 7, y: 5, z: 0}
-    end:
-      x: 63
-      y: 28
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 58, y: 26, z: 0}
-        m_Size: {x: 11, y: 5, z: 0}
-  - start:
-      x: 63
-      y: 28
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 58, y: 26, z: 0}
-        m_Size: {x: 11, y: 5, z: 0}
-    end:
-      x: 85
-      y: 44
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 79, y: 40, z: 0}
-        m_Size: {x: 13, y: 9, z: 0}
-  - start:
-      x: 85
-      y: 44
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 79, y: 40, z: 0}
-        m_Size: {x: 13, y: 9, z: 0}
-    end:
-      x: 95
-      y: 28
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 92, y: 26, z: 0}
-        m_Size: {x: 7, y: 5, z: 0}
-  - start:
-      x: 95
-      y: 28
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 92, y: 26, z: 0}
-        m_Size: {x: 7, y: 5, z: 0}
-    end:
-      x: 6
-      y: 7
-      walkable: 0
-      g: 0
-      h: 0
-      cost: 0
-      bounds:
-        m_Position: {x: 1, y: 3, z: 0}
-        m_Size: {x: 11, y: 8, z: 0}
+  rooms: []
+  chosenRooms: []
+  offsetRooms: []
+  edges: []
   startRoom:
-    m_Position: {x: 1, y: 30, z: 0}
-    m_Size: {x: 8, y: 7, z: 0}
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 0, y: 0, z: 0}
   endRoom:
-    m_Position: {x: 92, y: 26, z: 0}
-    m_Size: {x: 7, y: 5, z: 0}
-  primaryRooms:
-  - m_Position: {x: 1, y: 30, z: 0}
-    m_Size: {x: 8, y: 7, z: 0}
-  - m_Position: {x: 6, y: 45, z: 0}
-    m_Size: {x: 6, y: 4, z: 0}
-  - m_Position: {x: 24, y: 45, z: 0}
-    m_Size: {x: 10, y: 4, z: 0}
-  - m_Position: {x: 21, y: 30, z: 0}
-    m_Size: {x: 8, y: 7, z: 0}
-  - m_Position: {x: 14, y: 22, z: 0}
-    m_Size: {x: 11, y: 6, z: 0}
-  - m_Position: {x: 27, y: 5, z: 0}
-    m_Size: {x: 7, y: 6, z: 0}
-  - m_Position: {x: 36, y: 7, z: 0}
-    m_Size: {x: 10, y: 9, z: 0}
-  - m_Position: {x: 92, y: 26, z: 0}
-    m_Size: {x: 7, y: 5, z: 0}
-  tertiaryRooms:
-  - m_Position: {x: 37, y: 26, z: 0}
-    m_Size: {x: 7, y: 5, z: 0}
-  - m_Position: {x: 1, y: 3, z: 0}
-    m_Size: {x: 11, y: 8, z: 0}
-  - m_Position: {x: 79, y: 40, z: 0}
-    m_Size: {x: 13, y: 9, z: 0}
-  - m_Position: {x: 58, y: 26, z: 0}
-    m_Size: {x: 11, y: 5, z: 0}
-  debug: 1
---- !u!114 &1245912656952979213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1649871886267928273}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bce2be6df86a4ee1bc82e195a4488508, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 0, y: 0, z: 0}
+  primaryRooms: []
+  tertiaryRooms: []
   debug: 0
---- !u!114 &4483308562459114577
+  dlaCycles: 0
+  debugIndex: 0
+--- !u!114 &4903018891550057765
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -465,9 +82,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 1649871886267928273}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f98d401c6f7c4f15a98864181e2b664d, type: 3}
+  m_Script: {fileID: 11500000, guid: 97e3176e1902b9d41869692d802e11ba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   nodeSize: 1
   debug: 0
   showMapGenDebug: 0
+--- !u!114 &8729370592868989388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1649871886267928273}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f22c70ffc6380014387f55bf2e23da97, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  debug: 0

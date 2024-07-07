@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -38,11 +39,14 @@ public class MapGenerator : MonoBehaviour
 	private bool debug;
 
 	private List<Vector3> pathPoints;
-	
+
 	[SerializeField]
 	private int dlaCycles;
+
 	public static Node[,] MapData => aStarMap.map;
 	public static event Action<MapGenerator> OnMapGenerated;
+	private Dictionary<BoundsInt, HashSet<BoundsInt>> primaryRoomsToTertiaryRoom;
+	private Dictionary<BoundsInt, HashSet<BoundsInt>> tertiaryRoomsToPrimaryRoom;
 
 	private void Start()
 	{
@@ -67,7 +71,7 @@ public class MapGenerator : MonoBehaviour
 		edges = ConnectRooms(roomNodes);
 
 		gameObject.transform.position = new Vector3(MapArgs.Bounds.size.x / 2, MapArgs.Bounds.size.y / 2, 0);
-		aStarMap.GenerateMapData(MapArgs, edges, offsetRooms);
+		aStarMap.GenerateMapData(MapArgs, offsetRooms);
 
 		GenerateCorridors();
 		GenerateFinalWalkableArea();
@@ -75,8 +79,36 @@ public class MapGenerator : MonoBehaviour
 		primaryRooms = IdentifyPrimaryRooms(roomNodes);
 		tertiaryRooms = offsetRooms.Except(primaryRooms).ToList();
 
+		primaryRoomsToTertiaryRoom = new Dictionary<BoundsInt, HashSet<BoundsInt>>();
+		tertiaryRoomsToPrimaryRoom = new Dictionary<BoundsInt, HashSet<BoundsInt>>();
+
+		foreach (var tertRoom in tertiaryRooms)
+		{
+			var path = CalculatePath(tertRoom.center, startRoom.center);
+
+			primaryRoomsToTertiaryRoom.Add(tertRoom,
+				GetRoomsFromPath(path, roomNodes).Where(x => primaryRooms.Contains(x)).ToHashSet());
+		}
+
+		foreach (var primaryRoom in primaryRooms)
+		{
+			var result = new HashSet<BoundsInt>(tertiaryRooms);
+			foreach (var element in primaryRoomsToTertiaryRoom)
+			{
+				if (element.Value.Contains(primaryRoom))
+				{
+					result.Remove(element.Key);
+				}
+			}
+
+			if (result.Any())
+			{
+				tertiaryRoomsToPrimaryRoom.Add(primaryRoom, result);
+			}
+		}
+
 		DLA();
-		
+
 		OnMapGenerated?.Invoke(this);
 		Debug.Log("Generated");
 	}
@@ -87,6 +119,12 @@ public class MapGenerator : MonoBehaviour
 
 		pathPoints = CalculatePath(startRoom.center, endRoom.center);
 
+		return GetRoomsFromPath(pathPoints, roomNodes).ToList();
+	}
+
+	private HashSet<BoundsInt> GetRoomsFromPath(List<Vector3> pathPoints, IEnumerable<Node> roomNodes)
+	{
+		var result = new HashSet<BoundsInt>();
 		foreach (var p in pathPoints)
 		{
 			var gridPoint = new Vector3Int(Mathf.FloorToInt(p.x), Mathf.FloorToInt(p.y), 0);
@@ -101,10 +139,9 @@ public class MapGenerator : MonoBehaviour
 			}
 		}
 
-		Debug.Log("primary");
-		return result.ToList();
+		return result;
 	}
-	
+
 	private void DLA()
 	{
 		var maxX = MapArgs.Bounds.size.x - 1;
@@ -339,11 +376,11 @@ public class MapGenerator : MonoBehaviour
 			Gizmos.DrawWireCube(room.center, room.size);
 		}
 
-		Gizmos.color = Color.magenta;
-		foreach (var edge in edges)
-		{
-			Gizmos.DrawLine(edge.start.position.ToV3(), edge.end.position.ToV3());
-		}
+		// Gizmos.color = Color.magenta;
+		// foreach (var edge in edges)
+		// {
+		// 	Gizmos.DrawLine(edge.start.position.ToV3(), edge.end.position.ToV3());
+		// }
 
 		foreach (var r in primaryRooms)
 		{
@@ -356,5 +393,50 @@ public class MapGenerator : MonoBehaviour
 			Gizmos.color = Color.yellow;
 			Gizmos.DrawSphere(r.center, 1);
 		}
+
+		// if (primaryRoomsToTertiaryRoom != null)
+		// {
+		// 	foreach (var pair in primaryRoomsToTertiaryRoom)
+		// 	{
+		// 		Gizmos.color = GetColorFromHash(pair.Key.GetHashCode());
+		// 		foreach (var tert in pair.Value)
+		// 		{
+		// 			Gizmos.DrawLine(pair.Key.center, tert.center);
+		// 		}
+		// 	}
+		// }
+
+		if (tertiaryRoomsToPrimaryRoom != null)
+		{
+			foreach (var pair in tertiaryRoomsToPrimaryRoom)
+			{
+				Gizmos.color = GetColorFromHash(pair.Key.GetHashCode());
+				foreach (var tert in pair.Value)
+				{
+					Gizmos.DrawLine(pair.Key.center, tert.center);
+				}
+			}
+		}
+	}
+
+	private List<Color> distinguishableColors = new List<Color>
+	{
+		Color.red, Color.green, Color.blue, Color.yellow, Color.magenta, Color.cyan,
+		new Color(1.0f, 0.5f, 0.0f),
+		new Color(0.5f, 0.0f, 0.5f),
+		new Color(0.0f, 0.5f, 0.5f),
+		Color.gray
+	};
+
+	[SerializeField]
+	private int debugIndex;
+
+	Color GetColorFromHash(int hash)
+	{
+		hash = Mathf.Abs(hash);
+
+		int colorIndex = hash % distinguishableColors.Count;
+
+		return distinguishableColors[colorIndex];
 	}
 }

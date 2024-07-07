@@ -11,7 +11,7 @@ public class AStarMap : MonoBehaviour
 	[SerializeField]
 	private bool showMapGenDebug;
 
-	public void GenerateMapData(MapArgs args, List<Edge> corridors, List<BoundsInt> rooms)
+	public void GenerateMapData(MapArgs args, List<BoundsInt> rooms)
 	{
 		mapWidth = (int) (args.Bounds.size.x / nodeSize);
 		mapHeight = (int) (args.Bounds.size.y / nodeSize);

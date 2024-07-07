@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2391735370215822148}
-  - component: {fileID: 8424412468095144683}
+  - component: {fileID: 3447613116825885450}
   m_Layer: 0
   m_Name: MapDrawer
   m_TagString: Untagged
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &8424412468095144683
+--- !u!114 &3447613116825885450
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,8 +41,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 1183848079769390310}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 087a4fac80b18cb45b13da0c1f4ecc9a, type: 3}
+  m_Script: {fileID: 11500000, guid: b0a6b412b088b0f43bc989f600ba88a7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   floorSprite: {fileID: 21300000, guid: 81c674ad71e5a8740b999d085734625e, type: 3}
-  floorColor: {r: 0.4245283, g: 0.41011035, b: 0.40650588, a: 1}
+  floorColor: {r: 0.28930807, g: 0.27566144, b: 0.27566144, a: 1}

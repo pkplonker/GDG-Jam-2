@@ -26,4 +26,8 @@ public static class Extensions
 	{
 		return new Vector3(position.x, position.y, 0);
 	}
+	public static Vector3 ToV3(this Vector3Int position)
+	{
+		return new Vector3(position.x, position.y, 0);
+	}
 }

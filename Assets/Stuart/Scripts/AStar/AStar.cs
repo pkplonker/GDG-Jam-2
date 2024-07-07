@@ -11,6 +11,7 @@ public class AStar : MonoBehaviour
 	private Node endNode = null;
 	private void Awake() => AStarMap = GetComponent<AStarMap>();
 	public List<Vector3> points { get; private set; } = new();
+
 	public bool debug;
 
 	private void OnDrawGizmos()
