@@ -1,8 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using TMPro;
+using Debug = UnityEngine.Debug;
 
 public class GameOverlay : UIComponent
 {
@@ -161,7 +164,23 @@ public class GameOverlay : UIComponent
                 cs.panelBG.color = new Color(0.8f, 0.8f, 0.8f);
             }
 
-            curr.panelBG.color = Color.green;
+            switch (curr.thisDat.type)
+            {
+                case CharacterType.SCOUT:
+                    curr.panelBG.color = Color.green;
+                    break;
+                case CharacterType.PICKUP:
+                    curr.panelBG.color = Color.red;
+                    break;
+                case CharacterType.TRAP_DISARM:
+                    curr.panelBG.color = new Color(186f/255,85f/255,211f/255,255);
+                    break;
+                case CharacterType.EXPLOSIVE_TRAP_DISARM:
+                    curr.panelBG.color = new Color(1,165f/255,0,255);
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException();
+            }
 
         }
     }
