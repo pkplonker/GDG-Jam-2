@@ -38,6 +38,7 @@ public static class Extensions
 	}
 	public static Vector2Int V2Int(this Vector3 position)
 	{
+		position += new Vector3(0.01f, 0.01f, 0.01f);
 		return new Vector2Int(Mathf.RoundToInt(position.x),Mathf.RoundToInt(position.y));
 	}
 	

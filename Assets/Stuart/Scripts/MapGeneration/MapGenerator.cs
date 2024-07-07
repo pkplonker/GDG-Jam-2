@@ -88,7 +88,7 @@ public class MapGenerator : MonoBehaviour
 	public bool IsTrap(Vector3 position)
 	{
 		var v = position.V2Int();
-		return MapData[v.x, v.y].IsTrap;
+		return MapData[v.x, v.y].IsTrap || MapData[v.x, v.y].Trap != null;
 	}
 
 	public bool IsRoom(Vector3 position)
@@ -109,16 +109,45 @@ public class MapGenerator : MonoBehaviour
 		return MapData[v.x, v.y].IsLocked;
 	}
 
-	public bool IsKey(Vector3 position)
+	public bool IsKey(Vector3 position, int range = 3)
 	{
-		var v = position.V2Int();
-		var res = MapData[v.x, v.y].Prop != null;
-		if (res)
+		return PerformActionOnCondition(position, range, (checkPosition, targetPos) =>
 		{
-			DestroyKey(MapData[v.x, v.y]);
+			var node = MapData[checkPosition.x, checkPosition.y];
+			if (node != null && node.Prop != null)
+			{
+				DestroyKey(MapData[checkPosition.x, checkPosition.y]);
+				return true;
+			}
+
+			return false;
+		});
+	}
+
+	private bool PerformActionOnCondition(Vector3 position, int range, Func<Vector2Int, Vector2Int, bool> action)
+	{
+		var targetPos = position.V2Int();
+		var maxX = MapData.GetLength(0);
+		var maxY = MapData.GetLength(1);
+
+		var halfSize = Mathf.Min(Mathf.FloorToInt((float) range / 2f), 1);
+		for (var x = -halfSize; x <= halfSize; x++)
+		{
+			for (var y = -halfSize; y <= halfSize; y++)
+			{
+				var checkPosition = targetPos + new Vector2Int(x, y);
+				if (checkPosition.x < 0 || checkPosition.y < 0 || checkPosition.y > maxY - 1 ||
+				    checkPosition.x > maxX - 1)
+				{
+					continue;
+				}
+
+				var result = action.Invoke(checkPosition, targetPos);
+				if (result) return true;
+			}
 		}
 
-		return res;
+		return false;
 	}
 
 	private void DestroyKey(Node node)
