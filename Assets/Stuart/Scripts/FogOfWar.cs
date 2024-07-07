@@ -75,7 +75,6 @@ public class FogOfWar : MonoBehaviour
 	private void OnMapGenerated(MapGenerator obj)
 	{
 		mapGenerator = obj;
-		TestSetup(obj);
 
 		width = MapGenerator.MapData.GetLength(0);
 		height = MapGenerator.MapData.GetLength(1);
@@ -95,16 +94,7 @@ public class FogOfWar : MonoBehaviour
 		SetPosition(obj.startRoom.bounds.center.V2Int(), startSize);
 		tex.Apply();
 	}
-
-	private void TestSetup(MapGenerator mapGenerator)
-	{
-		foreach (var testObject in characters)
-		{
-			testObject.transform.position = mapGenerator.startRoom.bounds.center;
-		}
-		scoutObject.transform.position = mapGenerator.startRoom.bounds.center;
-	}
-
+	
 	private void OnDrawGizmos()
 	{
 		// if (mapGenerator != null)

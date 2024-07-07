@@ -8,7 +8,8 @@ public enum CharacterType
 {
 	SCOUT,
 	PICKUP,
-	TRAP_DISARM
+	TRAP_DISARM,
+	EXPLOSIVE_TRAP_DISARM
 }
 
 [System.Serializable]
@@ -98,7 +99,6 @@ public class CharacterManager : MonoBehaviour
 
 	public void MoveCurrentCharacter(List<Vector3> points)
 	{
-		Debug.Log("Moving Character");
 
 		StartCoroutine(StartMove(points, 1));
 
@@ -116,9 +116,9 @@ public class CharacterManager : MonoBehaviour
 			currActiveCharacter.characterObj.transform.position = points[moveID];
 
 			//Do Check for tile in MapGenerator
+			var trap = currMapGen.IsTrap(points[moveID]);
+			bool isTrap = trap != null;
 
-			bool isTrap = currMapGen.IsTrap(points[moveID]);
-			Debug.Log(isTrap);
 			if (currActiveCharacter.characterType == CharacterType.PICKUP)
 			{
 				bool isKey = currMapGen.IsKey(points[moveID]);
@@ -128,13 +128,21 @@ public class CharacterManager : MonoBehaviour
 				}
 			}
 
-			else if (isTrap && !(currActiveCharacter.characterType == CharacterType.TRAP_DISARM ||
-			                     currActiveCharacter.characterType == CharacterType.SCOUT))
+			else if (isTrap && currActiveCharacter.characterType != CharacterType.SCOUT)
 			{
-				OnTrapActivated();
+				if (trap.trapType == TrapType.Explosives &&
+				    (currActiveCharacter.characterType != CharacterType.EXPLOSIVE_TRAP_DISARM ||
+				     (trap.trapType == TrapType.Trap &&
+				      currActiveCharacter.characterType != CharacterType.TRAP_DISARM)))
+				{
+					OnTrapActivated();
+				}
 			}
 
-			if (isTrap && currActiveCharacter.characterType == CharacterType.TRAP_DISARM)
+			if (isTrap &&
+			    ((currActiveCharacter.characterType == CharacterType.TRAP_DISARM && trap.trapType == TrapType.Trap) ||
+			     (currActiveCharacter.characterType == CharacterType.EXPLOSIVE_TRAP_DISARM &&
+			      trap.trapType == TrapType.Explosives)))
 			{
 				OnTrapDisarmed(points[moveID], currActiveCharacter.range);
 			}

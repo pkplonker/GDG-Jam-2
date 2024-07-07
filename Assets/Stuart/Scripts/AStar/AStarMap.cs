@@ -58,13 +58,11 @@ public class AStarMap : MonoBehaviour
 		var bottomLeft = GetBottomLeft();
 		if (location.x < bottomLeft.x || location.x > bottomLeft.x + (nodeSize * mapWidth))
 		{
-			Debug.Log("Outside of bounds X");
 			return null;
 		}
 
 		if (location.y < bottomLeft.y || location.y > bottomLeft.y + (nodeSize * mapHeight))
 		{
-			Debug.Log("Outside of bounds Y");
 			return null;
 		}
 
