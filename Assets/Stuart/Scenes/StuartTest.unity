@@ -741,14 +741,39 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
         type: 3}
+      propertyPath: scoutRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
+        type: 3}
       propertyPath: testObject
       value: 
       objectReference: {fileID: 91908237}
     - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
         type: 3}
+      propertyPath: normalRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
+        type: 3}
       propertyPath: scoutObject
       value: 
       objectReference: {fileID: 25027539}
+    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
+        type: 3}
+      propertyPath: hiddenColor.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
+        type: 3}
+      propertyPath: hiddenColor.g
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
+        type: 3}
+      propertyPath: hiddenColor.r
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

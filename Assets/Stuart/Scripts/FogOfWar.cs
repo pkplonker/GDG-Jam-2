@@ -59,6 +59,10 @@ public class FogOfWar : MonoBehaviour
 
 				if (pixelX >= 0 && pixelX < width && pixelY >= 0 && pixelY < height)
 				{
+					if (Vector2Int.Distance(new Vector2Int(pixelX, pixelY),pos) > halfSize)
+					{
+						continue;
+					}
 					tex.SetPixel(pixelX, pixelY, revealedColor);
 				}
 			}
