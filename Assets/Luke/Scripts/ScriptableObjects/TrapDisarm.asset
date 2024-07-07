@@ -9,13 +9,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: 1293057506ec6894c8b85461fa8fecb1, type: 3}
   m_Name: TrapDisarm
   m_EditorClassIdentifier: Assembly-CSharp::CharacterUIDat
   characterPrefab: {fileID: 6923453577515053497, guid: 1373e03e7fa3fbc43886ba95be50689e,
     type: 3}
   type: 2
-  chName: Trap Disarmer
-  chDesc: The Trap Guy
+  chName: Trap Specialist
+  chDesc: Disarms things
   chImage: {fileID: 0}
-  range: 2
+  range: 1
