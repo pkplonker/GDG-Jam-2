@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[Serializable]
 public class Room : IEquatable<Room>
 {
 	public BoundsInt bounds;
