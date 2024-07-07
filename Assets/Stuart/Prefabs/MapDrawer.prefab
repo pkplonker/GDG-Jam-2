@@ -45,4 +45,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floorSprite: {fileID: 21300000, guid: 81c674ad71e5a8740b999d085734625e, type: 3}
-  floorColor: {r: 0.28930807, g: 0.27566144, b: 0.27566144, a: 1}
+  floorColors: {fileID: 11400000, guid: 08cde85562399b54f901b5f0d512943f, type: 2}

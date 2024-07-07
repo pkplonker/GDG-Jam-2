@@ -31,4 +31,9 @@ public static class Extensions
 	{
 		return new Vector3(position.x, position.y, 0);
 	}
+	
+	public static Vector3Int ToV3Int(this Vector2Int position)
+	{
+		return new Vector3Int(position.x, position.y, 0);
+	}
 }

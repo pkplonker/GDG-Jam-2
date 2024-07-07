@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AStarMap))]
@@ -12,29 +13,29 @@ public class MapGenerator : MonoBehaviour
 	private MapArgs MapArgs;
 
 	[SerializeField]
-	private List<BoundsInt> rooms;
+	private List<Room> rooms;
 
 	private BinarySpacePartition binarySpacePartition = new();
 
 	[SerializeField]
-	private List<BoundsInt> chosenRooms;
+	private List<Room> chosenRooms;
 
 	[SerializeField]
-	private List<BoundsInt> offsetRooms;
+	private List<Room> offsetRooms;
 
 	[SerializeField]
 	private List<Edge> edges;
 
 	public static AStarMap aStarMap;
 	public static AStar aStar;
-	public BoundsInt startRoom;
-	public BoundsInt endRoom;
+	public Room startRoom;
+	public Room endRoom;
 
 	[SerializeField]
-	private List<BoundsInt> primaryRooms;
+	private List<Room> primaryRooms;
 
 	[SerializeField]
-	private List<BoundsInt> tertiaryRooms;
+	private List<Room> tertiaryRooms;
 
 	[SerializeField]
 	private bool debug;
@@ -46,7 +47,10 @@ public class MapGenerator : MonoBehaviour
 
 	public static Node[,] MapData => aStarMap.map;
 	public static event Action<MapGenerator> OnMapGenerated;
-	private Dictionary<BoundsInt, HashSet<BoundsInt>> possibleKeyRoomsForPrimaryRoom;
+	private Dictionary<Room, HashSet<Room>> possibleKeyRoomsForPrimaryRoom;
+
+	[SerializeField]
+	private FloorColors floorColors;
 
 	private List<Color> distinguishableColors = new()
 	{
@@ -60,8 +64,11 @@ public class MapGenerator : MonoBehaviour
 	[SerializeField]
 	private int debugIndex;
 
-	private HashSet<BoundsInt> keyFindRooms;
-	private HashSet<BoundsInt> keyUseRooms;
+	private HashSet<Room> keyFindRooms;
+	private HashSet<Room> keyUseRooms;
+
+	[SerializeField]
+	private GameObject keyPrefab;
 
 	private void Start()
 	{
@@ -82,7 +89,7 @@ public class MapGenerator : MonoBehaviour
 
 		CreateRooms();
 
-		var roomNodes = offsetRooms.Select(x => new Node(x));
+		var roomNodes = offsetRooms.Select(x => new Node(x.bounds));
 		edges = ConnectRooms(roomNodes);
 
 		gameObject.transform.position = new Vector3(MapArgs.Bounds.size.x / 2, MapArgs.Bounds.size.y / 2, 0);
@@ -97,15 +104,35 @@ public class MapGenerator : MonoBehaviour
 		CreateRoomDictionaries(roomNodes);
 
 		DLA();
-		SpawnKeys();
+		SetupKeyRooms();
 		OnMapGenerated?.Invoke(this);
+		SetLockedRoomsToNonTraversable();
+		var path = CalculatePath(startRoom.bounds.center, endRoom.bounds.center);
 		Debug.Log("Generated");
 	}
 
-	private void SpawnKeys()
+	private void SetLockedRoomsToNonTraversable()
 	{
-		keyUseRooms = new HashSet<BoundsInt>();
-		keyFindRooms = new HashSet<BoundsInt>();
+		foreach (var lockedRooms in primaryRooms.Where(x => x.Locked))
+		{
+			for (int x = 0; x < MapData.GetLength(0); x++)
+			{
+				for (int y = 0; y < MapData.GetLength(1); y++)
+				{
+					var node = MapData[x, y];
+					if (IsPointInBounds(node.position.ToV3Int(), lockedRooms.bounds))
+					{
+						node.walkable = false;
+					}
+				}
+			}
+		}
+	}
+
+	private void SetupKeyRooms()
+	{
+		keyUseRooms = new HashSet<Room>();
+		keyFindRooms = new HashSet<Room>();
 		foreach (var (primaryRoom, tertRooms) in possibleKeyRoomsForPrimaryRoom)
 		{
 			foreach (var tert in tertRooms.ToList().Shuffle(MapArgs.Seed))
@@ -118,9 +145,44 @@ public class MapGenerator : MonoBehaviour
 				}
 			}
 		}
-		// keyUseRooms = possibleKeyRoomsForPrimaryRoom.SelectMany(x => x.Value).ToHashSet();
-		// keyFindRooms = possibleKeyRoomsForPrimaryRoom.Select(x => x.Key).ToHashSet();
-		
+
+		foreach (var room in keyUseRooms)
+		{
+			LockRoom(room);
+		}
+
+		foreach (var room in keyFindRooms)
+		{
+			SpawnKey(room);
+		}
+	}
+
+	private void SpawnKey(Room room)
+	{
+		var go = Instantiate(keyPrefab);
+		go.transform.SetParent(transform);
+		go.transform.position = room.bounds.center;
+		go.GetComponent<SpriteRenderer>().sortingOrder = 3;
+	}
+
+	public void LockRoom(Room room, bool setLock = true)
+	{
+		room.Locked = setLock;
+		for (int x = 0; x < MapData.GetLength(0); x++)
+		{
+			for (int y = 0; y < MapData.GetLength(1); y++)
+			{
+				if (IsPointInBounds(MapData[x, y].position.ToV3Int(), room.bounds))
+				{
+					var node = MapData[x, y];
+					node.IsLocked = setLock;
+					if (node.Floor)
+					{
+						node.Floor.color = floorColors.LockedFloor;
+					}
+				}
+			}
+		}
 	}
 
 	/// <summary>
@@ -130,15 +192,15 @@ public class MapGenerator : MonoBehaviour
 	/// <param name="roomNodes"></param>
 	private void CreateRoomDictionaries(IEnumerable<Node> roomNodes)
 	{
-		possibleKeyRoomsForPrimaryRoom = new Dictionary<BoundsInt, HashSet<BoundsInt>>();
-		foreach (var pr in primaryRooms.Where(x => x.center != startRoom.center))
+		possibleKeyRoomsForPrimaryRoom = new Dictionary<Room, HashSet<Room>>();
+		foreach (var pr in primaryRooms.Where(x => x.bounds.center != startRoom.bounds.center))
 		{
-			possibleKeyRoomsForPrimaryRoom.Add(pr, new HashSet<BoundsInt>());
+			possibleKeyRoomsForPrimaryRoom.Add(pr, new HashSet<Room>());
 		}
 
 		foreach (var tertRoom in tertiaryRooms)
 		{
-			var path = CalculatePath(tertRoom.center, startRoom.center);
+			var path = CalculatePath(tertRoom.bounds.center, startRoom.bounds.center);
 			var primaryRoomsOnRoute = GetRoomsFromPath(path, roomNodes);
 
 			var primaryRoomsAfter = primaryRooms.Except(primaryRoomsOnRoute);
@@ -153,16 +215,16 @@ public class MapGenerator : MonoBehaviour
 			.ToDictionary(x => x.Key, x => x.Value);
 	}
 
-	private List<BoundsInt> IdentifyPrimaryRooms(IEnumerable<Node> roomNodes)
+	private List<Room> IdentifyPrimaryRooms(IEnumerable<Node> roomNodes)
 	{
-		pathPoints = CalculatePath(startRoom.center, endRoom.center);
+		pathPoints = CalculatePath(startRoom.bounds.center, endRoom.bounds.center);
 
 		return GetRoomsFromPath(pathPoints, roomNodes).ToList();
 	}
 
-	private HashSet<BoundsInt> GetRoomsFromPath(List<Vector3> pathPoints, IEnumerable<Node> roomNodes)
+	private HashSet<Room> GetRoomsFromPath(List<Vector3> pathPoints, IEnumerable<Node> roomNodes)
 	{
-		var result = new HashSet<BoundsInt>();
+		var result = new HashSet<Room>();
 		foreach (var p in pathPoints)
 		{
 			var gridPoint = new Vector3Int(Mathf.FloorToInt(p.x), Mathf.FloorToInt(p.y), 0);
@@ -171,8 +233,7 @@ public class MapGenerator : MonoBehaviour
 			{
 				if (IsPointInBounds(gridPoint, rn.bounds))
 				{
-					Debug.Log("Match");
-					result.Add(rn.bounds);
+					result.Add(new Room() {bounds = rn.bounds});
 				}
 			}
 		}
@@ -283,8 +344,8 @@ public class MapGenerator : MonoBehaviour
 		centres.AddRange(roomCentres);
 		List<Edge> edges = new List<Edge>();
 		var currentRoomCentre = roomCentres.OrderBy(x => x.position.x).FirstOrDefault() ?? throw new Exception();
-		startRoom = currentRoomCentre.bounds;
-		endRoom = roomCentres.OrderBy(x => x.position.x).LastOrDefault()?.bounds ?? throw new Exception();
+		startRoom = new Room() {bounds = currentRoomCentre.bounds};
+		endRoom = new Room() {bounds = roomCentres.OrderBy(x => x.position.x).LastOrDefault().bounds};
 		while (centres.Any())
 		{
 			var closest = centres.OrderBy(x => Vector2Int.Distance(x.position, currentRoomCentre.position))
@@ -299,38 +360,38 @@ public class MapGenerator : MonoBehaviour
 
 	private void CreateRooms()
 	{
-		rooms = binarySpacePartition.BinaryPartition(MapArgs);
+		rooms = binarySpacePartition.BinaryPartition(MapArgs).Select(x => new Room() {bounds = x}).ToList();
 		chosenRooms = GenerateRoomSubset(rooms);
 		offsetRooms = GenerateOffsetRooms(chosenRooms);
 	}
 
-	private List<BoundsInt> GenerateOffsetRooms(List<BoundsInt> rooms)
+	private List<Room> GenerateOffsetRooms(List<Room> rooms)
 	{
-		var result = new List<BoundsInt>();
+		var result = new List<Room>();
 		for (int i = rooms.Count - 1; i >= 0; i--)
 		{
 			var newRoom = rooms[i];
-			var newMin = newRoom.min + MapArgs.Offset;
-			var newSize = newRoom.size - MapArgs.Offset;
+			var newMin = newRoom.bounds.min + MapArgs.Offset;
+			var newSize = newRoom.bounds.size - MapArgs.Offset;
 
-			newRoom.size = newSize;
-			newRoom.min = newMin;
+			newRoom.bounds.size = newSize;
+			newRoom.bounds.min = newMin;
 			result.Add(newRoom);
 		}
 
 		return result;
 	}
 
-	public List<BoundsInt> GenerateRoomSubset(List<BoundsInt> rooms)
+	public List<Room> GenerateRoomSubset(List<Room> rooms)
 	{
-		List<BoundsInt> shuffledRooms = rooms.OrderBy(r => UnityEngine.Random.Range(0, 10000)).ToList();
+		List<Room> shuffledRooms = rooms.OrderBy(r => UnityEngine.Random.Range(0, 10000)).ToList();
 
-		List<BoundsInt> selectedRooms = new List<BoundsInt>();
+		List<Room> selectedRooms = new List<Room>();
 		int count = Mathf.Min(shuffledRooms.Count, MapArgs.RoomCountLimit);
 
 		while (selectedRooms.Count < count && shuffledRooms.Count > 0)
 		{
-			BoundsInt room = shuffledRooms[0];
+			Room room = shuffledRooms[0];
 			shuffledRooms.RemoveAt(0);
 
 			if (selectedRooms.Count == 0 || IsRoomFarEnough(room, selectedRooms, MapArgs.RoomSeperation))
@@ -342,11 +403,11 @@ public class MapGenerator : MonoBehaviour
 		return selectedRooms;
 	}
 
-	private bool IsRoomFarEnough(BoundsInt room, List<BoundsInt> selectedRooms, float minDistance = 10f)
+	private bool IsRoomFarEnough(Room room, List<Room> selectedRooms, float minDistance = 10f)
 	{
 		foreach (var selectedRoom in selectedRooms)
 		{
-			if (Vector3.Distance(room.center, selectedRoom.center) < minDistance)
+			if (Vector3.Distance(room.bounds.center, selectedRoom.bounds.center) < minDistance)
 			{
 				return false;
 			}
@@ -357,14 +418,14 @@ public class MapGenerator : MonoBehaviour
 
 	public void Clear()
 	{
-		rooms = new List<BoundsInt>();
+		rooms = new List<Room>();
 		edges = new List<Edge>();
-		chosenRooms = new List<BoundsInt>();
-		offsetRooms = new List<BoundsInt>();
-		primaryRooms = new List<BoundsInt>();
-		tertiaryRooms = new List<BoundsInt>();
+		chosenRooms = new List<Room>();
+		offsetRooms = new List<Room>();
+		primaryRooms = new List<Room>();
+		tertiaryRooms = new List<Room>();
 		pathPoints = new List<Vector3>();
-		possibleKeyRoomsForPrimaryRoom = new Dictionary<BoundsInt, HashSet<BoundsInt>>();
+		possibleKeyRoomsForPrimaryRoom = new Dictionary<Room, HashSet<Room>>();
 	}
 
 	private void OnDrawGizmos()
@@ -373,23 +434,23 @@ public class MapGenerator : MonoBehaviour
 		Gizmos.color = Color.red;
 		Gizmos.DrawWireCube(MapArgs.Bounds.center, MapArgs.Bounds.size);
 
-		foreach (var room in offsetRooms)
-		{
-			if (room.center == startRoom.center)
-			{
-				Gizmos.color = Color.cyan;
-			}
-			else if (room.center == endRoom.center)
-			{
-				Gizmos.color = Color.yellow;
-			}
-			else
-			{
-				Gizmos.color = Color.white;
-			}
-
-			Gizmos.DrawCube(room.center, room.size);
-		}
+		// foreach (var room in offsetRooms)
+		// {
+		// 	if (room.center == startRoom.center)
+		// 	{
+		// 		Gizmos.color = Color.cyan;
+		// 	}
+		// 	else if (room.center == endRoom.center)
+		// 	{
+		// 		Gizmos.color = Color.yellow;
+		// 	}
+		// 	else
+		// 	{
+		// 		Gizmos.color = Color.white;
+		// 	}
+		//
+		// 	Gizmos.DrawCube(room.center, room.size);
+		// }
 
 		if (pathPoints != null)
 		{
@@ -412,7 +473,7 @@ public class MapGenerator : MonoBehaviour
 		Gizmos.color = Color.black;
 		foreach (var room in offsetRooms)
 		{
-			Gizmos.DrawWireCube(room.center, room.size);
+			Gizmos.DrawWireCube(room.bounds.center, room.bounds.size);
 		}
 
 		// Gizmos.color = Color.magenta;
@@ -454,16 +515,16 @@ public class MapGenerator : MonoBehaviour
 			foreach (var r in keyUseRooms)
 			{
 				Gizmos.color = Color.red;
-				Gizmos.DrawSphere(r.center, 1);
+				Gizmos.DrawSphere(r.bounds.center, 1);
 			}
 		}
-		
+
 		if (keyFindRooms != null)
 		{
 			foreach (var r in keyFindRooms)
 			{
 				Gizmos.color = Color.yellow;
-				Gizmos.DrawSphere(r.center, 1);
+				Gizmos.DrawSphere(r.bounds.center, 1);
 			}
 		}
 	}

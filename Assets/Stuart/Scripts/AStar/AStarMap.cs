@@ -11,7 +11,7 @@ public class AStarMap : MonoBehaviour
 	[SerializeField]
 	private bool showMapGenDebug;
 
-	public void GenerateMapData(MapArgs args, List<BoundsInt> rooms)
+	public void GenerateMapData(MapArgs args, List<Room> rooms)
 	{
 		mapWidth = (int) (args.Bounds.size.x / nodeSize);
 		mapHeight = (int) (args.Bounds.size.y / nodeSize);
@@ -27,11 +27,11 @@ public class AStarMap : MonoBehaviour
 
 		foreach (var room in rooms)
 		{
-			for (int x = 0; x < room.size.x; x++)
+			for (int x = 0; x < room.bounds.size.x; x++)
 			{
-				for (int y = 0; y < room.size.y; y++)
+				for (int y = 0; y < room.bounds.size.y; y++)
 				{
-					map[room.min.x + x, room.min.y + y].cost = 10;
+					map[room.bounds.min.x + x, room.bounds.min.y + y].cost = 10;
 				}
 			}
 		}
