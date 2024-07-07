@@ -2,5 +2,10 @@
 
 public class Trap
 {
-	public List<Node> nodes = new List<Node>();
+	public List<Node> nodes = new();
+
+	public Trap(List<Node> nodes)
+	{
+		this.nodes = nodes;
+	}
 }

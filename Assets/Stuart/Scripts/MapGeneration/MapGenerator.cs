@@ -114,8 +114,8 @@ public class MapGenerator : MonoBehaviour
 
 		DLA();
 		SetupKeyRooms();
-		SetupTraps();
 		OnMapGenerated?.Invoke(this);
+		SetupTraps();
 		SetLockedRoomsToNonTraversable();
 		Debug.Log("Generated");
 	}
@@ -142,7 +142,7 @@ public class MapGenerator : MonoBehaviour
 			var candidate = corridorNodes[i];
 			if (!traps.Any())
 			{
-				traps.Add(new Trap() {nodes = new List<Node>() {candidate}});
+				traps.Add(CreateTrap(candidate));
 				continue;
 			}
 
@@ -166,9 +166,36 @@ public class MapGenerator : MonoBehaviour
 
 			if (addTrap)
 			{
-				traps.Add(new Trap() {nodes = new List<Node>() {candidate}});
+				traps.Add(CreateTrap(candidate));
 			}
 		}
+	}
+
+	private Trap CreateTrap(Node candidate)
+	{
+		var nodes = new List<Node>();
+		for (var x = -1; x < 2; x++)
+		{
+			for (var y = -1; y < 2; y++)
+			{
+				if (x < 0 && y < 0 && x > MapData.GetLength(0) - 1 && y > MapData.GetLength(1) - 1)
+				{
+					continue;
+				}
+				var node = MapData[candidate.x + x, candidate.y + y];
+				if (node.IsCorridor)
+				{
+					node.IsTrap = true;
+					nodes.Add(node);
+					if (node.Floor != null)
+					{
+						node.Floor.color = floorColors.Trap;
+					}
+				}
+			}
+		}
+
+		return new Trap(nodes);
 	}
 
 	private void SetLockedRoomsToNonTraversable()
@@ -589,14 +616,14 @@ public class MapGenerator : MonoBehaviour
 		// 	}
 		// }
 
-		if (traps != null)
-		{
-			foreach (var trap in traps)
-			{
-				Gizmos.color = Color.red;
-				Gizmos.DrawSphere(trap.nodes.FirstOrDefault().position.ToV3(), 0.5f);
-			}
-		}
+		// if (traps != null)
+		// {
+		// 	foreach (var trap in traps)
+		// 	{
+		// 		Gizmos.color = Color.red;
+		// 		Gizmos.DrawSphere(trap.nodes.FirstOrDefault().position.ToV3(), 0.5f);
+		// 	}
+		// }
 	}
 
 	Color GetColorFromHash(int hash)

@@ -20,6 +20,7 @@ public class Node
 	public int cost = 0;
 	public BoundsInt bounds;
 	public bool IsLocked;
+	public bool IsTrap;
 	public bool IsRoom => cost == 10;
 	public bool IsCorridor => cost == 5;
 

@@ -58,7 +58,7 @@ public class WorldMapDrawer : MonoBehaviour
 		sr.color = node.IsLocked ? floorColors.LockedFloor : floorColors.Floor;
 		if (node.IsCorridor)
 		{
-			sr.color = floorColors.corridor;
+			sr.color = floorColors.Corridor;
 		}
 		node.Floor = sr;
 	}
