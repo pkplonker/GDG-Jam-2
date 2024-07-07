@@ -27,6 +27,7 @@ public class MainMenuBehaviour : UIComponent
     {
         Debug.Log("Starting Game");
         //Select Seed
+        UnityEngine.Random.InitState((int)Time.time);
 
         sceneSeeds.currentSeed = sceneSeeds.availableSeeds[Random.Range(0,sceneSeeds.availableSeeds.Count)];
 
