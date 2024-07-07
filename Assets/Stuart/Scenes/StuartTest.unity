@@ -541,7 +541,12 @@ PrefabInstance:
     - target: {fileID: 8339255388049721740, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
         type: 3}
       propertyPath: debug
-      value: 1
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8339255388049721740, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
+        type: 3}
+      propertyPath: dlaCycles
+      value: 2500
       objectReference: {fileID: 0}
     - target: {fileID: 8729370592868989388, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
         type: 3}

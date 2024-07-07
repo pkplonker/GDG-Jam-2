@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(SpriteRenderer))]
 public class FogOfWar : MonoBehaviour
 {
 	[SerializeField]
-	private GameObject testObject;
+	private List<GameObject> testObjects;
 
 	private SpriteRenderer sr;
 	private int width;
@@ -40,8 +41,12 @@ public class FogOfWar : MonoBehaviour
 
 	private void Update()
 	{
-		Vector2Int pos = testObject.transform.position.V2Int();
-		SetPosition(pos, normalRange);
+		Vector2Int pos = default;
+		foreach (var testObject in testObjects)
+		{
+			pos = testObject.transform.position.V2Int();
+			SetPosition(pos, normalRange);
+		}
 		pos = scoutObject.transform.position.V2Int();
 		SetPosition(pos, scoutRange);
 		tex.Apply();
@@ -95,7 +100,10 @@ public class FogOfWar : MonoBehaviour
 
 	private void TestSetup(MapGenerator mapGenerator)
 	{
-		testObject.transform.position = mapGenerator.startRoom.bounds.center;
+		foreach (var testObject in testObjects)
+		{
+			testObject.transform.position = mapGenerator.startRoom.bounds.center;
+		}
 		scoutObject.transform.position = mapGenerator.startRoom.bounds.center;
 	}
 
