@@ -7,6 +7,7 @@ using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 using TMPro;
 using Debug = UnityEngine.Debug;
+using Random = UnityEngine.Random;
 
 public class GameOverlay : UIComponent
 {
@@ -19,6 +20,9 @@ public class GameOverlay : UIComponent
 
 	public CharacterSelectionSingle activeCharacter;
 	public List<CharacterSelectionSingle> allCharacters = new List<CharacterSelectionSingle>();
+
+	[SerializeField]
+	private SceneSeeds sceneSeeds;
 
 	bool generated;
 	bool moving;
@@ -237,6 +241,12 @@ public class GameOverlay : UIComponent
 
 	public void PlayAgain()
 	{
+		var currentScene = sceneSeeds.currentSeed;
+		while (sceneSeeds.currentSeed != currentScene)
+		{
+			sceneSeeds.currentSeed = sceneSeeds.availableSeeds[Random.Range(0, sceneSeeds.availableSeeds.Count)];
+		}
+
 		SceneManager.LoadScene(SceneManager.GetActiveScene().name);
 	}
 }

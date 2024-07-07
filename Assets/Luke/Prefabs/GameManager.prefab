@@ -524,10 +524,12 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 9ec76f487a062c245a6952138ff42e74, type: 2}
   - {fileID: 11400000, guid: 3173d36d43c9d7046a26a88834a5c652, type: 2}
   - {fileID: 11400000, guid: 0e3fd8c56b3fcf64bbd0c2c7e8191c33, type: 2}
+  - {fileID: 11400000, guid: 3b1fc2fd7644d004595c0867492f944a, type: 2}
   availableCharacters:
   - {fileID: 11400000, guid: 9ec76f487a062c245a6952138ff42e74, type: 2}
   - {fileID: 11400000, guid: 3173d36d43c9d7046a26a88834a5c652, type: 2}
   - {fileID: 11400000, guid: 0e3fd8c56b3fcf64bbd0c2c7e8191c33, type: 2}
+  - {fileID: 11400000, guid: 3b1fc2fd7644d004595c0867492f944a, type: 2}
   moveSpeed: 0.1
 --- !u!114 &6556651175556884974
 MonoBehaviour:
@@ -551,6 +553,7 @@ MonoBehaviour:
   moveCommandText: {fileID: 617406814158615979}
   activeCharacter: {fileID: 0}
   allCharacters: []
+  sceneSeeds: {fileID: 11400000, guid: c0e2633dbcd8537428ae40d15d80380a, type: 2}
   pathCol: {r: 0.42930797, g: 0.8396226, b: 0.027723404, a: 1}
   endTitle: {fileID: 7035370748709076157}
   endDesc: {fileID: 8545838172225025738}
