@@ -321,4 +321,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1481a3ccfecdc7448884dae9a1217f10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiclick: {fileID: 0}
+  uiclick: {fileID: 8300000, guid: c00d291e4c0056d46bfb5c69369ad5b5, type: 3}
+  disarmTrap: {fileID: 8300000, guid: e66ab53be53fa174c847f65409e78795, type: 3}
+  pickup: {fileID: 8300000, guid: 1f41bf689f78e8d468d263945c4608a5, type: 3}
+  unlockRoom: {fileID: 8300000, guid: 1ed39a293751d9a49a8467219e049110, type: 3}
+  explosion: {fileID: 8300000, guid: b9698484a013414478d921136aae0d00, type: 3}

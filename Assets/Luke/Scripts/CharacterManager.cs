@@ -153,12 +153,14 @@ public class CharacterManager : MonoBehaviour
 		character.numKeys++;
 
 		//Play Sound
+		AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.globalSoundList.pickup);
 		Debug.Log("Picking Up Key");
 	}
 
 	private void OnUnlockRoom(ActiveCharacterData character)
 	{
 		character.numKeys--;
+		AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.globalSoundList.unlockRoom);
 
 		Debug.Log("Unlocking Room");
 	}
@@ -166,6 +168,8 @@ public class CharacterManager : MonoBehaviour
 	private void OnTrapDisarmed(Vector3 position, int range)
 	{
 		Debug.Log("Trying to Disarm Trap");
+		AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.globalSoundList.disarmTrap);
+
 		if (currMapGen.TryDisarm(position, range))
 		{
 			//Play Sound
@@ -177,6 +181,7 @@ public class CharacterManager : MonoBehaviour
 	private void OnTrapActivated()
 	{
 		//End The Game
+		AudioManager.Instance.PlaySoundEffect(AudioManager.Instance.globalSoundList.explosion);
 
 		Debug.Log("Activated Trap");
 	}
