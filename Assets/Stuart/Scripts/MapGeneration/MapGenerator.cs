@@ -522,6 +522,7 @@ public class MapGenerator : MonoBehaviour
 		if (neighbourNode?.walkable ?? false)
 		{
 			node.walkable = true;
+			neighbourNode.Room?.Nodes.Add(node);
 		}
 	}
 
