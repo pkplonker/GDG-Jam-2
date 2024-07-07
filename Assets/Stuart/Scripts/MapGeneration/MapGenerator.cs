@@ -74,7 +74,7 @@ public class MapGenerator : MonoBehaviour
 	[SerializeField]
 	private int nunberOfTraps = 7;
 
-	private List<List<Node>> traps;
+	private List<Trap> traps;
 
 	[SerializeField]
 	private float closestTrapDistance = 12f;
@@ -136,20 +136,27 @@ public class MapGenerator : MonoBehaviour
 		}
 
 		corridorNodes.Shuffle(MapArgs.Seed);
-		traps = new List<List<Node>>();
+		traps = new List<Trap>();
 		for (var i = 0; traps.Count <= nunberOfTraps && i < corridorNodes.Count; i++)
 		{
 			var candidate = corridorNodes[i];
 			if (!traps.Any())
 			{
-				traps.Add(new List<Node>() {candidate});
+				traps.Add(new Trap() {nodes = new List<Node>() {candidate}});
 				continue;
 			}
 
 			bool addTrap = true;
+			var startRoomPos = startRoom.bounds.center.V2Int();
+			if (Vector2Int.Distance(candidate.position, startRoomPos) <
+			    closestTrapDistance)
+			{
+				continue;
+			}
+
 			foreach (var existingTrap in traps)
 			{
-				if (Vector2Int.Distance(candidate.position, existingTrap.First().position) <
+				if (Vector2Int.Distance(candidate.position, existingTrap.nodes.First().position) <
 				    closestTrapDistance)
 				{
 					addTrap = false;
@@ -159,7 +166,7 @@ public class MapGenerator : MonoBehaviour
 
 			if (addTrap)
 			{
-				traps.Add(new List<Node>() {candidate});
+				traps.Add(new Trap() {nodes = new List<Node>() {candidate}});
 			}
 		}
 	}
@@ -479,7 +486,7 @@ public class MapGenerator : MonoBehaviour
 		tertiaryRooms = new List<Room>();
 		pathPoints = new List<Vector3>();
 		possibleKeyRoomsForPrimaryRoom = new Dictionary<Room, HashSet<Room>>();
-		traps = new List<List<Node>>();
+		traps = new List<Trap>();
 	}
 
 	private void OnDrawGizmos()
@@ -587,7 +594,7 @@ public class MapGenerator : MonoBehaviour
 			foreach (var trap in traps)
 			{
 				Gizmos.color = Color.red;
-				Gizmos.DrawSphere(trap.FirstOrDefault().position.ToV3(), 0.5f);
+				Gizmos.DrawSphere(trap.nodes.FirstOrDefault().position.ToV3(), 0.5f);
 			}
 		}
 	}

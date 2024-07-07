@@ -36,4 +36,9 @@ public static class Extensions
 	{
 		return new Vector3Int(position.x, position.y, 0);
 	}
+	public static Vector2Int V2Int(this Vector3 position)
+	{
+		return new Vector2Int(Mathf.RoundToInt(position.x),Mathf.RoundToInt(position.y));
+	}
+	
 }
