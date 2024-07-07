@@ -5,8 +5,9 @@ using UnityEngine;
 [RequireComponent(typeof(SpriteRenderer))]
 public class FogOfWar : MonoBehaviour
 {
-	[SerializeField]
-	private List<GameObject> testObjects;
+	
+	public List<GameObject> characters;
+	public GameObject scoutObject;
 
 	private SpriteRenderer sr;
 	private int width;
@@ -18,10 +19,7 @@ public class FogOfWar : MonoBehaviour
 
 	[SerializeField]
 	private Color hiddenColor;
-
-	[SerializeField]
-	private GameObject scoutObject;
-
+	
 	[SerializeField]
 	private int normalRange = 3;
 
@@ -42,7 +40,7 @@ public class FogOfWar : MonoBehaviour
 	private void Update()
 	{
 		Vector2Int pos = default;
-		foreach (var testObject in testObjects)
+		foreach (var testObject in characters)
 		{
 			pos = testObject.transform.position.V2Int();
 			SetPosition(pos, normalRange);
@@ -100,7 +98,7 @@ public class FogOfWar : MonoBehaviour
 
 	private void TestSetup(MapGenerator mapGenerator)
 	{
-		foreach (var testObject in testObjects)
+		foreach (var testObject in characters)
 		{
 			testObject.transform.position = mapGenerator.startRoom.bounds.center;
 		}

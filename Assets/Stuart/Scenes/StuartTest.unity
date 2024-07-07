@@ -571,24 +571,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8339255388049721740, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
         type: 3}
-      propertyPath: debug
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8339255388049721740, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
-        type: 3}
-      propertyPath: dlaCycles
-      value: 2500
-      objectReference: {fileID: 0}
-    - target: {fileID: 8339255388049721740, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
-        type: 3}
       propertyPath: testObject
       value: 
       objectReference: {fileID: 564258230}
-    - target: {fileID: 8729370592868989388, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
-        type: 3}
-      propertyPath: debug
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 8816785801226002987, guid: 1568cc97eeb2d0a4fb5d20a22a9151c1,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -727,16 +712,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3751461862581656856, guid: 40ba60e85865add44b6a750aed7820fa,
         type: 3}
-      propertyPath: m_LocalScale.x
-      value: 101
-      objectReference: {fileID: 0}
-    - target: {fileID: 3751461862581656856, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 101
-      objectReference: {fileID: 0}
-    - target: {fileID: 3751461862581656856, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
       propertyPath: m_LocalPosition.x
       value: 50
       objectReference: {fileID: 0}
@@ -787,64 +762,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
         type: 3}
-      propertyPath: startSize
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: scoutRange
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: testObject
-      value: 
-      objectReference: {fileID: 91908237}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: normalRange
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
       propertyPath: scoutObject
       value: 
       objectReference: {fileID: 25027539}
     - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
         type: 3}
-      propertyPath: hiddenColor.b
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: hiddenColor.g
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: hiddenColor.r
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: testObjects.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7571761153533846618, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: testObjects.Array.data[0]
+      propertyPath: characters.Array.data[0]
       value: 
       objectReference: {fileID: 91908237}
-    - target: {fileID: 7959141810735719814, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 7959141810735719814, guid: 40ba60e85865add44b6a750aed7820fa,
-        type: 3}
-      propertyPath: m_WasSpriteAssigned
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

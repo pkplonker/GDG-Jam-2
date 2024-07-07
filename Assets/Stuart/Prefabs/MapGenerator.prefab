@@ -58,245 +58,6 @@ MonoBehaviour:
     Offset: {x: 1, y: 1, z: 0}
     Seed: 7
     RoomSeperation: 10
-  rooms:
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  chosenRooms:
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  offsetRooms:
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
   edges:
   - start:
       x: 4
@@ -312,6 +73,7 @@ MonoBehaviour:
         m_Position: {x: 1, y: 31, z: 0}
         m_Size: {x: 7, y: 4, z: 0}
       IsLocked: 0
+      IsTrap: 0
     end:
       x: 4
       y: 33
@@ -326,6 +88,7 @@ MonoBehaviour:
         m_Position: {x: 1, y: 31, z: 0}
         m_Size: {x: 7, y: 4, z: 0}
       IsLocked: 0
+      IsTrap: 0
   - start:
       x: 4
       y: 33
@@ -340,6 +103,7 @@ MonoBehaviour:
         m_Position: {x: 1, y: 31, z: 0}
         m_Size: {x: 7, y: 4, z: 0}
       IsLocked: 0
+      IsTrap: 0
     end:
       x: 8
       y: 46
@@ -354,6 +118,7 @@ MonoBehaviour:
         m_Position: {x: 2, y: 43, z: 0}
         m_Size: {x: 12, y: 6, z: 0}
       IsLocked: 0
+      IsTrap: 0
   - start:
       x: 8
       y: 46
@@ -368,6 +133,7 @@ MonoBehaviour:
         m_Position: {x: 2, y: 43, z: 0}
         m_Size: {x: 12, y: 6, z: 0}
       IsLocked: 0
+      IsTrap: 0
     end:
       x: 21
       y: 46
@@ -382,6 +148,7 @@ MonoBehaviour:
         m_Position: {x: 16, y: 43, z: 0}
         m_Size: {x: 11, y: 6, z: 0}
       IsLocked: 0
+      IsTrap: 0
   - start:
       x: 21
       y: 46
@@ -396,6 +163,7 @@ MonoBehaviour:
         m_Position: {x: 16, y: 43, z: 0}
         m_Size: {x: 11, y: 6, z: 0}
       IsLocked: 0
+      IsTrap: 0
     end:
       x: 36
       y: 33
@@ -410,6 +178,7 @@ MonoBehaviour:
         m_Position: {x: 33, y: 31, z: 0}
         m_Size: {x: 6, y: 4, z: 0}
       IsLocked: 0
+      IsTrap: 0
   - start:
       x: 36
       y: 33
@@ -424,6 +193,7 @@ MonoBehaviour:
         m_Position: {x: 33, y: 31, z: 0}
         m_Size: {x: 6, y: 4, z: 0}
       IsLocked: 0
+      IsTrap: 0
     end:
       x: 47
       y: 33
@@ -438,6 +208,7 @@ MonoBehaviour:
         m_Position: {x: 41, y: 31, z: 0}
         m_Size: {x: 12, y: 4, z: 0}
       IsLocked: 0
+      IsTrap: 0
   - start:
       x: 47
       y: 33
@@ -452,6 +223,7 @@ MonoBehaviour:
         m_Position: {x: 41, y: 31, z: 0}
         m_Size: {x: 12, y: 4, z: 0}
       IsLocked: 0
+      IsTrap: 0
     end:
       x: 55
       y: 39
@@ -466,6 +238,7 @@ MonoBehaviour:
         m_Position: {x: 52, y: 37, z: 0}
         m_Size: {x: 7, y: 4, z: 0}
       IsLocked: 0
+      IsTrap: 0
   - start:
       x: 55
       y: 39
@@ -480,6 +253,7 @@ MonoBehaviour:
         m_Position: {x: 52, y: 37, z: 0}
         m_Size: {x: 7, y: 4, z: 0}
       IsLocked: 0
+      IsTrap: 0
     end:
       x: 59
       y: 19
@@ -494,6 +268,7 @@ MonoBehaviour:
         m_Position: {x: 53, y: 16, z: 0}
         m_Size: {x: 12, y: 7, z: 0}
       IsLocked: 0
+      IsTrap: 0
   - start:
       x: 59
       y: 19
@@ -508,6 +283,7 @@ MonoBehaviour:
         m_Position: {x: 53, y: 16, z: 0}
         m_Size: {x: 12, y: 7, z: 0}
       IsLocked: 0
+      IsTrap: 0
     end:
       x: 71
       y: 15
@@ -522,6 +298,7 @@ MonoBehaviour:
         m_Position: {x: 68, y: 11, z: 0}
         m_Size: {x: 6, y: 9, z: 0}
       IsLocked: 0
+      IsTrap: 0
   - start:
       x: 71
       y: 15
@@ -536,6 +313,7 @@ MonoBehaviour:
         m_Position: {x: 68, y: 11, z: 0}
         m_Size: {x: 6, y: 9, z: 0}
       IsLocked: 0
+      IsTrap: 0
     end:
       x: 76
       y: 25
@@ -550,6 +328,7 @@ MonoBehaviour:
         m_Position: {x: 70, y: 22, z: 0}
         m_Size: {x: 12, y: 7, z: 0}
       IsLocked: 0
+      IsTrap: 0
   - start:
       x: 76
       y: 25
@@ -564,6 +343,7 @@ MonoBehaviour:
         m_Position: {x: 70, y: 22, z: 0}
         m_Size: {x: 12, y: 7, z: 0}
       IsLocked: 0
+      IsTrap: 0
     end:
       x: 93
       y: 33
@@ -578,6 +358,7 @@ MonoBehaviour:
         m_Position: {x: 87, y: 31, z: 0}
         m_Size: {x: 12, y: 4, z: 0}
       IsLocked: 0
+      IsTrap: 0
   - start:
       x: 93
       y: 33
@@ -592,6 +373,7 @@ MonoBehaviour:
         m_Position: {x: 87, y: 31, z: 0}
         m_Size: {x: 12, y: 4, z: 0}
       IsLocked: 0
+      IsTrap: 0
     end:
       x: 59
       y: 6
@@ -606,6 +388,7 @@ MonoBehaviour:
         m_Position: {x: 53, y: 4, z: 0}
         m_Size: {x: 12, y: 5, z: 0}
       IsLocked: 0
+      IsTrap: 0
   - start:
       x: 59
       y: 6
@@ -620,6 +403,7 @@ MonoBehaviour:
         m_Position: {x: 53, y: 4, z: 0}
         m_Size: {x: 12, y: 5, z: 0}
       IsLocked: 0
+      IsTrap: 0
     end:
       x: 37
       y: 7
@@ -634,72 +418,16 @@ MonoBehaviour:
         m_Position: {x: 31, y: 4, z: 0}
         m_Size: {x: 12, y: 6, z: 0}
       IsLocked: 0
-  startRoom:
-    bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  endRoom:
-    bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  primaryRooms:
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  tertiaryRooms:
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
-  - bounds:
-      m_Position: {x: 0, y: 0, z: 0}
-      m_Size: {x: 0, y: 0, z: 0}
-    Locked: 0
+      IsTrap: 0
   debug: 0
-  dlaCycles: 0
+  dlaCycles: 2500
+  testObject: {fileID: 0}
   floorColors: {fileID: 11400000, guid: 08cde85562399b54f901b5f0d512943f, type: 2}
   debugIndex: 0
   keyPrefab: {fileID: 7655531361216794705, guid: b5e4c1a5f6029154799f6e4d13a62a50,
     type: 3}
+  nunberOfTraps: 7
+  closestTrapDistance: 12
 --- !u!114 &4903018891550057765
 MonoBehaviour:
   m_ObjectHideFlags: 0

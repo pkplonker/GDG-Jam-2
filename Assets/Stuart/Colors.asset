@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c1cbef74623f31419e933e641c670fc, type: 3}
   m_Name: Colors
   m_EditorClassIdentifier: 
-  Floor: {r: 0.4809848, g: 0.754717, b: 0.38803846, a: 1}
+  Floor: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
   LockedFloor: {r: 0.754717, g: 0.252759, b: 0.252759, a: 1}
-  Corridor: {r: 0.2240566, g: 0.7487324, b: 0.8962264, a: 1}
+  Corridor: {r: 0.25490198, g: 0.25490198, b: 0.25490198, a: 1}
   Trap: {r: 0.8207547, g: 0.3705715, b: 0.08904416, a: 1}
