@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
 
 [RequireComponent(typeof(AStarMap))]
@@ -48,6 +49,8 @@ public class MapGenerator : MonoBehaviour
 	public static event Action<MapGenerator> OnMapGenerated;
 	private Dictionary<Room, HashSet<Room>> possibleKeyRoomsForPrimaryRoom;
 
+	[SerializeField]
+	private FloorColors floorColors;
 	private List<Color> distinguishableColors = new()
 	{
 		Color.red, Color.green, Color.blue, Color.yellow, Color.magenta, Color.cyan,
@@ -62,6 +65,8 @@ public class MapGenerator : MonoBehaviour
 
 	private HashSet<Room> keyFindRooms;
 	private HashSet<Room> keyUseRooms;
+	[SerializeField]
+	private GameObject keyPrefab;
 
 	private void Start()
 	{
@@ -97,12 +102,12 @@ public class MapGenerator : MonoBehaviour
 		CreateRoomDictionaries(roomNodes);
 
 		DLA();
-		SpawnKeys();
+		SetupKeyRooms();
 		OnMapGenerated?.Invoke(this);
 		Debug.Log("Generated");
 	}
 
-	private void SpawnKeys()
+	private void SetupKeyRooms()
 	{
 		keyUseRooms = new HashSet<Room>();
 		keyFindRooms = new HashSet<Room>();
@@ -115,6 +120,43 @@ public class MapGenerator : MonoBehaviour
 					keyUseRooms.Add(primaryRoom);
 					keyFindRooms.Add(tert);
 					break;
+				}
+			}
+		}
+
+		foreach (var room in keyUseRooms)
+		{
+			LockRoom(room);
+		}
+
+		foreach (var room in keyFindRooms)
+		{
+			SpawnKey(room);
+		}
+	}
+
+	private void SpawnKey(Room room)
+	{
+		var go = Instantiate(keyPrefab);
+		go.transform.SetParent(transform);
+		go.transform.position = room.bounds.center;
+		go.GetComponent<SpriteRenderer>().sortingOrder = 3;
+	}
+
+	public void LockRoom(Room room, bool setLock = true)
+	{
+		for (int x = 0; x < MapData.GetLength(0); x++)
+		{
+			for (int y = 0; y < MapData.GetLength(1); y++)
+			{
+				if (IsPointInBounds(MapData[x, y].position.ToV3Int(), room.bounds))
+				{
+					var node = MapData[x, y];
+					node.IsLocked = setLock;
+					if (node.Floor)
+					{
+						node.Floor.color = floorColors.LockedFloor;
+					}
 				}
 			}
 		}
