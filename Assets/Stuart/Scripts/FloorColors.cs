@@ -8,4 +8,7 @@ public class FloorColors : ScriptableObject
 {
     public Color Floor;
     public Color LockedFloor;
+    public Color corridor;
+    public Color trap;
+
 }

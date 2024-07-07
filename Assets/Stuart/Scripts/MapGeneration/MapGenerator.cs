@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 using Object = UnityEngine.Object;
 using Random = UnityEngine.Random;
@@ -70,6 +71,14 @@ public class MapGenerator : MonoBehaviour
 	[SerializeField]
 	private GameObject keyPrefab;
 
+	[SerializeField]
+	private int nunberOfTraps = 7;
+
+	private List<List<Node>> traps;
+
+	[SerializeField]
+	private float closestTrapDistance = 12f;
+
 	private void Start()
 	{
 		Generate();
@@ -105,19 +114,63 @@ public class MapGenerator : MonoBehaviour
 
 		DLA();
 		SetupKeyRooms();
+		SetupTraps();
 		OnMapGenerated?.Invoke(this);
 		SetLockedRoomsToNonTraversable();
-		var path = CalculatePath(startRoom.bounds.center, endRoom.bounds.center);
 		Debug.Log("Generated");
+	}
+
+	private void SetupTraps()
+	{
+		var corridorNodes = new List<Node>();
+		for (var x = 0; x < MapData.GetLength(0); x++)
+		{
+			for (var y = 0; y < MapData.GetLength(1); y++)
+			{
+				var node = MapData[x, y];
+				if (node.IsCorridor)
+				{
+					corridorNodes.Add(node);
+				}
+			}
+		}
+
+		corridorNodes.Shuffle(MapArgs.Seed);
+		traps = new List<List<Node>>();
+		for (var i = 0; traps.Count <= nunberOfTraps && i < corridorNodes.Count; i++)
+		{
+			var candidate = corridorNodes[i];
+			if (!traps.Any())
+			{
+				traps.Add(new List<Node>() {candidate});
+				continue;
+			}
+
+			bool addTrap = true;
+			foreach (var existingTrap in traps)
+			{
+				if (Vector2Int.Distance(candidate.position, existingTrap.First().position) <
+				    closestTrapDistance)
+				{
+					addTrap = false;
+					break;
+				}
+			}
+
+			if (addTrap)
+			{
+				traps.Add(new List<Node>() {candidate});
+			}
+		}
 	}
 
 	private void SetLockedRoomsToNonTraversable()
 	{
 		foreach (var lockedRooms in primaryRooms.Where(x => x.Locked))
 		{
-			for (int x = 0; x < MapData.GetLength(0); x++)
+			for (var x = 0; x < MapData.GetLength(0); x++)
 			{
-				for (int y = 0; y < MapData.GetLength(1); y++)
+				for (var y = 0; y < MapData.GetLength(1); y++)
 				{
 					var node = MapData[x, y];
 					if (IsPointInBounds(node.position.ToV3Int(), lockedRooms.bounds))
@@ -426,6 +479,7 @@ public class MapGenerator : MonoBehaviour
 		tertiaryRooms = new List<Room>();
 		pathPoints = new List<Vector3>();
 		possibleKeyRoomsForPrimaryRoom = new Dictionary<Room, HashSet<Room>>();
+		traps = new List<List<Node>>();
 	}
 
 	private void OnDrawGizmos()
@@ -452,11 +506,11 @@ public class MapGenerator : MonoBehaviour
 		// 	Gizmos.DrawCube(room.center, room.size);
 		// }
 
-		if (pathPoints != null)
-		{
-			Gizmos.color = Color.cyan;
-			Gizmos.DrawLineStrip(new ReadOnlySpan<Vector3>(pathPoints.ToArray()), false);
-		}
+		// if (pathPoints != null)
+		// {
+		// 	Gizmos.color = Color.cyan;
+		// 	Gizmos.DrawLineStrip(new ReadOnlySpan<Vector3>(pathPoints.ToArray()), false);
+		// }
 
 		// Gizmos.color = Color.blue;
 		// foreach (var room in rooms)
@@ -470,11 +524,11 @@ public class MapGenerator : MonoBehaviour
 		// 	Gizmos.DrawWireCube(room.center, room.size);
 		// }
 
-		Gizmos.color = Color.black;
-		foreach (var room in offsetRooms)
-		{
-			Gizmos.DrawWireCube(room.bounds.center, room.bounds.size);
-		}
+		// Gizmos.color = Color.black;
+		// foreach (var room in offsetRooms)
+		// {
+		// 	Gizmos.DrawWireCube(room.bounds.center, room.bounds.size);
+		// }
 
 		// Gizmos.color = Color.magenta;
 		// foreach (var edge in edges)
@@ -510,21 +564,30 @@ public class MapGenerator : MonoBehaviour
 		// 	}
 		// }
 
-		if (keyUseRooms != null)
+		// if (keyUseRooms != null)
+		// {
+		// 	foreach (var r in keyUseRooms)
+		// 	{
+		// 		Gizmos.color = Color.red;
+		// 		Gizmos.DrawSphere(r.bounds.center, 1);
+		// 	}
+		// }
+		//
+		// if (keyFindRooms != null)
+		// {
+		// 	foreach (var r in keyFindRooms)
+		// 	{
+		// 		Gizmos.color = Color.yellow;
+		// 		Gizmos.DrawSphere(r.bounds.center, 1);
+		// 	}
+		// }
+
+		if (traps != null)
 		{
-			foreach (var r in keyUseRooms)
+			foreach (var trap in traps)
 			{
 				Gizmos.color = Color.red;
-				Gizmos.DrawSphere(r.bounds.center, 1);
-			}
-		}
-
-		if (keyFindRooms != null)
-		{
-			foreach (var r in keyFindRooms)
-			{
-				Gizmos.color = Color.yellow;
-				Gizmos.DrawSphere(r.bounds.center, 1);
+				Gizmos.DrawSphere(trap.FirstOrDefault().position.ToV3(), 0.5f);
 			}
 		}
 	}

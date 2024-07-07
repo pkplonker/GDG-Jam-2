@@ -56,6 +56,10 @@ public class WorldMapDrawer : MonoBehaviour
 		var sr = go.AddComponent<SpriteRenderer>();
 		sr.sprite = floorSprite;
 		sr.color = node.IsLocked ? floorColors.LockedFloor : floorColors.Floor;
+		if (node.IsCorridor)
+		{
+			sr.color = floorColors.corridor;
+		}
 		node.Floor = sr;
 	}
 
